@@ -58,20 +58,20 @@ export const FUSE_OPTIONS: IFuseOptions<Command> = {
   useExtendedSearch: false,
 };
 
-// ─── Fuse Index Cache ─────────────────────────────────────────────────────────
-// Key: "${language}-${categoryId}" → avoids rebuilding on repeated tab switches
-const fuseCache = new Map<string, Fuse<Command>>();
+// ─── Fuse Index Builder ────────────────────────────────────────────────────────
+// No external Map cache needed — useMemo in useCommandSearch handles memoization.
+// A Map cache keyed by string is dangerous: if commands array reference changes
+// (e.g. during HMR) but the key stays the same, the stale index is returned.
+// useMemo's dependency array ([fuseKey, categoryPool]) provides the exact same
+// "rebuild only when inputs change" guarantee, without the stale-reference risk.
 
-export function getCachedFuse(key: string, commands: Command[]): Fuse<Command> {
-  if (!fuseCache.has(key)) {
-    fuseCache.set(key, new Fuse(commands, FUSE_OPTIONS));
-  }
-  return fuseCache.get(key)!;
+export function buildFuseIndex(commands: Command[]): Fuse<Command> {
+  return new Fuse(commands, FUSE_OPTIONS);
 }
 
-export function invalidateFuseCache(): void {
-  fuseCache.clear(); // Call when language changes (new dataset)
-}
+// Call this when the Fuse index needs to be forced-rebuilt across render cycles
+// (e.g. after language change — invalidates useMemo by changing fuseKey)
+// No explicit cache to clear — fuseKey change is sufficient.
 ```
 
 ---
@@ -82,7 +82,7 @@ export function invalidateFuseCache(): void {
 import { useDeferredValue, useMemo } from 'react';
 import { useSearchStore } from '@/store/useSearchStore';
 import { useUIStore } from '@/store/useUIStore';
-import { getCachedFuse, invalidateFuseCache } from '@/utils/searchUtils';
+import { buildFuseIndex } from '@/utils/searchUtils';
 import { ALL_COMMANDS_EN } from '@/data/en';
 import { ALL_COMMANDS_KO } from '@/data/ko';
 import type { SearchResult } from '@/types/command';
@@ -107,13 +107,13 @@ export function useCommandSearch(): SearchResult[] {
     return allCommands.filter(cmd => cmd.category === selectedCategory);
   }, [allCommands, selectedCategory]);
 
-  // Get (or build) cached Fuse index for this language+category combination
-  // Key format: "en-linux", "ko-all", etc.
-  // Cache is invalidated on language switch via invalidateFuseCache()
+  // Build Fuse index — useMemo rebuilds only when language or category changes.
+  // fuseKey is kept as a stable string dependency to make the rebuild trigger explicit.
+  // No external Map cache needed — useMemo IS the cache.
   const fuseKey = `${language}-${selectedCategory}`;
   const fuse = useMemo(
-    () => getCachedFuse(fuseKey, categoryPool),
-    [fuseKey, categoryPool]
+    () => buildFuseIndex(categoryPool),
+    [fuseKey, categoryPool]  // fuseKey in deps ensures rebuild on language change
   );
 
   // Step 2: Fuzzy search (runs on deferred query)

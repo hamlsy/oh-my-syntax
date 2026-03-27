@@ -13,7 +13,7 @@ Build a lightning-fast, delightful code-search experience for developers.
 ## 2. Tech Stack & Architecture
 - **Framework:** React 19 (Vite SPA ONLY). No Next.js or SSR.
 - **Language:** TypeScript (Strict mode, NO `any` unless explicitly justified).
-- **Styling:** Tailwind CSS v4 + `clsx` / `tailwind-merge`. Use design tokens for color/spacing.
+- **Styling:** Tailwind CSS v4 + `clsx` / `tailwind-merge`. Use design tokens via CSS `@theme {}` directive — no `tailwind.config.ts`.
 - **State Management:** Zustand (Global) + React Hooks (Local). No Redux.
 - **Search Engine:** `fuse.js` (Fuzzy search) + `useDeferredValue`. Results capped at 50 — no virtualization needed.
 - **Animation:** `framer-motion` (Primary) + `lenis` (Smooth scroll).
@@ -30,11 +30,11 @@ Enforce Clean Code and Separation of Concerns (SoC):
 
 ## 4. UI/UX & Layout
 - **Dark Mode Default:** True dark neutral background (`#0f111a` style, no pure black) with subtle accents. Avoid neon gradients.
-- **Responsiveness:** Mobile-first (360px+) to Desktop (1440px max-width). Sticky search bar. Touch targets minimum 44x44px.
+- **Responsiveness:** Mobile-first (360px+). Main content max-width **768px** (centered, readable panel layout). Sticky search bar. Touch targets minimum 44x44px.
 - **i18n (Internationalization):**
   - Base language: English (`en`).
   - Auto-detect browser/OS locale via `navigator.language` on first load. Fallback to `en`.
-  - Use namespaces (e.g., `search.en.json`). Save user override in `localStorage`.
+  - Single `translation.json` per locale (no namespaces — this app is too small to warrant namespace splitting). Save user override in `localStorage`.
 
 ## 5. Motion & Animation Principles (Strict)
 Animations must feel soft, responsive, and almost invisible.

@@ -143,8 +143,8 @@ oh-my-syntax/
 ├── .env.example                       # Committed — documents required env vars (no secrets)
 ├── package.json
 ├── tsconfig.json
-├── vite.config.ts
-└── tailwind.config.ts
+└── vite.config.ts
+   # NOTE: No tailwind.config.ts — Tailwind v4 uses CSS-first @theme in src/index.css
 ```
 
 ---

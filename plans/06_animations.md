@@ -339,11 +339,16 @@ const lenis = new Lenis({
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 });
 
+let rafId: number;
+
 function raf(time: number) {
   lenis.raf(time);
-  requestAnimationFrame(raf);
+  rafId = requestAnimationFrame(raf);
 }
-requestAnimationFrame(raf);
+rafId = requestAnimationFrame(raf);
+
+// Cleanup on app teardown (e.g. HMR, test environments)
+// Call cancelAnimationFrame(rafId) and lenis.destroy() if needed.
 ```
 
 Note: Lenis is only applied to the main scroll container.

@@ -24,9 +24,12 @@ export type CategoryId =
   | 'javascript';
 
 // Template variable in a command string, e.g. {PORT} in "kill -9 $(lsof -ti:{PORT})"
+// ⚠️  V2 FEATURE — NOT implemented in MVP.
+// In MVP: {VARIABLE} placeholders are copied as-is (plain text). No UI chips, no substitution.
+// V2 plan: highlighted chips in ResultCard, clipboard substitutes defaultValue if user hasn't filled in.
 export interface CommandVariable {
   name: string;          // "PORT"
-  defaultValue: string;  // "8080"  ← copied to clipboard when user doesn't fill in
+  defaultValue: string;  // "8080"
   description: string;   // "Target port number"
 }
 
@@ -42,8 +45,7 @@ export interface Command {
   isDangerous?: boolean;// Shows ⚠ badge and fun warning in description
   platform?: 'linux' | 'macos' | 'windows' | 'all'; // OS restriction
   popularity?: number;  // 0–100, used for initial sort before search
-  variables?: CommandVariable[]; // Template variables — shown as highlighted chips in ResultCard
-                                 // Copy substitutes defaultValue if user has not filled in
+  variables?: CommandVariable[]; // V2 ONLY — ignored in MVP copy logic (placeholder copied as-is)
 }
 
 export interface Category {

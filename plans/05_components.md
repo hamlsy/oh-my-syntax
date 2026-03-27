@@ -4,28 +4,30 @@
 
 ```
 App
-├── FloatingCanvas                 (background layer, fixed position)
-│   ├── StarField                  (CSS star field — Layer 1)
-│   ├── FloatingCodeSnippet × N    (Layer 2)
-│   └── FloatingContributorCard × N (Layer 3, probabilistic)
-│       └── EasterEggModal         (on click)
-│
-├── Header
-│   └── LanguageToggle
-│
-├── HeroSection                    (title + subtitle)
-│
-├── SearchContainer                (onKeyDown handler lives here)
-│   ├── CategoryTabs
-│   ├── SearchBar                  (Korean IME composition handling)
-│   └── ResultList                 (INSIDE SearchContainer — required for keyboard nav)
-│       └── ResultCard × N
-│           ├── DangerBadge        (conditional)
-│           └── CopyButton
-│
-├── AdSkeleton                     (CLS-safe ad placeholder)
-│
-└── Footer
+├── ErrorBoundary                  (catches runtime errors — prevents full white screen)
+│   │
+│   ├── FloatingCanvas             (background layer, fixed position)
+│   │   ├── StarField              (CSS star field — Layer 1)
+│   │   ├── FloatingCodeSnippet × N (Layer 2, 6–8 items)
+│   │   └── FloatingContributorCard × N (Layer 3, probabilistic)
+│   │       └── EasterEggModal     (on click)
+│   │
+│   ├── Header
+│   │   └── LanguageToggle
+│   │
+│   ├── HeroSection                (title + subtitle)
+│   │
+│   ├── SearchContainer            (onKeyDown handler, role="combobox" wrapper)
+│   │   ├── CategoryTabs
+│   │   ├── SearchBar              (Korean IME composition handling)
+│   │   └── ResultList             (INSIDE SearchContainer — required for keyboard nav)
+│   │       └── ResultCard × N     (role="option")
+│   │           ├── DangerBadge    (conditional)
+│   │           └── CopyButton
+│   │
+│   ├── AdSkeleton                 (CLS-safe ad placeholder)
+│   │
+│   └── Footer
 ```
 
 ---
@@ -84,10 +86,21 @@ backdrop-blur: backdrop-blur-md bg-bg-base/60
 **Responsibilities:** Lay out `CategoryTabs`, `SearchBar`, and `ResultList`
 
 ```tsx
-// onKeyDown on the container div — catches ArrowUp/Down/Enter/Escape
-// from ANY focused child (SearchBar, CopyButton, ResultCard)
-// because all children are DOM descendants → events bubble up correctly
-<div onKeyDown={handleKeyDown}>
+// ARIA combobox pattern — required for screen reader keyboard nav support
+// role="combobox" on the outer div signals to AT that this is an interactive search widget
+// aria-expanded: true when results are visible, false when query is empty
+// aria-haspopup="listbox": signals a listbox will appear below
+// aria-owns={listboxId}: links to the ResultList's role="listbox"
+// aria-activedescendant: points to the ID of the currently highlighted ResultCard
+
+<div
+  role="combobox"
+  aria-expanded={results.length > 0}
+  aria-haspopup="listbox"
+  aria-owns="result-listbox"
+  aria-activedescendant={highlightedIndex >= 0 ? `result-item-${highlightedIndex}` : undefined}
+  onKeyDown={handleKeyDown}
+>
   <CategoryTabs />
   <SearchBar />
   <ResultList results={results} />   // ← ResultList is a child, not a sibling
@@ -169,11 +182,12 @@ const isComposing = useRef(false);  // useRef, NOT useState (no re-render on cha
 No virtualization — results capped at 50, DOM cost negligible.
 
 ```tsx
+// ARIA: role="listbox" id="result-listbox" — matches aria-owns on SearchContainer
 // Empty state (results.length === 0 && query):
 //   Show "No results for '...' 🤔" with subtle fade-in
 
-// List wrapper: <motion.ul> with staggerChildren
-// Each item: <motion.li layout key={cmd.id}> for smooth reorder
+// List wrapper: <motion.ul role="listbox" id="result-listbox"> with staggerChildren
+// Each item: <motion.li role="option" id={`result-item-${index}`} aria-selected={isHighlighted} layout key={cmd.id}>
 ```
 
 ---
@@ -218,8 +232,8 @@ No virtualization — results capped at 50, DOM cost negligible.
 
 // On click:
 //   1. navigator.clipboard.writeText(command)
-//        → fallback if unavailable (non-HTTPS / permission denied):
-//          create a hidden <textarea>, execCommand('copy'), then remove it
+//        → No execCommand fallback needed: app is always served over HTTPS (Vercel),
+//          so Clipboard API is always available. execCommand is deprecated — skip it.
 //   2. setState('success')
 //   3. useTelemetry().track(commandId)   ← fire-and-forget
 //   4. setTimeout(setState('idle'), 2000)
@@ -247,11 +261,12 @@ No virtualization — results capped at 50, DOM cost negligible.
 // The full background layer — space universe theme
 // position: fixed inset-0, pointer-events-none, z-0
 // Layer order (bottom → top):
-//   1. StarField          — static + twinkling stars (CSS only, no JS)
-//   2. FloatingCodeSnippet × 10–14  — drifting syntax fragments
+//   1. StarField                    — static + twinkling stars (CSS only, no JS)
+//   2. FloatingCodeSnippet × 6–8   — drifting syntax fragments (capped for perf)
 //   3. FloatingContributorCard × 0–N — probabilistic contributor easter eggs
 //
 // Respects prefers-reduced-motion: renders nothing if reduced motion
+// On mobile (window.innerWidth < 768): renders null entirely
 // useSettingsStore.showFloating: master visibility toggle
 ```
 

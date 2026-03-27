@@ -34,11 +34,15 @@ npm install -D \
   @testing-library/user-event \
   @testing-library/jest-dom \
   jsdom
+
+# Analytics (optional — Vercel built-in)
+npm install @vercel/analytics
 ```
 
 ### Config Files to Create
 - [ ] `src/index.css` — `@import "tailwindcss"` + `@theme {}` tokens (Plan 02) + base dark background
 - [ ] `vite.config.ts` — add `@tailwindcss/vite` plugin, path alias `@/ → src/`, manual chunks, vitest config
+- [ ] `eslint.config.js` — flat config with `@typescript-eslint`, `eslint-plugin-react-hooks`, and `@/` import path resolver
 - [ ] `.env.example` — document `VITE_TELEMETRY_URL` (empty value, committed)
 - [ ] `.env.development` — set local telemetry URL (gitignored)
 - [ ] `.gitignore` — ensure `.env.development` and `.env.production` are excluded
@@ -187,9 +191,10 @@ export default defineConfig({
 - [ ] `src/components/ui/Button.tsx`
 - [ ] `src/components/ui/Kbd.tsx`
 - [ ] `src/components/ui/Tooltip.tsx`
+- [ ] `src/components/ui/ErrorBoundary.tsx` — class component, catches runtime errors, shows friendly fallback UI instead of white screen
 - [ ] `src/components/layout/Header.tsx` — sticky, blur backdrop
 - [ ] `src/components/layout/Footer.tsx` — keyboard hint bar
-- [ ] `src/App.tsx` — root layout, z-layer structure
+- [ ] `src/App.tsx` — root layout, z-layer structure, wrap main content in `<ErrorBoundary>`
 - [ ] `src/index.css` — base styles: `bg-bg-base`, font imports
 
 **Exit criteria:** Header + Footer visible, dark background applied, fonts loaded.
@@ -208,6 +213,11 @@ export default defineConfig({
 - [ ] `src/features/search/SearchContainer.tsx`
   - Must wrap ResultList as a child (not sibling) — keyboard nav requires this
   - `onKeyDown` handler here catches events from all descendants
+  - ARIA: `role="combobox"`, `aria-expanded`, `aria-haspopup="listbox"`, `aria-owns`, `aria-activedescendant`
+- [ ] `src/hooks/useQuerySync.ts` — sync `?q=` and `?cat=` URL params with Zustand store
+  - On mount: read URL params → populate store (enables deep linking / sharing)
+  - On store change: update URL params via `history.replaceState` (no page reload)
+  - Example: `ohmysyntax.vercel.app/?q=kill+port&cat=linux` opens with pre-filled search
 
 **Exit criteria:**
 - Typing in search bar updates query in store (EN mode)
@@ -266,6 +276,7 @@ export default defineConfig({
 
 ### Tasks
 - [ ] `AdSkeleton` placement (above footer)
+- [ ] Create `public/og-image.png` — 1200×630px, dark bg, "✦ Oh My Syntax!" title + sample card (see Plan 11)
 - [ ] WCAG AA contrast check on all text combinations
 - [ ] Focus ring visible on all interactive elements
 - [ ] Keyboard-only navigation test (Tab, ArrowUp/Down, Enter, Escape)
@@ -307,7 +318,7 @@ Each command must have at least 3 Korean aliases covering:
 ## Quick Reference: File Creation Order
 
 ```
-Phase 0: package.json → tailwind.config.ts → vite.config.ts → tsconfig
+Phase 0: package.json → vite.config.ts → tsconfig → eslint.config.js → src/index.css (@theme)
 Phase 1: constants/ → types/ → utils/ → locales/ → main.tsx
 Phase 2: data/en/**  → data/ko/** → data/categories.ts
 Phase 3: store/**  → hooks/** → utils/searchUtils.ts
