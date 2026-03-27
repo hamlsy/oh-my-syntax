@@ -172,16 +172,68 @@ Steps (one-time, post-launch):
 
 ---
 
-## 9. Keyword Targeting (Content in `aliases`)
+## 9. Multilingual Search Keyword Targeting
 
-Google indexes the page content. The command `aliases` array is the biggest SEO asset —
-real queries developers type into Google map directly to our search aliases.
+These are queries developers type into **Google** to find a tool like Oh My Syntax.
+Target these in `<meta name="description">`, page copy, and README to improve organic ranking.
 
-High-value aliases to ensure exist:
-- `"address already in use"` → kill-port command
-- `"undo last commit"`, `"git undo"` → git reset
-- `"docker clean up"`, `"docker prune"` → docker system prune
-- `"permission denied"` → chmod commands
-- `"kill process port 3000"`, `"kill process port 8080"` → kill-port
+---
 
-These aliases appear in the page's JavaScript bundle — Googlebot executes JS and can index them.
+### 🇺🇸 English
+| Intent | Keywords |
+|--------|----------|
+| Find the tool | `"developer command lookup"`, `"cli command cheat sheet"`, `"command search tool for developers"` |
+| Specific use | `"how to find terminal commands"`, `"forget command lookup"`, `"developer cheatsheet search"` |
+| Competitors | `"devhints alternative"`, `"tldr alternative"`, `"cheatsh alternative"` |
+
+---
+
+### 🇰🇷 한국어
+| 의도 | 키워드 |
+|------|--------|
+| 도구 검색 | `"개발자 명령어 검색"`, `"터미널 명령어 모음"`, `"CLI 명령어 찾기"` |
+| 구체적 사용 | `"명령어 까먹을때"`, `"개발자 치트시트"`, `"리눅스 명령어 검색 사이트"` |
+
+---
+
+### 🇨🇳 中文 (Simplified)
+| 意图 | 关键词 |
+|------|--------|
+| 查找工具 | `"开发者命令查询"`, `"Linux命令速查"`, `"终端命令备忘录"` |
+| 具体使用 | `"忘记命令怎么查"`, `"开发者命令搜索工具"`, `"CLI命令大全搜索"` |
+
+---
+
+### 🇮🇳 हिंदी
+| उद्देश्य | कीवर्ड |
+|----------|---------|
+| टूल खोजना | `"developer command search tool"`, `"terminal commands dhundne ka tool"`, `"CLI cheatsheet in hindi"` |
+| विशिष्ट उपयोग | `"command bhool gaye to kaise dhundhe"`, `"linux command finder"` |
+
+---
+
+### 🇫🇷 Français
+| Intention | Mots-clés |
+|-----------|-----------|
+| Trouver l'outil | `"recherche commande développeur"`, `"aide-mémoire commandes terminal"`, `"outil recherche commandes CLI"` |
+| Usage spécifique | `"j'ai oublié la commande"`, `"commandes linux chercher"`, `"cheatsheet développeur en ligne"` |
+
+---
+
+### 🇯🇵 日本語
+| 意図 | キーワード |
+|------|-----------|
+| ツールを探す | `"開発者コマンド検索"`, `"ターミナルコマンド一覧"`, `"CLIコマンド調べるサイト"` |
+| 具体的な使い方 | `"コマンド忘れた 検索"`, `"Linuxコマンド検索ツール"`, `"開発者チートシート検索"` |
+
+---
+
+### Where to apply these keywords
+
+| Location | How |
+|----------|-----|
+| `<meta name="description">` | Use top EN keywords naturally in 1–2 sentences |
+| `<title>` | Include primary keyword: `"Developer Command Lookup"` |
+| `README.md` hero section | EN + KO keywords in the description paragraphs (GitHub indexes READMEs) |
+| `og:description` | Mirror the meta description |
+| Page subtitle / hero text | `"Type anything. Copy everything."` naturally contains intent signals |
