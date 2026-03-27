@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: "📖 How to contribute a command"
+    url: https://github.com/hamlsy/oh-my-syntax/blob/main/CONTRIBUTING.md
+    about: "Read the contribution guide before submitting a new command."

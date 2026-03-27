@@ -1,0 +1,57 @@
+name: "💡 Feature Request"
+description: "Suggest a new feature or improvement."
+title: "[Feature] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got an idea? We'd love to hear it!
+        Please describe your idea clearly so we can understand the problem it solves.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "What problem does this solve?"
+      description: "Describe the frustration or gap. e.g. 'I always forget X and there's no way to search for it.'"
+      placeholder: "I often forget how to do X, and currently the only way is to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed solution"
+      description: "Describe what you'd like to see. Don't worry if it's rough — we'll refine it together."
+      placeholder: "It would be great if..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Which area does this affect?"
+      options:
+        - "Search behavior"
+        - "New command category"
+        - "UI / Design"
+        - "Keyboard shortcuts"
+        - "Internationalization (new language)"
+        - "Performance"
+        - "Accessibility"
+        - "Developer experience (contributing workflow)"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives considered (optional)"
+      description: "Any other approaches you thought of?"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional context (optional)"
+      description: "Screenshots, references, examples from other tools you like, etc."

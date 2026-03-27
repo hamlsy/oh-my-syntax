@@ -1,0 +1,70 @@
+name: "🐛 Bug Report"
+description: "Something is broken or behaving unexpectedly."
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug!
+        Please fill in as much detail as possible so we can reproduce and fix it quickly.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Which area is affected?"
+      options:
+        - "Search — wrong results / no results"
+        - "Search — Korean input (IME) issue"
+        - "Copy button — not working"
+        - "Keyboard navigation — ArrowUp/Down/Enter"
+        - "Category tabs — not filtering correctly"
+        - "Background animation — performance / visual glitch"
+        - "Language toggle — EN/KO switch"
+        - "Layout / visual — broken on my screen"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "What happened?"
+      description: "A clear description of the bug."
+      placeholder: "When I type Korean characters in the search box, the last character gets duplicated..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      placeholder: |
+        1. Open the site
+        2. Switch language to Korean
+        3. Type "포트" in the search box
+        4. See duplicated character "포트트"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected behavior"
+      placeholder: "The input should show '포트' without duplication."
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: "Browser & OS"
+      placeholder: "e.g. Chrome 124 / macOS 14.4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots or screen recording (optional)"
+      description: "Drag and drop images or videos here."

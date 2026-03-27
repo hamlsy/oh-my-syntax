@@ -1,0 +1,138 @@
+name: "✨ New Command / Snippet"
+description: "Suggest a new command or code snippet to add to Oh My Syntax!"
+title: "[Command] "
+labels: ["new-command", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for contributing! 🎉
+        Fill in as much as you can. Korean fields are optional — the maintainer will translate if left blank.
+        **Tip:** The `aliases` field is the most important for search quality. Think about all the ways someone might describe this command in plain language.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "Which category does this command belong to?"
+      options:
+        - "Linux"
+        - "macOS"
+        - "Windows (CMD / PowerShell)"
+        - "Docker"
+        - "Kubernetes (K8s)"
+        - "Git"
+        - "Java"
+        - "Python"
+        - "JavaScript / Node.js"
+        - "Other (describe in notes)"
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: "Platform restriction (if any)"
+      description: "Leave blank if it works everywhere. e.g. 'Linux only', 'macOS only', 'Windows only'"
+      placeholder: "e.g. Linux only"
+
+  - type: textarea
+    id: command
+    attributes:
+      label: "Command / Snippet"
+      description: "The exact command or code snippet. Use {VARIABLE} for parts the user needs to fill in."
+      placeholder: |
+        kill -9 $(lsof -ti:{PORT})
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: variables
+    attributes:
+      label: "Template variables (if any)"
+      description: "List variables with their default values. Format: NAME=default"
+      placeholder: "PORT=8080, HOST=localhost"
+
+  - type: input
+    id: title_en
+    attributes:
+      label: "Title (English)"
+      description: "Short, human-readable label. e.g. 'Kill process on port'"
+      placeholder: "Kill process on port"
+    validations:
+      required: true
+
+  - type: input
+    id: title_ko
+    attributes:
+      label: "Title (Korean) — optional"
+      description: "한국어 제목. 모르면 비워두세요."
+      placeholder: "포트 프로세스 강제 종료"
+
+  - type: textarea
+    id: description_en
+    attributes:
+      label: "Description (English)"
+      description: "A short, fun, unique explanation. Be creative! Dangerous commands should have a warning with personality."
+      placeholder: |
+        No mercy. Kills whatever dared to squat on your port.
+        (For dangerous commands: "Your team will remember this. Not fondly.")
+    validations:
+      required: true
+
+  - type: textarea
+    id: description_ko
+    attributes:
+      label: "Description (Korean) — optional"
+      description: "한국어 설명. 재미있게 작성해주세요!"
+      placeholder: "자비 없음. 포트 점령한 놈을 즉시 처단합니다."
+
+  - type: textarea
+    id: aliases_en
+    attributes:
+      label: "Search aliases (English)"
+      description: |
+        Natural language phrases someone might type to find this command.
+        One per line. Think: error messages, synonyms, plain English descriptions.
+      placeholder: |
+        kill port
+        port already in use
+        address already in use
+        terminate process on port
+        port 8080
+    validations:
+      required: true
+
+  - type: textarea
+    id: aliases_ko
+    attributes:
+      label: "Search aliases (Korean) — optional"
+      description: |
+        한국어로 검색할 법한 표현들. 한 줄에 하나씩.
+      placeholder: |
+        포트 죽이기
+        포트 종료
+        8080 죽이기
+        이미 사용 중인 포트
+
+  - type: input
+    id: tags
+    attributes:
+      label: "Tags (English only, comma-separated)"
+      description: "Extra search keywords. e.g. port, process, kill, pid"
+      placeholder: "port, kill, process, lsof, pid"
+
+  - type: checkboxes
+    id: dangerous
+    attributes:
+      label: "Is this command dangerous?"
+      description: "Check if misuse could cause data loss, system damage, or irreversible changes."
+      options:
+        - label: "⚠️ Yes, this command can cause serious damage"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Additional notes (optional)"
+      description: "Anything else? e.g. requires sudo, only works with a specific tool installed, macOS version restrictions, etc."
