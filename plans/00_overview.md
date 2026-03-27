@@ -59,16 +59,16 @@ Think: Raycast / Spotlight — but for CLI commands, language snippets, and "wha
 
 | Layer           | Technology                              |
 |-----------------|-----------------------------------------|
-| Framework       | React 18 (Vite SPA)                     |
+| Framework       | React 19 (Vite SPA)                     |
 | Language        | TypeScript (strict)                     |
-| Styling         | Tailwind CSS v3 + clsx + tailwind-merge |
+| Styling         | Tailwind CSS v4 + clsx + tailwind-merge |
 | Animation       | Framer Motion + Lenis (smooth scroll)   |
 | Search          | Fuse.js + `useDeferredValue`            |
 | Virtualization  | None — result count capped at 50, DOM cost negligible |
 | State           | Zustand                                 |
 | i18n            | i18next + react-i18next                 |
 | Icons           | lucide-react                            |
-| Build           | Vite 5                                  |
+| Build           | Vite 8                                  |
 
 ---
 

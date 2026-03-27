@@ -11,12 +11,11 @@ Build a lightning-fast, delightful code-search experience for developers.
 - **Raycast/Spotlight Experience:** Fully keyboard-navigable command palette with instant "Copy to Clipboard" feedback.
 
 ## 2. Tech Stack & Architecture
-- **Framework:** React 18 (Vite SPA ONLY). No Next.js or SSR.
+- **Framework:** React 19 (Vite SPA ONLY). No Next.js or SSR.
 - **Language:** TypeScript (Strict mode, NO `any` unless explicitly justified).
-- **Styling:** Tailwind CSS + `clsx` / `tailwind-merge`. Use design tokens for color/spacing.
+- **Styling:** Tailwind CSS v4 + `clsx` / `tailwind-merge`. Use design tokens for color/spacing.
 - **State Management:** Zustand (Global) + React Hooks (Local). No Redux.
-- **Search Engine:** `fuse.js` (Fuzzy search) + React 18 `useDeferredValue`.
-- **Performance:** `@tanstack/react-virtual` for rendering large result lists.
+- **Search Engine:** `fuse.js` (Fuzzy search) + `useDeferredValue`. Results capped at 50 — no virtualization needed.
 - **Animation:** `framer-motion` (Primary) + `lenis` (Smooth scroll).
 
 ## 3. Architecture & Code Quality

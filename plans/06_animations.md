@@ -169,7 +169,7 @@ The background has **3 independent layers**, each with its own animation strateg
 
 ```
 Layer 3 (top)    FloatingContributorCard × 0–N   pointer-events: auto
-Layer 2          FloatingCodeSnippet × 10–14     pointer-events: none
+Layer 2          FloatingCodeSnippet × 6–8       pointer-events: none
 Layer 1 (bottom) StarField                        pointer-events: none, CSS only
 ```
 
@@ -239,7 +239,7 @@ const floatVariants = (duration: number, xRange: number[], yRange: number[]) => 
 // Opacity: 0.05–0.12
 // Font: font-mono, color from syntax token palette (keyword/string/comment)
 // Size: text-xs or text-sm, slight rotation baked into path
-// Count: 10–14 items (cap for performance)
+// Count: 6–8 items (capped for performance — aligns with Plan 08 FloatingCanvas budget)
 ```
 
 **Why `ease` is acceptable here:**
@@ -346,5 +346,5 @@ function raf(time: number) {
 requestAnimationFrame(raf);
 ```
 
-Note: Lenis is only applied to the main scroll container, not inside the
-virtualized result list (react-virtual handles its own scroll).
+Note: Lenis is only applied to the main scroll container.
+The result list uses CSS `overflow-y: auto` with a `max-height` — no virtualization library needed.

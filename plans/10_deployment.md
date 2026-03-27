@@ -91,7 +91,7 @@ on:
 
 jobs:
   ci:
-    name: Lint, Type-check, Validate Data
+    name: Test, Lint, Type-check, Validate Data
     runs-on: ubuntu-latest
 
     steps:
@@ -112,6 +112,9 @@ jobs:
 
       - name: ESLint
         run: npm run lint
+
+      - name: Unit tests
+        run: npm test -- --run
 
       - name: Validate EN/KO data parity
         run: npm run validate:data
@@ -137,6 +140,7 @@ jobs:
 |------|----------------|----------------|
 | `tsc --noEmit` | TypeScript errors across all files | Any type error |
 | `eslint` | Code style, React hooks rules | Any lint error |
+| `npm test --run` | Vitest unit tests (search logic, hooks, utils) | Any test failure |
 | `validate:data` | EN/KO ID parity, orphan detection | Missing translation |
 | `build` | Full Vite production build | Build failure |
 | Bundle size check | JS bundle stays under budget | Warning only (not blocking) |

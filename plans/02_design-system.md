@@ -1,8 +1,10 @@
 # Plan 02 — Design System
 
 ## Source of Truth
-All tokens live in `src/constants/colors.ts` and `tailwind.config.ts`.
+All tokens live in `src/constants/colors.ts` and are exposed via Tailwind v4's CSS-first `@theme` directive in `src/index.css`.
 **Never use raw hex values in components.** Always reference tokens.
+
+> **Tailwind v4 note:** There is no `tailwind.config.ts` in v4. Theme customization is done entirely in CSS via `@theme {}` blocks. Install via `@tailwindcss/vite` Vite plugin (no PostCSS required).
 
 ---
 
@@ -58,43 +60,56 @@ export const COLORS = {
 
 ---
 
-## Tailwind Config Extension (`tailwind.config.ts`)
+## Tailwind v4 Theme (`src/index.css`)
 
-```ts
-// Extend theme to expose all tokens as Tailwind classes
-theme: {
-  extend: {
-    colors: {
-      bg:      COLORS.bg,
-      border:  COLORS.border,
-      text:    COLORS.text,
-      accent:  COLORS.accent,
-      success: COLORS.success,
-      warning: COLORS.warning,
-      syntax:  COLORS.syntax,
-    },
-    fontFamily: {
-      sans: ['Inter', 'system-ui', 'sans-serif'],
-      mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-    },
-    fontSize: {
-      '2xs': ['0.625rem', { lineHeight: '1rem' }],
-    },
-    boxShadow: {
-      'accent-glow': '0 0 20px rgba(124,131,255,0.2)',
-      'card':        '0 2px 16px rgba(0,0,0,0.4)',
-      'card-hover':  '0 4px 32px rgba(0,0,0,0.6)',
-    },
-    backgroundImage: {
-      'grid-subtle': `linear-gradient(rgba(42,45,66,0.3) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(42,45,66,0.3) 1px, transparent 1px)`,
-    },
-    backgroundSize: {
-      'grid': '40px 40px',
-    },
-  },
+In Tailwind v4, theme tokens are declared with `@theme` directly in CSS — no `tailwind.config.ts` needed.
+
+```css
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg-base:     #0f111a;
+  --color-bg-surface:  #161826;
+  --color-bg-elevated: #1e2132;
+  --color-bg-overlay:  #252840;
+
+  --color-border-subtle:  #2a2d42;
+  --color-border-default: #363a55;
+  --color-border-strong:  #4a4f6e;
+
+  --color-text-primary:   #e8eaf6;
+  --color-text-secondary: #9097b8;
+  --color-text-muted:     #555c7a;
+  --color-text-inverse:   #0f111a;
+
+  --color-accent:         #7c83ff;
+  --color-accent-soft:    #3d4280;
+  --color-accent-glow:    rgba(124,131,255,0.15);
+
+  --color-success: #4ade80;
+  --color-warning: #fb923c;
+  --color-error:   #f87171;
+
+  --color-syntax-keyword:  #c792ea;
+  --color-syntax-string:   #c3e88d;
+  --color-syntax-comment:  #546e7a;
+  --color-syntax-number:   #f78c6c;
+  --color-syntax-function: #82aaff;
+
+  /* Typography */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-size-2xs: 0.625rem;
+
+  /* Shadows */
+  --shadow-accent-glow: 0 0 20px rgba(124,131,255,0.2);
+  --shadow-card:        0 2px 16px rgba(0,0,0,0.4);
+  --shadow-card-hover:  0 4px 32px rgba(0,0,0,0.6);
 }
 ```
+
+> In components, use the generated utility classes directly: `bg-bg-base`, `text-text-primary`, `border-border-subtle`, `text-accent`, etc.
 
 ---
 

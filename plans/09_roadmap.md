@@ -20,23 +20,34 @@ npm install \
   clsx \
   tailwind-merge
 
+# Tailwind v4: uses Vite plugin directly — no PostCSS, no autoprefixer
 npm install -D \
   tailwindcss \
-  postcss \
-  autoprefixer \
+  @tailwindcss/vite \
   @types/node
+
+# Testing
+npm install -D \
+  vitest \
+  @vitest/ui \
+  @testing-library/react \
+  @testing-library/user-event \
+  @testing-library/jest-dom \
+  jsdom
 ```
 
 ### Config Files to Create
-- [ ] `tailwind.config.ts` — extend with design tokens from Plan 02
-- [ ] `postcss.config.js`
-- [ ] `src/index.css` — Tailwind directives + base dark background
-- [ ] `vite.config.ts` — add path alias `@/ → src/`, manual chunks
+- [ ] `src/index.css` — `@import "tailwindcss"` + `@theme {}` tokens (Plan 02) + base dark background
+- [ ] `vite.config.ts` — add `@tailwindcss/vite` plugin, path alias `@/ → src/`, manual chunks, vitest config
 - [ ] `.env.example` — document `VITE_TELEMETRY_URL` (empty value, committed)
 - [ ] `.env.development` — set local telemetry URL (gitignored)
 - [ ] `.gitignore` — ensure `.env.development` and `.env.production` are excluded
 
-### Path Alias Setup (`tsconfig.app.json`)
+> **No `tailwind.config.ts` and no `postcss.config.js`** — Tailwind v4 handles everything via the Vite plugin.
+
+### Path Alias Setup
+
+**`tsconfig.app.json`** (TypeScript awareness):
 ```json
 {
   "compilerOptions": {
@@ -45,6 +56,23 @@ npm install -D \
   }
 }
 ```
+
+**`vite.config.ts`** (runtime resolution + Tailwind v4 plugin):
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: { '@': path.resolve(__dirname, 'src') },
+  },
+});
+```
+
+> Both `tsconfig` paths and `vite resolve.alias` are required — TypeScript needs paths for type-checking, Vite needs alias for bundling. Missing either causes import errors at different stages.
 
 ---
 
@@ -128,6 +156,28 @@ npm install -D \
 
 ---
 
+## Phase 3.5 — Testing Infrastructure
+> Set up Vitest + React Testing Library before building UI. Write tests alongside features.
+
+### Tasks
+- [ ] Configure `vitest` in `vite.config.ts` (`test: { environment: 'jsdom', globals: true, setupFiles: ['./src/test/setup.ts'] }`)
+- [ ] `src/test/setup.ts` — import `@testing-library/jest-dom`
+- [ ] `src/hooks/__tests__/useCommandSearch.test.ts`
+  - `useCommandSearch('8080', 'all')` → kill-port command ranks first
+  - `useCommandSearch('포트 죽이기', 'all')` (KO data) → kill-port command found
+  - Switching category filters correctly
+  - Cache hit: calling same query+category twice does NOT rebuild Fuse index
+- [ ] `src/hooks/__tests__/useCopyToClipboard.test.ts`
+  - Clipboard writes correctly
+  - `copied` state reverts to false after 2s
+- [ ] `src/utils/__tests__/searchUtils.test.ts`
+  - `getCachedFuse()` returns same instance on second call
+  - `invalidateFuseCache()` causes next call to return new instance
+
+**Exit criteria:** `npm test` runs all tests. Core search logic covered. CI will run these in Phase 3.5+.
+
+---
+
 ## Phase 4 — Core UI Components
 > Shared components and layout shell.
 
@@ -189,14 +239,13 @@ npm install -D \
 > Title section, background animations, easter egg.
 
 ### Tasks
-- [ ] `src/features/background/FloatingCodeSnippet.tsx`
-- [ ] `src/features/background/FloatingDeveloperCard.tsx` — easter egg
 - [ ] `src/features/background/StarField.tsx` — CSS star field (box-shadow static + twinkling spans)
-- [ ] `src/features/background/FloatingCodeSnippet.tsx` — drifting syntax debris
+- [ ] `src/features/background/FloatingCodeSnippet.tsx` — drifting syntax debris (6–8 items)
 - [ ] `src/features/background/FloatingContributorCard.tsx` — probabilistic easter egg card
 - [ ] `src/features/background/EasterEggModal.tsx` — contributor info modal (AnimatePresence)
 - [ ] `src/features/background/FloatingCanvas.tsx` — orchestrates all 3 layers, rolls spawn probabilities
   - In `import.meta.env.DEV` mode: show ALL contributors (skip probability roll) for easier debugging
+  - On mobile (`window.innerWidth < 768`): render `null` — FloatingCanvas is disabled entirely to preserve performance
 - [ ] `src/features/settings/LanguageToggle.tsx`
 - [ ] `src/features/hero/HeroSection.tsx` — title, subtitle, blur entrance animation
 - [ ] `src/constants/config.ts` — populate `CONTRIBUTORS` array with creator entry
@@ -222,6 +271,11 @@ npm install -D \
 - [ ] Keyboard-only navigation test (Tab, ArrowUp/Down, Enter, Escape)
 - [ ] `lang` attribute on `<html>` element (sync with i18n)
 - [ ] `aria-label` on SearchBar, CopyButton, CategoryTabs
+- [ ] SEO meta tags in `index.html`:
+  - `<title>Oh My Syntax! — Developer Command Lookup</title>`
+  - `<meta name="description">` (EN + KO variants via i18n if possible, else EN default)
+  - Open Graph: `og:title`, `og:description`, `og:image`, `og:url`
+  - `<link rel="canonical" href="https://ohmysyntax.vercel.app" />`
 - [ ] `vite build` — check bundle chunk sizes
 - [ ] Lighthouse audit — target > 90 on all metrics
 - [ ] Test `prefers-reduced-motion` in browser DevTools
