@@ -163,48 +163,144 @@ transition={SPRING.snappy}
 
 ---
 
-## Background Floating Animation (`FloatingCanvas`)
+## Background Floating Animation — Space Universe Theme
 
-### Floating Code Snippets
+The background has **3 independent layers**, each with its own animation strategy:
+
+```
+Layer 3 (top)    FloatingContributorCard × 0–N   pointer-events: auto
+Layer 2          FloatingCodeSnippet × 10–14     pointer-events: none
+Layer 1 (bottom) StarField                        pointer-events: none, CSS only
+```
+
+---
+
+### Layer 1: StarField (CSS only — no Framer Motion)
+
+```css
+/* Star twinkling — pure CSS @keyframes, zero JS overhead */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.3); }
+}
+
+/* Static stars: generated as a single box-shadow on a pseudo-element
+   → ~200 stars, no individual DOM nodes
+   → random positions seeded at build time or via CSS custom property trick */
+.star-field::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  box-shadow:
+    142px 73px 1px #fff,
+    89px 210px 1px #a5b4fc,
+    /* ... ~200 entries generated programmatically */;
+}
+
+/* Twinkling stars: ~20 <span> elements, staggered animation-delay */
+.star-twinkle {
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+```
+
+**Why CSS, not Framer Motion:**
+- 200 stars as Framer Motion nodes = 200 RAF listeners → unacceptable overhead
+- CSS `box-shadow` stars = 1 DOM node, 1 paint layer, GPU composited
+- Twinkling `<span>` elements use CSS `animation` → browser-optimized, off main thread
+
+---
+
+### Layer 2: Floating Code Snippets (Framer Motion)
+
 ```tsx
-// Each snippet has a unique randomized path
-// Uses keyframes to drift slowly across viewport
+// Syntax debris drifting in space — feels like floating in zero gravity
+// Content pool (sampled randomly per instance):
+// CLI:  'kill -9', 'grep -r', 'chmod 755', '#!/bin/bash', 'sudo !!'
+// Git:  'git stash', '--force', 'HEAD~1', 'rebase -i'
+// K8s:  'kubectl get pods', 'CrashLoopBackOff', '-n default'
+// Code: '=>', '{}', '[]', 'null', 'undefined', '0x00', '404'
 
 const floatVariants = (duration: number, xRange: number[], yRange: number[]) => ({
   animate: {
-    x: xRange,    // e.g. [0, 40, -20, 10, 0]
-    y: yRange,    // e.g. [0, -30, 20, -10, 0]
-    rotate: [-2, 2, -1, 3, -2],
+    x: xRange,       // e.g. [0, 30, -15, 20, 0]
+    y: yRange,       // e.g. [0, -40, 15, -20, 0]
+    rotate: [-3, 2, -1, 4, -2],
     transition: {
       duration,
-      ease: 'easeInOut',   // ← OK here: background, non-interactive
+      ease: 'easeInOut',   // ← OK: non-interactive ambient motion
       repeat: Infinity,
       repeatType: 'mirror' as const,
     },
   },
 });
 
-// Opacity: 0.04–0.08 (very faint — ambient texture, not distraction)
-// Each instance has randomized: duration (25–55s), position, path
+// Each instance: randomized duration (25–55s), start position, path amplitude
+// Opacity: 0.05–0.12
+// Font: font-mono, color from syntax token palette (keyword/string/comment)
+// Size: text-xs or text-sm, slight rotation baked into path
+// Count: 10–14 items (cap for performance)
 ```
 
 **Why `ease` is acceptable here:**
-The floating background is non-interactive ambient motion. Spring physics
-are for elements the user directly manipulates. Long-duration drift uses
-`easeInOut` for smooth looping — springs would oscillate awkwardly over 30s cycles.
+Background items are not interactive — the user never directly manipulates them.
+`easeInOut` over 30–55s creates smooth organic drift. Springs would oscillate
+awkwardly at this timescale.
 
-### Developer Card Float
+---
+
+### Layer 3: Floating Contributor Cards (Framer Motion)
+
 ```tsx
-// Slower, more deliberate float (50–70s cycle)
-// Slight opacity pulse: 0.12 → 0.20 → 0.12
-// On hover: opacity jumps to 0.9, scale: 1.05, cursor: pointer
-// Entry: fade in after 3s delay (doesn't compete with main UI load)
+// Cards spawn based on spawnProbability (rolled once per page load)
+// Multiple cards can coexist — each follows an independent drift path
 
+// Idle float (same pattern as code snippets but slower + rotation wobble)
+const contributorFloatVariants = (seed: string) => ({
+  animate: {
+    x: seededRange(seed, 'x'),  // deterministic path per contributor id
+    y: seededRange(seed, 'y'),
+    rotate: [-4, 3, -2, 5, -3],
+    transition: {
+      duration: 55 + seededOffset(seed) * 20,  // 55–75s cycle
+      ease: 'easeInOut',
+      repeat: Infinity,
+      repeatType: 'mirror' as const,
+    },
+  },
+});
+
+// Opacity pulse: 0.12 → 0.22 → 0.12 (subtle breathing effect)
+// Entry: initial={{ opacity: 0, scale: 0.8 }}
+//        animate={{ opacity: 0.12, scale: 1 }}
+//        transition: spring SPRING.gentle, delay: 3 + index * 1.5s
+
+// Hover (Framer Motion whileHover — spring, interactive):
 whileHover={{
-  opacity: 0.9,
-  scale: 1.05,
-  transition: SPRING.snappy,
+  opacity: 0.92,
+  scale: 1.08,
+  transition: SPRING.snappy,  // ← spring, user-driven → follows spring rule
 }}
+
+// On click: open EasterEggModal (AnimatePresence fade-in overlay)
+// Card content: avatar (20px circle) + name + role chip
+// pointer-events: auto (only layer with interaction)
+```
+
+---
+
+### `EasterEggModal` (triggered by card click)
+
+```tsx
+// Overlay: bg-black/60 backdrop-blur-sm
+// Card: bg-bg-surface border border-border-default rounded-2xl p-6
+// Content: large avatar, name, role, message, GitHub button
+// Entry animation:
+//   initial: { opacity: 0, scale: 0.9, y: 20 }
+//   animate: { opacity: 1, scale: 1,   y: 0  }
+//   transition: SPRING.entrance
+// Dismiss: click outside, Escape key, or ✕ button
+// AnimatePresence wraps the modal for smooth exit
 ```
 
 ---

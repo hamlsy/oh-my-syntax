@@ -170,16 +170,23 @@ npm install -D \
 ### Tasks
 - [ ] `src/features/background/FloatingCodeSnippet.tsx`
 - [ ] `src/features/background/FloatingDeveloperCard.tsx` — easter egg
-- [ ] `src/features/background/FloatingCanvas.tsx` — orchestrator
+- [ ] `src/features/background/StarField.tsx` — CSS star field (box-shadow static + twinkling spans)
+- [ ] `src/features/background/FloatingCodeSnippet.tsx` — drifting syntax debris
+- [ ] `src/features/background/FloatingContributorCard.tsx` — probabilistic easter egg card
+- [ ] `src/features/background/EasterEggModal.tsx` — contributor info modal (AnimatePresence)
+- [ ] `src/features/background/FloatingCanvas.tsx` — orchestrates all 3 layers, rolls spawn probabilities
 - [ ] `src/features/settings/LanguageToggle.tsx`
 - [ ] `src/features/hero/HeroSection.tsx` — title, subtitle, blur entrance animation
+- [ ] `src/constants/config.ts` — populate `CONTRIBUTORS` array with creator entry
 - [ ] Grid background overlay in `index.css`
 - [ ] Gradient title text effect
 
 **Exit criteria:**
-- Background code snippets drift slowly
-- Developer card is clickable, opens info
-- Reduced motion: FloatingCanvas renders nothing
+- Stars visible in background (static + 20 twinkling)
+- Code snippets drift slowly across viewport
+- Creator contributor card appears (spawnProbability: 1.0), is clickable, opens EasterEggModal
+- Adding a second entry to `CONTRIBUTORS` with spawnProbability: 0.5 works correctly
+- Reduced motion: FloatingCanvas renders nothing (StarField included)
 
 ---
 

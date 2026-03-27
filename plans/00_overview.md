@@ -23,8 +23,9 @@ Think: Raycast / Spotlight — but for CLI commands, language snippets, and "wha
 ┌─────────────────────────────────────────────────────┐
 │  [Language Toggle: EN / KO]              (top-right) │
 │                                                       │
-│        [Floating Background Animation Layer]         │
-│         (code snippets / icons drifting slowly)      │
+│   [Space Background: CSS star field + twinkling]     │
+│   [Layer 2: code snippets drifting like debris]      │
+│   [Layer 3: contributor cards floating (probabilistic)]│
 │                                                       │
 │              ✦  Oh My Syntax!  ✦                    │
 │       "Type anything. Copy everything."              │

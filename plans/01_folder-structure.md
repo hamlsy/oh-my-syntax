@@ -51,9 +51,11 @@ oh-my-syntax/
 │   │   │   └── DangerBadge.tsx        # ⚠ badge for dangerous commands
 │   │   │
 │   │   ├── background/
-│   │   │   ├── FloatingCanvas.tsx     # Orchestrates all floating items
-│   │   │   ├── FloatingCodeSnippet.tsx
-│   │   │   └── FloatingDeveloperCard.tsx  # Easter egg (clickable)
+│   │   │   ├── FloatingCanvas.tsx          # Orchestrates all 3 layers
+│   │   │   ├── StarField.tsx               # CSS star field (static + twinkling)
+│   │   │   ├── FloatingCodeSnippet.tsx     # Drifting syntax debris
+│   │   │   ├── FloatingContributorCard.tsx # Easter egg card (probabilistic)
+│   │   │   └── EasterEggModal.tsx          # Modal shown on contributor card click
 │   │   │
 │   │   └── settings/
 │   │       └── LanguageToggle.tsx     # EN / KO switcher

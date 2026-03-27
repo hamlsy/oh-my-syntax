@@ -220,10 +220,32 @@ backdrop-blur: backdrop-blur-md bg-bg-base/60
 **Props:** none (reads `useSettingsStore`)
 
 ```tsx
+// The full background layer — space universe theme
 // position: fixed inset-0, pointer-events-none, z-0
-// Renders N FloatingCodeSnippets + FloatingDeveloperCard
+// Layer order (bottom → top):
+//   1. StarField          — static + twinkling stars (CSS only, no JS)
+//   2. FloatingCodeSnippet × 10–14  — drifting syntax fragments
+//   3. FloatingContributorCard × 0–N — probabilistic contributor easter eggs
+//
 // Respects prefers-reduced-motion: renders nothing if reduced motion
-// useSettingsStore.showFloating: toggle visibility
+// useSettingsStore.showFloating: master visibility toggle
+```
+
+---
+
+### `StarField`
+**Props:** none
+
+```tsx
+// Renders the space background — two layers:
+//   1. Static star dots: small white/blue-tinted circles, varying sizes (1–3px)
+//      → generated as a CSS box-shadow pattern (no DOM nodes, GPU-efficient)
+//      → ~200 stars spread across the viewport
+//   2. Twinkling stars: ~20 stars that pulse opacity (0.2 → 0.8 → 0.2)
+//      → CSS @keyframes animation with random delay per star
+//      → Uses will-change: opacity for GPU compositing
+// Colors: #ffffff (white), #a5b4fc (blue-tinted), #c4b5fd (violet-tinted)
+// pointer-events: none, position: fixed inset-0
 ```
 
 ---
@@ -232,36 +254,78 @@ backdrop-blur: backdrop-blur-md bg-bg-base/60
 **Props:** `snippet: string`, `initialX: number`, `initialY: number`, `speed: number`
 
 ```tsx
+// Syntax fragments drifting slowly in space (like debris)
+// Content examples: 'kill -9', 'git stash', 'kubectl get pods',
+//                   '=>', '{}', '[]', 'npm run', '#!/bin/bash'
 // Slow drift animation: randomized direction, very slow (20–60s loops)
-// Opacity: 0.04–0.08 (barely visible, ambient texture)
-// Font: font-mono, text-syntax-keyword / text-syntax-string (random)
-// Size: text-xs to text-sm
-// No interaction (pointer-events-none)
+// Opacity: 0.05–0.12 (faint — ambient texture, not distraction)
+// Font: font-mono, color randomly from syntax token palette
+// Size: text-xs to text-sm, slight rotation (-5deg to +5deg)
+// pointer-events: none
 ```
 
 ---
 
-### `FloatingDeveloperCard`
-**Props:** none (reads from `DEVELOPER_INFO` in `src/constants/config.ts`)
+### `FloatingContributorCard`
+**Props:** `contributor: Contributor`
 
-`DEVELOPER_INFO` schema (defined in `constants/config.ts`):
+> Previously `FloatingDeveloperCard`. Renamed and expanded to support **multiple contributors**.
+
+`Contributor` type & `CONTRIBUTORS` array (defined in `src/constants/config.ts`):
 ```ts
-export const DEVELOPER_INFO = {
-  name: 'Your Name',
-  role: 'Developer',
-  avatarUrl: '/assets/images/easter-egg-avatar.png',
-  githubUrl: 'https://github.com/yourhandle',
-  message: 'You found me 👋',
-} as const;
+export interface Contributor {
+  id: string;
+  name: string;
+  role: string;              // e.g. 'Creator', 'Contributor', 'Issue Reporter'
+  avatarUrl: string;         // path under /public/assets/contributors/
+  githubUrl: string;
+  message: string;           // shown in the easter egg modal
+  spawnProbability: number;  // 0.0–1.0 — chance this card appears per page load
+                             // Creator: 1.0, Contributors: 0.3–0.5, etc.
+}
+
+export const CONTRIBUTORS: Contributor[] = [
+  {
+    id: 'creator',
+    name: 'Your Name',
+    role: 'Creator',
+    avatarUrl: '/assets/contributors/creator.png',
+    githubUrl: 'https://github.com/yourhandle',
+    message: 'You found me 👋 — the one who made this mess.',
+    spawnProbability: 1.0,   // always appears
+  },
+  // Add issue contributors here:
+  // {
+  //   id: 'contributor-1',
+  //   name: 'Jane Doe',
+  //   role: 'Contributor',
+  //   avatarUrl: '/assets/contributors/jane.png',
+  //   githubUrl: 'https://github.com/janedoe',
+  //   message: 'Fixed that one annoying bug 🐛',
+  //   spawnProbability: 0.4,
+  // },
+];
+```
+
+**Spawn logic** (runs once per page load in `FloatingCanvas`):
+```ts
+// Each contributor is independently rolled against their spawnProbability
+const activeContributors = CONTRIBUTORS.filter(
+  c => Math.random() < c.spawnProbability
+);
+// → Creator always shows. Others appear ~30–50% of the time.
+// → Multiple contributor cards can float simultaneously.
 ```
 
 ```tsx
-// A small card floating in the background
+// Each card:
 // pointer-events: auto (clickable!)
-// On click: opens modal/drawer with GitHub link → easter egg 🥚
-// Shows developer avatar + name, very subtle
-// Animation: gentle float path, slight rotation wobble
-// Opacity: 0.15 (barely there — users who discover it feel rewarded)
+// Opacity: 0.15 idle → 0.9 on hover
+// On hover: scale: 1.05, cursor: pointer
+// On click: opens EasterEggModal with contributor info + GitHub link
+// Animation: gentle float path unique per card (seeded by contributor.id)
+// Entry: staggered fade-in (each card 2–5s after page load)
+// Size: small pill — avatar (20px) + name + role label
 ```
 
 ---
