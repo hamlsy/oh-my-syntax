@@ -40,12 +40,15 @@ oh-my-syntax/
 │   │   │                              # Reads i18n only (no store access needed)
 │   │   │
 │   │   ├── search/
-│   │   │   ├── SearchBar.tsx          # Input with icon
+│   │   │   ├── SearchBar.tsx          # Controlled input + Korean IME composition handling
 │   │   │   ├── CategoryTabs.tsx       # Magic-tab sliding selector
-│   │   │   └── SearchContainer.tsx    # Orchestrates bar + tabs + results
+│   │   │   └── SearchContainer.tsx    # Orchestrates tabs + bar + ResultList
+│   │   │                              # IMPORTANT: ResultList lives INSIDE SearchContainer
+│   │   │                              # so onKeyDown bubble chain works end-to-end
 │   │   │
 │   │   ├── results/
 │   │   │   ├── ResultList.tsx         # Animated list (no virtualization — capped at 50)
+│   │   │   │                          # Rendered as child of SearchContainer (not App)
 │   │   │   ├── ResultCard.tsx         # Single command card
 │   │   │   ├── CopyButton.tsx         # Clipboard → ✓ animation
 │   │   │   └── DangerBadge.tsx        # ⚠ badge for dangerous commands
@@ -61,18 +64,20 @@ oh-my-syntax/
 │   │       └── LanguageToggle.tsx     # EN / KO switcher
 │   │
 │   ├── hooks/                         # Reusable custom hooks
-│   │   ├── useCommandSearch.ts        # Main search pipeline (category + fuse)
+│   │   ├── useCommandSearch.ts        # Main search pipeline (category + fuse + NFC normalize)
 │   │   ├── useCopyToClipboard.ts      # Copy + revert after 2s
-│   │   ├── useKeyboardNav.ts          # ArrowUp/Down/Enter/Escape — ONLY active when SearchBar is focused
-│   │   │                              # Attached via onKeyDown on the search container, NOT window
-│   │   │                              # Prevents conflict with browser's native page scroll
-│   │   ├── useTelemetry.ts            # Fire-and-forget copy event
+│   │   ├── useKeyboardNav.ts          # ArrowUp/Down/Enter/Escape
+│   │   │                              # Attached via onKeyDown on SearchContainer (which wraps ResultList)
+│   │   │                              # → correct bubble chain: ResultCard → ResultList → SearchContainer
+│   │   ├── useTelemetry.ts            # Fire-and-forget copy event (reads VITE_TELEMETRY_URL)
 │   │   ├── useFloatingItems.ts        # Random motion for background items
 │   │   └── useReducedMotion.ts        # prefers-reduced-motion guard
 │   │
 │   ├── store/                         # Zustand global state
-│   │   ├── useSearchStore.ts          # query, selectedCategory (results are derived, not stored)
-│   │   ├── useUIStore.ts              # language (single source of truth), highlightedIndex
+│   │   ├── useSearchStore.ts          # query, selectedCategory, highlightedIndex
+│   │   │                              # setQuery() auto-resets highlightedIndex to 0
+│   │   ├── useUIStore.ts              # language (single source of truth)
+│   │   │                              # setLanguage() is pure state only — side effects via subscribe
 │   │   └── useSettingsStore.ts        # showFloating, showEasterEgg flags
 │   │
 │   ├── data/                          # All command data (hardcoded JSON)
@@ -128,8 +133,14 @@ oh-my-syntax/
 │   ├── main.tsx                       # ReactDOM.createRoot + i18n init
 │   └── index.css                      # Tailwind directives + base styles
 │
+├── scripts/
+│   └── validate-data.ts               # Build-time EN/KO ID parity check (run via tsx)
+│
 ├── plans/                             # ← You are here
 ├── CLAUDE.md
+├── .env.development                   # VITE_TELEMETRY_URL=http://localhost:3001/api/telemetry
+├── .env.production                    # VITE_TELEMETRY_URL=https://api.ohmysyntax.com/telemetry
+├── .env.example                       # Committed — documents required env vars (no secrets)
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts

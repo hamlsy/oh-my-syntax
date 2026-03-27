@@ -199,9 +199,10 @@ Framer Motion animations must only animate:
 
 ### ResultList Stable Height
 ```tsx
-// Virtualized container has a fixed height
-// Never let the list container resize based on content
-<div ref={scrollRef} style={{ height: '480px', overflowY: 'auto' }}>
+// No virtualization — but give the list a max-height with overflow-y: auto
+// This prevents the page from growing infinitely with 50 results
+// and keeps AdSkeleton from jumping around (anti-CLS)
+<div style={{ maxHeight: '600px', overflowY: 'auto' }}>
   ...
 </div>
 ```
@@ -211,16 +212,33 @@ Framer Motion animations must only animate:
 ## 8. Telemetry: Non-Blocking Fire-and-Forget
 
 ```ts
+// src/constants/config.ts
+// TELEMETRY_URL is read from environment variable — never hardcoded
+export const TELEMETRY_URL = import.meta.env.VITE_TELEMETRY_URL ?? '';
+```
+
+```
+# .env.example  (committed — documents vars, no secrets)
+VITE_TELEMETRY_URL=
+
+# .env.development  (gitignored)
+VITE_TELEMETRY_URL=http://localhost:3001/api/telemetry
+
+# .env.production  (gitignored — set in CI/hosting env vars)
+VITE_TELEMETRY_URL=https://api.ohmysyntax.com/telemetry
+```
+
+```ts
 // src/hooks/useTelemetry.ts
 export function useTelemetry() {
   const track = useCallback((commandId: string) => {
+    if (!TELEMETRY_URL) return;   // no-op if URL not configured (dev / open-source fork)
     // Fire and forget — never await, never block UI
     fetch(TELEMETRY_URL, {
       method: 'POST',
       body: JSON.stringify({ commandId, ts: Date.now() }),
       headers: { 'Content-Type': 'application/json' },
-      // Use keepalive to ensure the request completes even if page unloads
-      keepalive: true,
+      keepalive: true,            // completes even if page unloads
     }).catch(() => {/* silently ignore errors */});
   }, []);
 

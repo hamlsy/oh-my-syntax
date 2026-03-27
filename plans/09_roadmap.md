@@ -32,6 +32,9 @@ npm install -D \
 - [ ] `postcss.config.js`
 - [ ] `src/index.css` — Tailwind directives + base dark background
 - [ ] `vite.config.ts` — add path alias `@/ → src/`, manual chunks
+- [ ] `.env.example` — document `VITE_TELEMETRY_URL` (empty value, committed)
+- [ ] `.env.development` — set local telemetry URL (gitignored)
+- [ ] `.gitignore` — ensure `.env.development` and `.env.production` are excluded
 
 ### Path Alias Setup (`tsconfig.app.json`)
 ```json
@@ -82,6 +85,8 @@ npm install -D \
 - [ ] `src/data/ko/` — Korean counterpart files (all same IDs)
 - [ ] `src/data/ko/index.ts` — merge EN base + KO locale fields
 - [ ] `src/data/categories.ts` — CATEGORIES array
+- [ ] `scripts/validate-data.ts` — EN/KO ID parity check
+- [ ] Add `"validate:data": "tsx scripts/validate-data.ts"` to `package.json`
 
 ### Dangerous Command Checklist (must have `isDangerous: true`)
 - `rm -rf /`, `rm -rf ~`, `rm -rf .`
@@ -101,18 +106,25 @@ npm install -D \
 > Zustand stores and all custom hooks.
 
 ### Tasks
-- [ ] `src/store/useSearchStore.ts` — query, selectedCategory, setters
-- [ ] `src/store/useUIStore.ts` — language, highlightedIndex, setters
+- [ ] `src/store/useSearchStore.ts` — query, selectedCategory, **highlightedIndex** + setters
+  - `setQuery()` must auto-reset `highlightedIndex` to 0
+- [ ] `src/store/useUIStore.ts` — language only (pure state, no side effects)
+  - Add `subscribeWithSelector` middleware
+  - Register subscriber in `main.tsx`: language change → i18n sync + localStorage + invalidateFuseCache
 - [ ] `src/store/useSettingsStore.ts` — showFloating, showEasterEgg flags
-- [ ] `src/hooks/useCommandSearch.ts` — full 2-step pipeline (Plan 04)
+- [ ] `src/hooks/useCommandSearch.ts` — full 2-step pipeline + NFC normalize + Fuse cache (Plan 04)
 - [ ] `src/hooks/useCopyToClipboard.ts` — copy + revert after 2s
 - [ ] `src/hooks/useKeyboardNav.ts` — ArrowUp/Down/Enter/Escape
 - [ ] `src/hooks/useTelemetry.ts` — fire-and-forget fetch
 - [ ] `src/hooks/useFloatingItems.ts` — random float path generator
 - [ ] `src/hooks/useReducedMotion.ts` — prefers-reduced-motion wrapper
-- [ ] `src/utils/searchUtils.ts` — `buildFuseIndex()` with FUSE_OPTIONS
+- [ ] `src/utils/searchUtils.ts` — `getCachedFuse()`, `invalidateFuseCache()`, FUSE_OPTIONS
 
-**Exit criteria:** `useCommandSearch('8080', 'all')` returns kill-port command first.
+**Exit criteria:**
+- `useCommandSearch('8080', 'all')` returns kill-port command first
+- `useCommandSearch('포트 죽이기', 'all')` (KO mode) returns kill-port command
+- Switching categories rapidly does NOT rebuild Fuse index (cache hit logged)
+- Language switch calls `invalidateFuseCache()` (verify via console in dev)
 
 ---
 
@@ -138,11 +150,20 @@ npm install -D \
 > The core user-facing feature.
 
 ### Tasks
-- [ ] `src/features/search/SearchBar.tsx` — controlled input, icons, spring focus ring
+- [ ] `src/features/search/SearchBar.tsx`
+  - Korean IME: `inputValue` (local) vs `query` (store) separation
+  - `onCompositionStart/End` handlers with `isComposing` ref
+  - `maxLength={80}` on input
 - [ ] `src/features/search/CategoryTabs.tsx` — magic tab with `layoutId`
-- [ ] `src/features/search/SearchContainer.tsx` — compose tabs + bar
+- [ ] `src/features/search/SearchContainer.tsx`
+  - Must wrap ResultList as a child (not sibling) — keyboard nav requires this
+  - `onKeyDown` handler here catches events from all descendants
 
-**Exit criteria:** Typing in search bar updates query in store. Category tabs slide correctly.
+**Exit criteria:**
+- Typing in search bar updates query in store (EN mode)
+- Typing Korean ("포트") in KO mode: no duplicate chars, no mid-composition flicker
+- Category tabs slide correctly with spring animation
+- ArrowDown from SearchBar highlights first result card
 
 ---
 
@@ -175,6 +196,7 @@ npm install -D \
 - [ ] `src/features/background/FloatingContributorCard.tsx` — probabilistic easter egg card
 - [ ] `src/features/background/EasterEggModal.tsx` — contributor info modal (AnimatePresence)
 - [ ] `src/features/background/FloatingCanvas.tsx` — orchestrates all 3 layers, rolls spawn probabilities
+  - In `import.meta.env.DEV` mode: show ALL contributors (skip probability roll) for easier debugging
 - [ ] `src/features/settings/LanguageToggle.tsx`
 - [ ] `src/features/hero/HeroSection.tsx` — title, subtitle, blur entrance animation
 - [ ] `src/constants/config.ts` — populate `CONTRIBUTORS` array with creator entry

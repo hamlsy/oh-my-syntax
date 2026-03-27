@@ -23,10 +23,18 @@ export type CategoryId =
   | 'python'
   | 'javascript';
 
+// Template variable in a command string, e.g. {PORT} in "kill -9 $(lsof -ti:{PORT})"
+export interface CommandVariable {
+  name: string;          // "PORT"
+  defaultValue: string;  // "8080"  ← copied to clipboard when user doesn't fill in
+  description: string;   // "Target port number"
+}
+
 export interface Command {
   id: string;           // Unique stable ID, e.g. "linux-kill-port"
   category: CategoryId;
   command: string;      // The actual code/command string to copy
+                        // Template syntax: {VARIABLE_NAME}, e.g. "kill -9 $(lsof -ti:{PORT})"
   title: string;        // Short human-readable label
   description: string;  // Fun, unique explanation (locale-aware)
   aliases: string[];    // Natural language search triggers (locale-aware)
@@ -34,6 +42,8 @@ export interface Command {
   isDangerous?: boolean;// Shows ⚠ badge and fun warning in description
   platform?: 'linux' | 'macos' | 'windows' | 'all'; // OS restriction
   popularity?: number;  // 0–100, used for initial sort before search
+  variables?: CommandVariable[]; // Template variables — shown as highlighted chips in ResultCard
+                                 // Copy substitutes defaultValue if user has not filled in
 }
 
 export interface Category {
@@ -193,21 +203,76 @@ import { ALL_COMMANDS_EN } from '../en';
 import linuxKo from './linux.json';
 // ...all others
 
-const KO_MAP = new Map(
-  [...linuxKo, ...macosKo /* etc */].map(k => [k.id, k])
+// Explicit type for KO locale files — partial Command, locale fields only
+interface CommandLocale {
+  id: string;
+  title: string;
+  description: string;
+  aliases: string[];
+}
+
+const KO_MAP = new Map<string, CommandLocale>(
+  ([...linuxKo, ...macosKo /* etc */] as CommandLocale[]).map(k => [k.id, k])
 );
 
 // Merge: take base from EN, override locale fields from KO
 export const ALL_COMMANDS_KO: Command[] = ALL_COMMANDS_EN.map(cmd => {
   const ko = KO_MAP.get(cmd.id);
-  if (!ko) return cmd; // fallback to EN if KO missing
+  if (!ko) return cmd; // fallback to EN if KO entry is missing
   return { ...cmd, title: ko.title, description: ko.description, aliases: ko.aliases };
 });
 ```
 
 ---
 
+## Build-Time EN/KO Parity Validation (`scripts/validate-data.ts`)
+
+Run this before every release to catch missing or orphaned translations:
+
+```ts
+// scripts/validate-data.ts — run with: npx tsx scripts/validate-data.ts
+import { ALL_COMMANDS_EN } from '../src/data/en';
+import linuxKo from '../src/data/ko/linux.json';
+// ...all ko imports
+
+const enIds = new Set(ALL_COMMANDS_EN.map(c => c.id));
+const koEntries = [...linuxKo /* ...all ko arrays */];
+const koIds = new Set(koEntries.map((c: any) => c.id));
+
+const missingInKo = [...enIds].filter(id => !koIds.has(id));
+const orphansInKo  = [...koIds].filter(id => !enIds.has(id));
+
+if (missingInKo.length) {
+  console.error('❌ KO translation missing for:', missingInKo);
+  process.exit(1);
+}
+if (orphansInKo.length) {
+  console.warn('⚠️  KO has orphan entries (no EN counterpart):', orphansInKo);
+}
+console.log(`✅ EN/KO parity OK — ${enIds.size} commands all translated.`);
+```
+
+Add to `package.json` scripts:
+```json
+"validate:data": "tsx scripts/validate-data.ts"
+```
+
+---
+
 ## Performance Consideration
 - All JSON files are **statically imported** at build time → zero runtime fetch latency
-- Fuse.js index is built **once** at app init, stored in Zustand, never rebuilt
+- Fuse.js index is rebuilt when **category or language changes** (not on every keystroke)
+  → Fuse instances are cached by `${language}-${category}` key — see Plan 04
 - Total estimated data size: ~200 commands × ~500 bytes = ~100KB (acceptable)
+
+### Future: `import.meta.glob` (optional improvement)
+When the number of categories grows beyond ~12, replace manual imports with:
+```ts
+// src/data/en/index.ts
+const modules = import.meta.glob<{ default: Command[] }>('./en/*.json', { eager: true });
+export const ALL_COMMANDS_EN = Object.values(modules)
+  .flatMap(m => m.default)
+  .sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
+```
+Benefit: adding a new `rust.json` requires zero changes to `index.ts`.
+Tradeoff: slightly weaker TypeScript inference on the imported data.

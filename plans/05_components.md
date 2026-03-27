@@ -4,25 +4,26 @@
 
 ```
 App
-├── FloatingCanvas          (background layer, fixed position)
-│   ├── FloatingCodeSnippet × N
-│   └── FloatingDeveloperCard
+├── FloatingCanvas                 (background layer, fixed position)
+│   ├── StarField                  (CSS star field — Layer 1)
+│   ├── FloatingCodeSnippet × N    (Layer 2)
+│   └── FloatingContributorCard × N (Layer 3, probabilistic)
+│       └── EasterEggModal         (on click)
 │
 ├── Header
 │   └── LanguageToggle
 │
-├── HeroSection              (title + subtitle)
+├── HeroSection                    (title + subtitle)
 │
-├── SearchContainer          (feature orchestrator)
+├── SearchContainer                (onKeyDown handler lives here)
 │   ├── CategoryTabs
-│   └── SearchBar
+│   ├── SearchBar                  (Korean IME composition handling)
+│   └── ResultList                 (INSIDE SearchContainer — required for keyboard nav)
+│       └── ResultCard × N
+│           ├── DangerBadge        (conditional)
+│           └── CopyButton
 │
-├── ResultList               (virtualized)
-│   └── ResultCard × N
-│       ├── DangerBadge      (conditional)
-│       └── CopyButton
-│
-├── AdSkeleton               (CLS-safe ad placeholder)
+├── AdSkeleton                     (CLS-safe ad placeholder)
 │
 └── Footer
 ```
@@ -80,7 +81,18 @@ backdrop-blur: backdrop-blur-md bg-bg-base/60
 
 ### `SearchContainer`
 **Props:** none (orchestrates store + hooks)
-**Responsibilities:** Lay out `CategoryTabs` above `SearchBar`
+**Responsibilities:** Lay out `CategoryTabs`, `SearchBar`, and `ResultList`
+
+```tsx
+// onKeyDown on the container div — catches ArrowUp/Down/Enter/Escape
+// from ANY focused child (SearchBar, CopyButton, ResultCard)
+// because all children are DOM descendants → events bubble up correctly
+<div onKeyDown={handleKeyDown}>
+  <CategoryTabs />
+  <SearchBar />
+  <ResultList results={results} />   // ← ResultList is a child, not a sibling
+</div>
+```
 
 ---
 
@@ -123,28 +135,40 @@ backdrop-blur: backdrop-blur-md bg-bg-base/60
 **Props:** none (reads/writes `useSearchStore`)
 
 ```tsx
-// Input: controlled, value=query, onChange=setQuery (NO debounce)
-// Icon: Search (lucide) left-aligned
-// Clear button: X icon, appears when query.length > 0
-// Keyboard: Escape → clear query
+// IMPORTANT: Two separate state values to handle Korean IME correctly
+// - inputValue (local useState): always reflects what's in the input box
+// - query (Zustand store): only updated when NOT composing
+//
+// This prevents macOS Korean IME issues:
+//   1. Duplicate characters on composition end
+//   2. Half-composed syllables (ㅍ, 폿) triggering noisy search results
+
+const [inputValue, setInputValue] = useState('');
+const isComposing = useRef(false);  // useRef, NOT useState (no re-render on change)
+
+// onChange: always update display, conditionally update search
+// onCompositionStart: set flag — suppress search until composition ends
+// onCompositionEnd: clear flag + commit final value to search store
+
+// Icon: Search (lucide) left-aligned, text-text-muted → text-accent when typing
+// Clear button: X icon, appears when inputValue.length > 0, clears both states
+// Escape key: handled at SearchContainer level (onKeyDown bubbles up)
 
 // Focus ring: ring-2 ring-accent
-// Transition: border-color, box-shadow via spring (use CSS transition, not Framer)
-// font: font-mono (feels like a terminal)
+// Transition: border-color, box-shadow via CSS transition (not Framer)
+// font: font-mono (terminal feel)
 // placeholder: t('search.placeholder')
+// maxLength: 80 (prevents extreme-length queries that degrade Fuse bitap)
 ```
 
 ---
 
 ### `ResultList`
 **Props:** `results: SearchResult[]`
-**Uses:** `@tanstack/react-virtual` (windowed rendering)
+**Note:** Rendered as a child of `SearchContainer` (not App) — required for keyboard nav bubble chain.
+No virtualization — results capped at 50, DOM cost negligible.
 
 ```tsx
-// Virtualized: only renders visible cards (window of ~10)
-// estimateSize: () => 88  (matches ResultCard min-height)
-// overscan: 3             (pre-render 3 above/below viewport)
-
 // Empty state (results.length === 0 && query):
 //   Show "No results for '...' 🤔" with subtle fade-in
 
