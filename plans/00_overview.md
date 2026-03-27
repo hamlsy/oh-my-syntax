@@ -92,3 +92,5 @@ Think: Raycast / Spotlight — but for CLI commands, language snippets, and "wha
 - `07_i18n.md` — internationalization
 - `08_performance.md` — performance strategies
 - `09_roadmap.md` — phased implementation plan
+- `10_deployment.md` — Vercel + GitHub Actions CI/CD
+- `11_seo.md` — SEO & Google search visibility
