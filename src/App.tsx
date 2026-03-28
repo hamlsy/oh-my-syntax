@@ -5,6 +5,7 @@ import { FloatingCanvas } from '@/features/background/FloatingCanvas';
 import { EasterEggModal } from '@/features/background/EasterEggModal';
 import { HeroSection } from '@/features/hero/HeroSection';
 import { SearchContainer } from '@/features/search/SearchContainer';
+import { RecentCommandsSection } from '@/features/recent/RecentCommandsSection';
 import { AdSkeleton } from '@/components/ui/AdSkeleton';
 
 function App() {
@@ -17,8 +18,11 @@ function App() {
       <div className="relative z-10 min-h-screen flex flex-col">
         <Header />
 
+        {/* C-1: no motion.div layout here — it would re-animate on every
+            search keystroke as ResultList height changes inside SearchContainer */}
         <main className="flex-1 w-full max-w-3xl mx-auto px-4 md:px-6">
           <HeroSection />
+          <RecentCommandsSection />
           <SearchContainer />
 
           {/* AdSense placeholder — fixed height prevents CLS */}

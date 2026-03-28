@@ -2,10 +2,17 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SPRING } from '@/constants/animation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useRecentCommandsStore } from '@/store/useRecentCommandsStore';
+import { cn } from '@/utils/classNames';
 
 export function HeroSection() {
   const { t } = useTranslation();
   const isReduced = useReducedMotion();
+
+  // Compact mode when user has any recent commands — reduces bottom padding
+  // to create natural visual proximity with the RecentCommandsSection below.
+  // Uses length > 0 (not isVisible) so hero stays compact even while searching.
+  const compact = useRecentCommandsStore(s => s.recentCommands.length > 0);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -23,8 +30,12 @@ export function HeroSection() {
       };
 
   return (
+    // Mi-3: layout="position" animates the hero's position when compact changes,
+    // preventing an instant jump when RecentCommandsSection appears for the first time.
     <motion.div
-      className="text-center py-16 px-4"
+      layout="position"
+      transition={SPRING.smooth}
+      className={cn('text-center px-4', compact ? 'pt-16 pb-6' : 'py-16')}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
