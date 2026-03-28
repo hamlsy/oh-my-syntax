@@ -7,20 +7,29 @@ import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 import { useQuerySync } from '@/hooks/useQuerySync';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useSearchStore } from '@/store/useSearchStore';
+import { useRecentCommandsStore } from '@/store/useRecentCommandsStore';
 import { useHighlightedResultScroll } from '@/hooks/useHighlightedResultScroll';
+import type { SearchResult } from '@/types/command';
 
 export function SearchContainer() {
   const results = useCommandSearch();
   const highlightedIndex = useSearchStore(s => s.highlightedIndex);
   const resetSearch = useSearchStore(s => s.resetSearch);
   const { copy } = useCopyToClipboard();
+  const addRecentCommand = useRecentCommandsStore(s => s.addRecentCommand);
 
   useQuerySync();
   useHighlightedResultScroll(highlightedIndex);
 
-  const handleCopy = useCallback((command: string) => {
-    void copy(command);
-  }, [copy]);
+  const handleCopy = useCallback((result: SearchResult) => {
+    void copy(result.command.command);
+    addRecentCommand({
+      commandId: result.command.id,
+      command:   result.command.command,
+      title:     result.command.title,
+      category:  result.command.category,
+    });
+  }, [copy, addRecentCommand]);
 
   const { handleKeyDown } = useKeyboardNav({
     results,

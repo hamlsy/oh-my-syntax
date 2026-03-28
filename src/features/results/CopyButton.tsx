@@ -3,23 +3,33 @@ import { Clipboard, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { useTelemetry } from '@/hooks/useTelemetry';
+import { useRecentCommandsStore } from '@/store/useRecentCommandsStore';
 import { SPRING } from '@/constants/animation';
 import { cn } from '@/utils/classNames';
 import { Tooltip } from '@/components/ui/Tooltip';
+import type { CategoryId } from '@/types/command';
 
 interface CopyButtonProps {
-  command: string;
-  commandId: string;
+  command:    string;
+  commandId:  string;
+  title:      string;
+  category:   Exclude<CategoryId, 'all'>;
 }
 
-export function CopyButton({ command, commandId }: CopyButtonProps) {
+export function CopyButton({ command, commandId, title, category }: CopyButtonProps) {
   const { t } = useTranslation();
   const { copied, copy } = useCopyToClipboard();
   const { track } = useTelemetry();
+  const addRecentCommand = useRecentCommandsStore(s => s.addRecentCommand);
 
   const handleCopy = async () => {
-    await copy(command);
-    track(commandId);
+    try {
+      await copy(command);
+      track(commandId);
+      addRecentCommand({ commandId, command, title, category });
+    } catch {
+      // clipboard failure — silent
+    }
   };
 
   return (

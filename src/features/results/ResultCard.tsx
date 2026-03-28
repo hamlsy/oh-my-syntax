@@ -46,7 +46,12 @@ export const ResultCard = memo(function ResultCard({ result, isHighlighted, inde
 
       {/* Right: copy button */}
       <div className="shrink-0 mt-0.5">
-        <CopyButton command={command.command} commandId={command.id} />
+        <CopyButton
+          command={command.command}
+          commandId={command.id}
+          title={command.title}
+          category={command.category}
+        />
       </div>
     </motion.div>
   );

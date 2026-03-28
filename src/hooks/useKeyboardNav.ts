@@ -3,8 +3,8 @@ import { useSearchStore } from '@/store/useSearchStore';
 import type { SearchResult } from '@/types/command';
 
 interface UseKeyboardNavOptions {
-  results: SearchResult[];
-  onCopy: (command: string) => void;
+  results:      SearchResult[];
+  onCopy:       (result: SearchResult) => void;
   onClearQuery: () => void;
 }
 
@@ -32,11 +32,10 @@ export function useKeyboardNav({ results, onCopy, onClearQuery }: UseKeyboardNav
       }
       case 'Enter': {
         e.preventDefault();
-        if (highlightedIndex >= 0 && results[highlightedIndex]) {
-          onCopy(results[highlightedIndex].command.command);
-        } else if (results[0]) {
-          onCopy(results[0].command.command);
-        }
+        const target = highlightedIndex >= 0
+          ? results[highlightedIndex]
+          : results[0];
+        if (target) onCopy(target);
         break;
       }
       case 'Escape': {
