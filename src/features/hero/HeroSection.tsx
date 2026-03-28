@@ -1,9 +1,50 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SPRING } from '@/constants/animation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRecentCommandsStore } from '@/store/useRecentCommandsStore';
 import { cn } from '@/utils/classNames';
+
+const MASCOT_PATH = '/mascot.gif';
+
+function MascotDisplay({ isReduced }: { isReduced: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={isReduced ? { duration: 0 } : SPRING.entrance}
+      className="flex justify-center mt-8 mb-2"
+    >
+      {/* Fixed-size container prevents CLS regardless of image load state */}
+      <div className="relative w-40 h-40 md:w-48 md:h-48">
+        {!errored && (
+          <img
+            src={MASCOT_PATH}
+            alt="Oh My Syntax mascot"
+            onLoad={() => setLoaded(true)}
+            onError={() => setErrored(true)}
+            className={cn(
+              'w-full h-full object-contain transition-opacity duration-300',
+              loaded ? 'opacity-100' : 'opacity-0',
+            )}
+          />
+        )}
+
+        {/* Placeholder shown while loading or when gif is missing */}
+        {(!loaded || errored) && (
+          <div className="absolute inset-0 rounded-2xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-2 bg-surface/40">
+            <span className="text-3xl select-none">🐱</span>
+            <span className="text-text-muted text-xs font-mono">mascot.gif</span>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
 
 export function HeroSection() {
   const { t } = useTranslation();
@@ -56,9 +97,13 @@ export function HeroSection() {
         {t('hero.subtitle')}
       </motion.p>
 
+      <motion.div variants={itemVariants}>
+        <MascotDisplay isReduced={isReduced} />
+      </motion.div>
+
       <motion.p
         variants={itemVariants}
-        className="text-text-muted text-sm font-mono"
+        className="text-text-muted text-sm font-mono mt-6"
       >
         {t('hero.hint')}
       </motion.p>
