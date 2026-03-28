@@ -18,7 +18,7 @@ export interface CommandVariable {
 
 export interface Command {
   id: string;
-  category: CategoryId;
+  category: Exclude<CategoryId, 'all'>;
   command: string;
   title: string;
   description: string;

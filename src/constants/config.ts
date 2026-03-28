@@ -4,6 +4,8 @@ export const COPY_REVERT_MS = 2000;
 export const MAX_RESULTS = 50;
 export const DEFAULT_RESULTS = 20;
 export const MAX_QUERY_LENGTH = 80;
+export const MAX_RECENT_COMMANDS = 10;
+export const RECENT_COPY_REVERT_MS = 800;
 
 export interface Contributor {
   id: string;

@@ -1,4 +1,4 @@
-import type { Category } from '@/types/command';
+import type { Category, CategoryId } from '@/types/command';
 
 export const CATEGORIES: Category[] = [
   { id: 'all',        labelKey: 'category.all',        icon: 'LayoutGrid',  color: 'accent'   },
@@ -12,3 +12,12 @@ export const CATEGORIES: Category[] = [
   { id: 'python',     labelKey: 'category.python',     icon: 'Code2',       color: '#3572A5'  },
   { id: 'javascript', labelKey: 'category.javascript', icon: 'FileCode',    color: '#f7df1e'  },
 ];
+
+// Single source of truth for category colors used in RecentCommandRow.
+// 'all' is excluded — it uses a CSS variable ('accent'), not a hex color.
+export const CATEGORY_COLOR_MAP: Record<Exclude<CategoryId, 'all'>, string> =
+  Object.fromEntries(
+    CATEGORIES
+      .filter((c) => c.id !== 'all')
+      .map((c) => [c.id, c.color])
+  ) as Record<Exclude<CategoryId, 'all'>, string>;
