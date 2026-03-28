@@ -1,0 +1,19 @@
+[
+  { "id": "java-stream-filter", "title": "Stream 필터 후 수집", "description": "Java Streams: 일치하는 요소로 목록 필터. 함수형이고 읽기 쉬움.", "aliases": ["stream filter", "java stream", "리스트 필터 java", "스트림 필터"] },
+  { "id": "java-stream-map", "title": "메서드 참조로 Stream 매핑", "description": "메서드 참조로 모든 요소 변환. 깔끔하고 간결.", "aliases": ["stream map", "java map", "리스트 변환 java", "메서드 참조"] },
+  { "id": "java-optional-orelse", "title": "폴백이 있는 Optional 체인", "description": "기본값이 있는 null 안전 연산 체인. NullPointerException 굿바이.", "aliases": ["optional", "java optional", "null 안전 java", "orElse"] },
+  { "id": "java-list-of", "title": "불변 리스트 생성 (Java 9+)", "description": "한 줄로 불변 리스트 생성. 추가/삭제 불가, 빠르고 안전.", "aliases": ["리스트 생성 java", "불변 리스트", "java 리스트"] },
+  { "id": "java-map-computeifabsent", "title": "Map computeIfAbsent 패턴", "description": "맵에서 리스트를 가져오거나 생성. 그룹화 작업의 필수.", "aliases": ["computeIfAbsent", "맵 가져오거나 생성", "그룹화 맵 java"] },
+  { "id": "java-string-join", "title": "리스트를 문자열로 합치기", "description": "구분자로 문자열 컬렉션 합치기. 깔끔하고 효율적.", "aliases": ["문자열 합치기", "string join java", "리스트 to 문자열"] },
+  { "id": "java-collectors-groupby", "title": "Collectors로 속성 기준 그룹화", "description": "속성으로 스트림 요소 그룹화. Java에서 SQL GROUP BY 방법.", "aliases": ["groupingBy", "그룹화 java", "스트림 그룹", "collect 그룹"] },
+  { "id": "java-record", "title": "Record 정의 (Java 16+)", "description": "자동 생성 생성자, 게터, equals, hashCode가 있는 불변 데이터 클래스.", "aliases": ["record java", "java record", "데이터 클래스 java"] },
+  { "id": "java-instanceof-pattern", "title": "패턴 매칭 instanceof (Java 16+)", "description": "instanceof 검사에서 바로 캐스팅. 별도 캐스트 없음, ClassCastException 없음.", "aliases": ["instanceof 패턴", "패턴 매칭 java", "instanceof 캐스트"] },
+  { "id": "java-switch-expression", "title": "Switch 표현식 (Java 14+)", "description": "문장이 아닌 표현식으로서의 switch. 화살표 구문, 폴스루 없음.", "aliases": ["switch 표현식", "java switch", "모던 switch"] },
+  { "id": "java-stream-reduce", "title": "숫자 리스트 합산", "description": "스트림으로 정수 리스트 합산. mapToInt + sum이 reduce보다 깔끔.", "aliases": ["리스트 합산 java", "스트림 합산", "숫자 합계"] },
+  { "id": "java-try-with-resources", "title": "Try-with-resources", "description": "사용 후 리소스 자동 닫기. finally 블록 필요 없음. 항상 이걸 사용하세요.", "aliases": ["try with resources", "autocloseable", "java try", "리소스 닫기"] },
+  { "id": "java-completable-future", "title": "CompletableFuture로 비동기 체인", "description": "체인된 논블로킹 비동기 작업. Java의 프로미스 답.", "aliases": ["completable future", "java 비동기", "future 체인"] },
+  { "id": "java-string-format", "title": "문자열 포맷", "description": "printf 스타일 포맷의 String.format. 클래식하고 신뢰할 수 있음.", "aliases": ["문자열 포맷 java", "printf java", "문자열 보간 java"] },
+  { "id": "java-collections-sort", "title": "속성으로 리스트 정렬 (내림차순)", "description": "속성으로 객체 정렬, 역순. Comparator.comparing은 깔끔하고 읽기 좋음.", "aliases": ["정렬 java", "리스트 정렬", "객체 정렬 java"] },
+  { "id": "java-spring-restcontroller", "title": "Spring Boot REST 컨트롤러", "description": "기본 Spring REST 컨트롤러 템플릿. Spring Boot의 빵과 버터.", "aliases": ["rest 컨트롤러", "spring 컨트롤러", "spring boot", "rest 엔드포인트 java"] },
+  { "id": "java-spring-service", "title": "생성자 주입이 있는 Spring Service", "description": "생성자 주입과 @Transactional이 있는 Spring 서비스. 올바른 방법.", "aliases": ["spring service", "서비스 java", "생성자 주입", "spring bean"] }
+]

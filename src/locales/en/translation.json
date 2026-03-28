@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "title": "Oh My Syntax!",
+    "subtitle": "Type anything. Copy everything.",
+    "hint": "Try: \"kill port\", \"git undo\", \"docker clean up\""
+  },
+  "search": {
+    "placeholder": "Search commands, shortcuts, snippets…",
+    "noResults": "No results for \"{{query}}\" 🤔",
+    "noResultsHint": "Try different keywords or browse a category"
+  },
+  "category": {
+    "all": "All",
+    "linux": "Linux",
+    "macos": "macOS",
+    "windows": "Windows",
+    "docker": "Docker",
+    "kubernetes": "K8s",
+    "git": "Git",
+    "java": "Java",
+    "python": "Python",
+    "javascript": "JavaScript"
+  },
+  "copy": {
+    "idle": "Copy",
+    "success": "Copied!",
+    "tooltip": "Copy to clipboard"
+  },
+  "danger": {
+    "badge": "Danger",
+    "tooltip": "This command can cause serious damage. Use with caution."
+  },
+  "language": {
+    "toggle": "Language",
+    "en": "EN",
+    "ko": "KO"
+  },
+  "easter": {
+    "cardLabel": "Made by",
+    "modalTitle": "Developer Info",
+    "github": "View on GitHub"
+  },
+  "footer": {
+    "tagline": "Built for developers who forget things.",
+    "keyboard": "Use ↑ ↓ to navigate, Enter to copy, Esc to clear"
+  },
+  "ad": {
+    "label": "Advertisement"
+  }
+}

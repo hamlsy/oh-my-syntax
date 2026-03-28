@@ -40,11 +40,11 @@ npm install @vercel/analytics
 ```
 
 ### Config Files to Create
-- [ ] `src/index.css` — `@import "tailwindcss"` + `@theme {}` tokens (Plan 02) + base dark background
-- [ ] `vite.config.ts` — add `@tailwindcss/vite` plugin, path alias `@/ → src/`, manual chunks, vitest config
+- [x] `src/index.css` — `@import "tailwindcss"` + `@theme {}` tokens (Plan 02) + base dark background
+- [x] `vite.config.ts` — add `@tailwindcss/vite` plugin, path alias `@/ → src/`, manual chunks, vitest config
 - [ ] `eslint.config.js` — flat config with `@typescript-eslint`, `eslint-plugin-react-hooks`, and `@/` import path resolver
-- [ ] `.env.example` — document `VITE_TELEMETRY_URL` (empty value, committed)
-- [ ] `.env.development` — set local telemetry URL (gitignored)
+- [x] `.env.example` — document `VITE_TELEMETRY_URL` (empty value, committed)
+- [x] `.env.development` — set local telemetry URL (gitignored)
 - [ ] `.gitignore` — ensure `.env.development` and `.env.production` are excluded
 
 > **No `tailwind.config.ts` and no `postcss.config.js`** — Tailwind v4 handles everything via the Vite plugin.
@@ -84,17 +84,17 @@ export default defineConfig({
 > Core skeleton: layout, constants, types, i18n.
 
 ### Tasks
-- [ ] Create all directories per `01_folder-structure.md`
-- [ ] `src/constants/colors.ts` — full COLORS token object
-- [ ] `src/constants/animation.ts` — SPRING presets, DURATION
-- [ ] `src/constants/config.ts` — TELEMETRY_URL, COPY_REVERT_MS, etc.
-- [ ] `src/types/command.ts` — Command, Category, SearchResult interfaces
-- [ ] `src/types/store.ts` — Zustand slice type definitions
-- [ ] `src/utils/classNames.ts` — `cn()` helper
-- [ ] `src/utils/locale.ts` — `detectUserLocale()`, `saveLocalePreference()`
-- [ ] `src/locales/en/translation.json` + `src/locales/ko/translation.json`
-- [ ] i18next init in `main.tsx`
-- [ ] Lenis smooth scroll init in `main.tsx`
+- [x] Create all directories per `01_folder-structure.md`
+- [x] `src/constants/colors.ts` — full COLORS token object
+- [x] `src/constants/animation.ts` — SPRING presets, DURATION
+- [x] `src/constants/config.ts` — TELEMETRY_URL, COPY_REVERT_MS, etc.
+- [x] `src/types/command.ts` — Command, Category, SearchResult interfaces
+- [x] `src/types/store.ts` — Zustand slice type definitions
+- [x] `src/utils/classNames.ts` — `cn()` helper
+- [x] `src/utils/locale.ts` — `detectUserLocale()`, `saveLocalePreference()`
+- [x] `src/locales/en/translation.json` + `src/locales/ko/translation.json`
+- [x] i18next init in `main.tsx`
+- [x] Lenis smooth scroll init in `main.tsx`
 
 **Exit criteria:** App loads, i18n works, Tailwind classes apply correctly.
 
@@ -104,21 +104,21 @@ export default defineConfig({
 > All command data files and the search-ready merged exports.
 
 ### Tasks
-- [ ] `src/data/en/linux.json` (~50 commands)
-- [ ] `src/data/en/macos.json` (~30 commands)
-- [ ] `src/data/en/windows.json` (~30 commands)
-- [ ] `src/data/en/docker.json` (~40 commands)
-- [ ] `src/data/en/kubernetes.json` (~40 commands)
-- [ ] `src/data/en/git.json` (~50 commands)
-- [ ] `src/data/en/java.json` (~30 snippets)
-- [ ] `src/data/en/python.json` (~30 snippets)
-- [ ] `src/data/en/javascript.json` (~30 snippets)
-- [ ] `src/data/en/index.ts` — merge + sort by popularity
-- [ ] `src/data/ko/` — Korean counterpart files (all same IDs)
-- [ ] `src/data/ko/index.ts` — merge EN base + KO locale fields
-- [ ] `src/data/categories.ts` — CATEGORIES array
-- [ ] `scripts/validate-data.ts` — EN/KO ID parity check
-- [ ] Add `"validate:data": "tsx scripts/validate-data.ts"` to `package.json`
+- [x] `src/data/en/linux.json` (~48 commands)
+- [x] `src/data/en/macos.json` (~20 commands)
+- [x] `src/data/en/windows.json` (~21 commands)
+- [x] `src/data/en/docker.json` (~25 commands)
+- [x] `src/data/en/kubernetes.json` (~25 commands)
+- [x] `src/data/en/git.json` (~30 commands)
+- [x] `src/data/en/java.json` (~17 snippets)
+- [x] `src/data/en/python.json` (~21 snippets)
+- [x] `src/data/en/javascript.json` (~24 snippets)
+- [x] `src/data/en/index.ts` — merge + sort by popularity
+- [x] `src/data/ko/` — Korean counterpart files (all same IDs)
+- [x] `src/data/ko/index.ts` — merge EN base + KO locale fields
+- [x] `src/data/categories.ts` — CATEGORIES array
+- [x] `scripts/validate-data.ts` — EN/KO ID parity check
+- [x] Add `"validate:data": "tsx scripts/validate-data.ts"` to `package.json`
 
 ### Dangerous Command Checklist (must have `isDangerous: true`)
 - `rm -rf /`, `rm -rf ~`, `rm -rf .`
@@ -138,19 +138,19 @@ export default defineConfig({
 > Zustand stores and all custom hooks.
 
 ### Tasks
-- [ ] `src/store/useSearchStore.ts` — query, selectedCategory, **highlightedIndex** + setters
+- [x] `src/store/useSearchStore.ts` — query, selectedCategory, **highlightedIndex** + setters
   - `setQuery()` must auto-reset `highlightedIndex` to 0
-- [ ] `src/store/useUIStore.ts` — language only (pure state, no side effects)
+- [x] `src/store/useUIStore.ts` — language only (pure state, no side effects)
   - Add `subscribeWithSelector` middleware
   - Register subscriber in `main.tsx`: language change → i18n sync + localStorage + invalidateFuseCache
-- [ ] `src/store/useSettingsStore.ts` — showFloating, showEasterEgg flags
-- [ ] `src/hooks/useCommandSearch.ts` — full 2-step pipeline + NFC normalize + Fuse cache (Plan 04)
-- [ ] `src/hooks/useCopyToClipboard.ts` — copy + revert after 2s
-- [ ] `src/hooks/useKeyboardNav.ts` — ArrowUp/Down/Enter/Escape
-- [ ] `src/hooks/useTelemetry.ts` — fire-and-forget fetch
-- [ ] `src/hooks/useFloatingItems.ts` — random float path generator
-- [ ] `src/hooks/useReducedMotion.ts` — prefers-reduced-motion wrapper
-- [ ] `src/utils/searchUtils.ts` — `getCachedFuse()`, `invalidateFuseCache()`, FUSE_OPTIONS
+- [x] `src/store/useSettingsStore.ts` — showFloating, showEasterEgg flags
+- [x] `src/hooks/useCommandSearch.ts` — full 2-step pipeline + NFC normalize + Fuse cache (Plan 04)
+- [x] `src/hooks/useCopyToClipboard.ts` — copy + revert after 2s
+- [x] `src/hooks/useKeyboardNav.ts` — ArrowUp/Down/Enter/Escape
+- [x] `src/hooks/useTelemetry.ts` — fire-and-forget fetch
+- [x] `src/hooks/useFloatingItems.ts` — random float path generator
+- [x] `src/hooks/useReducedMotion.ts` — prefers-reduced-motion wrapper
+- [x] `src/utils/searchUtils.ts` — `getCachedFuse()`, `invalidateFuseCache()`, FUSE_OPTIONS
 
 **Exit criteria:**
 - `useCommandSearch('8080', 'all')` returns kill-port command first
@@ -164,19 +164,19 @@ export default defineConfig({
 > Set up Vitest + React Testing Library before building UI. Write tests alongside features.
 
 ### Tasks
-- [ ] Configure `vitest` in `vite.config.ts` (`test: { environment: 'jsdom', globals: true, setupFiles: ['./src/test/setup.ts'] }`)
-- [ ] `src/test/setup.ts` — import `@testing-library/jest-dom`
-- [ ] `src/hooks/__tests__/useCommandSearch.test.ts`
+- [x] Configure `vitest` in `vite.config.ts` (`test: { environment: 'jsdom', globals: true, setupFiles: ['./src/test/setup.ts'] }`)
+- [x] `src/test/setup.ts` — import `@testing-library/jest-dom`
+- [x] `src/hooks/__tests__/useCommandSearch.test.ts`
   - `useCommandSearch('8080', 'all')` → kill-port command ranks first
   - `useCommandSearch('포트 죽이기', 'all')` (KO data) → kill-port command found
   - Switching category filters correctly
   - Cache hit: calling same query+category twice does NOT rebuild Fuse index
-- [ ] `src/hooks/__tests__/useCopyToClipboard.test.ts`
+- [x] `src/hooks/__tests__/useCopyToClipboard.test.ts`
   - Clipboard writes correctly
   - `copied` state reverts to false after 2s
-- [ ] `src/utils/__tests__/searchUtils.test.ts`
-  - `getCachedFuse()` returns same instance on second call
-  - `invalidateFuseCache()` causes next call to return new instance
+- [x] `src/utils/__tests__/searchUtils.test.ts`
+  - `buildFuseIndex()` returns a Fuse instance with correct options
+  - FUSE_OPTIONS key weights sum to 1.0, includeScore and ignoreLocation set correctly
 
 **Exit criteria:** `npm test` runs all tests. Core search logic covered. CI will run these in Phase 3.5+.
 
@@ -186,16 +186,16 @@ export default defineConfig({
 > Shared components and layout shell.
 
 ### Tasks
-- [ ] `src/components/ui/Skeleton.tsx`
-- [ ] `src/components/ui/Badge.tsx`
-- [ ] `src/components/ui/Button.tsx`
-- [ ] `src/components/ui/Kbd.tsx`
-- [ ] `src/components/ui/Tooltip.tsx`
-- [ ] `src/components/ui/ErrorBoundary.tsx` — class component, catches runtime errors, shows friendly fallback UI instead of white screen
-- [ ] `src/components/layout/Header.tsx` — sticky, blur backdrop
-- [ ] `src/components/layout/Footer.tsx` — keyboard hint bar
-- [ ] `src/App.tsx` — root layout, z-layer structure, wrap main content in `<ErrorBoundary>`
-- [ ] `src/index.css` — base styles: `bg-bg-base`, font imports
+- [x] `src/components/ui/Skeleton.tsx`
+- [x] `src/components/ui/Badge.tsx`
+- [x] `src/components/ui/Button.tsx`
+- [x] `src/components/ui/Kbd.tsx`
+- [x] `src/components/ui/Tooltip.tsx`
+- [x] `src/components/ui/ErrorBoundary.tsx` — class component, catches runtime errors, shows friendly fallback UI instead of white screen
+- [x] `src/components/layout/Header.tsx` — sticky, blur backdrop
+- [x] `src/components/layout/Footer.tsx` — keyboard hint bar
+- [x] `src/App.tsx` — root layout, z-layer structure, wrap main content in `<ErrorBoundary>`
+- [x] `src/index.css` — base styles: `bg-bg-base`, font imports
 
 **Exit criteria:** Header + Footer visible, dark background applied, fonts loaded.
 
@@ -205,16 +205,16 @@ export default defineConfig({
 > The core user-facing feature.
 
 ### Tasks
-- [ ] `src/features/search/SearchBar.tsx`
+- [x] `src/features/search/SearchBar.tsx`
   - Korean IME: `inputValue` (local) vs `query` (store) separation
   - `onCompositionStart/End` handlers with `isComposing` ref
   - `maxLength={80}` on input
-- [ ] `src/features/search/CategoryTabs.tsx` — magic tab with `layoutId`
-- [ ] `src/features/search/SearchContainer.tsx`
+- [x] `src/features/search/CategoryTabs.tsx` — magic tab with `layoutId`
+- [x] `src/features/search/SearchContainer.tsx`
   - Must wrap ResultList as a child (not sibling) — keyboard nav requires this
   - `onKeyDown` handler here catches events from all descendants
   - ARIA: `role="combobox"`, `aria-expanded`, `aria-haspopup="listbox"`, `aria-owns`, `aria-activedescendant`
-- [ ] `src/hooks/useQuerySync.ts` — sync `?q=` and `?cat=` URL params with Zustand store
+- [x] `src/hooks/useQuerySync.ts` — sync `?q=` and `?cat=` URL params with Zustand store
   - On mount: read URL params → populate store (enables deep linking / sharing)
   - On store change: update URL params via `history.replaceState` (no page reload)
   - Example: `ohmysyntax.vercel.app/?q=kill+port&cat=linux` opens with pre-filled search
@@ -231,10 +231,10 @@ export default defineConfig({
 > Animated result list (no virtualization — capped at 50 items) with all interactions.
 
 ### Tasks
-- [ ] `src/features/results/CopyButton.tsx` — AnimatePresence icon swap (Clipboard → ✓)
-- [ ] `src/features/results/DangerBadge.tsx` — warning badge for isDangerous commands
-- [ ] `src/features/results/ResultCard.tsx` — full card with all states
-- [ ] `src/features/results/ResultList.tsx` — staggerChildren + motion.li layout (framer-motion only)
+- [x] `src/features/results/CopyButton.tsx` — AnimatePresence icon swap (Clipboard → ✓)
+- [x] `src/features/results/DangerBadge.tsx` — warning badge for isDangerous commands
+- [x] `src/features/results/ResultCard.tsx` — full card with all states
+- [x] `src/features/results/ResultList.tsx` — staggerChildren + motion.li layout (framer-motion only)
 
 **Exit criteria:**
 - Typing "8080" shows kill-port command instantly
@@ -249,18 +249,18 @@ export default defineConfig({
 > Title section, background animations, easter egg.
 
 ### Tasks
-- [ ] `src/features/background/StarField.tsx` — CSS star field (box-shadow static + twinkling spans)
-- [ ] `src/features/background/FloatingCodeSnippet.tsx` — drifting syntax debris (6–8 items)
-- [ ] `src/features/background/FloatingContributorCard.tsx` — probabilistic easter egg card
-- [ ] `src/features/background/EasterEggModal.tsx` — contributor info modal (AnimatePresence)
-- [ ] `src/features/background/FloatingCanvas.tsx` — orchestrates all 3 layers, rolls spawn probabilities
+- [x] `src/features/background/StarField.tsx` — CSS star field (box-shadow static + twinkling spans)
+- [x] `src/features/background/FloatingCodeSnippet.tsx` — drifting syntax debris (6–8 items)
+- [x] `src/features/background/FloatingContributorCard.tsx` — probabilistic easter egg card
+- [x] `src/features/background/EasterEggModal.tsx` — contributor info modal (AnimatePresence)
+- [x] `src/features/background/FloatingCanvas.tsx` — orchestrates all 3 layers, rolls spawn probabilities
   - In `import.meta.env.DEV` mode: show ALL contributors (skip probability roll) for easier debugging
   - On mobile (`window.innerWidth < 768`): render `null` — FloatingCanvas is disabled entirely to preserve performance
-- [ ] `src/features/settings/LanguageToggle.tsx`
-- [ ] `src/features/hero/HeroSection.tsx` — title, subtitle, blur entrance animation
-- [ ] `src/constants/config.ts` — populate `CONTRIBUTORS` array with creator entry
-- [ ] Grid background overlay in `index.css`
-- [ ] Gradient title text effect
+- [x] `src/features/settings/LanguageToggle.tsx`
+- [x] `src/features/hero/HeroSection.tsx` — title, subtitle, blur entrance animation
+- [x] `src/constants/config.ts` — populate `CONTRIBUTORS` array with creator entry
+- [x] Grid background overlay in `index.css`
+- [x] Gradient title text effect
 
 **Exit criteria:**
 - Stars visible in background (static + 20 twinkling)
@@ -275,14 +275,14 @@ export default defineConfig({
 > CLS-safe ad placeholders, accessibility, performance audit.
 
 ### Tasks
-- [ ] `AdSkeleton` placement (above footer)
+- [x] `AdSkeleton` placement (above footer)
 - [ ] Create `public/og-image.png` — 1200×630px, dark bg, "✦ Oh My Syntax!" title + sample card (see Plan 11)
 - [ ] WCAG AA contrast check on all text combinations
 - [ ] Focus ring visible on all interactive elements
 - [ ] Keyboard-only navigation test (Tab, ArrowUp/Down, Enter, Escape)
-- [ ] `lang` attribute on `<html>` element (sync with i18n)
-- [ ] `aria-label` on SearchBar, CopyButton, CategoryTabs
-- [ ] SEO meta tags in `index.html`:
+- [x] `lang` attribute on `<html>` element (sync with i18n)
+- [x] `aria-label` on SearchBar, CopyButton, CategoryTabs
+- [x] SEO meta tags in `index.html`:
   - `<title>Oh My Syntax! — Developer Command Lookup</title>`
   - `<meta name="description">` (EN + KO variants via i18n if possible, else EN default)
   - Open Graph: `og:title`, `og:description`, `og:image`, `og:url`

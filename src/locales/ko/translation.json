@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "title": "Oh My Syntax!",
+    "subtitle": "뭐든 타이핑하세요. 바로 복사하세요.",
+    "hint": "예시: \"포트 죽이기\", \"git 되돌리기\", \"도커 청소\""
+  },
+  "search": {
+    "placeholder": "명령어, 단축키, 스니펫 검색…",
+    "noResults": "\"{{query}}\" 에 대한 결과가 없습니다 🤔",
+    "noResultsHint": "다른 키워드로 시도하거나 카테고리를 선택해보세요"
+  },
+  "category": {
+    "all": "전체",
+    "linux": "리눅스",
+    "macos": "맥OS",
+    "windows": "윈도우",
+    "docker": "도커",
+    "kubernetes": "쿠버네티스",
+    "git": "Git",
+    "java": "자바",
+    "python": "파이썬",
+    "javascript": "자바스크립트"
+  },
+  "copy": {
+    "idle": "복사",
+    "success": "복사됨!",
+    "tooltip": "클립보드에 복사"
+  },
+  "danger": {
+    "badge": "위험",
+    "tooltip": "이 명령어는 심각한 손상을 줄 수 있습니다. 주의해서 사용하세요."
+  },
+  "language": {
+    "toggle": "언어",
+    "en": "EN",
+    "ko": "KO"
+  },
+  "easter": {
+    "cardLabel": "만든 사람",
+    "modalTitle": "개발자 정보",
+    "github": "GitHub 보기"
+  },
+  "footer": {
+    "tagline": "맨날 까먹는 개발자를 위해 만들었습니다.",
+    "keyboard": "↑ ↓ 로 이동, Enter 로 복사, Esc 로 초기화"
+  },
+  "ad": {
+    "label": "광고"
+  }
+}

@@ -1,0 +1,22 @@
+[
+  { "id": "win-kill-port", "title": "포트 프로세스 종료 (Windows)", "description": "윈도우 2단계 포트 처단. PID 먼저 찾고 kill.", "aliases": ["윈도우 포트 죽이기", "포트 점령 윈도우", "cmd 포트 킬", "포트 이미 사용 중 윈도우"] },
+  { "id": "win-kill-port-powershell", "title": "포트 프로세스 종료 (PowerShell)", "description": "PowerShell 원라이너 버전. cmd 2단계보다 우아함.", "aliases": ["파워쉘 포트 죽이기", "ps 포트 킬", "powershell 포트"] },
+  { "id": "win-list-listening-ports", "title": "리스닝 포트 목록", "description": "기기가 실제로 리스닝하는 모든 포트 확인.", "aliases": ["리스닝 포트 윈도우", "열린 포트 cmd", "netstat 윈도우"] },
+  { "id": "win-flush-dns", "title": "DNS 캐시 초기화", "description": "DNS 캐시 삭제. DNS 문제 시 첫 번째 해결책.", "aliases": ["DNS 초기화 윈도우", "dns 캐시 윈도우", "ipconfig flushdns"] },
+  { "id": "win-ipconfig", "title": "모든 네트워크 설정 표시", "description": "전체 네트워크 정보: IP, 게이트웨이, DNS, MAC 주소.", "aliases": ["ip 주소 윈도우", "네트워크 설정", "ipconfig", "윈도우 ip"] },
+  { "id": "win-list-processes", "title": "실행 중인 프로세스 찾기", "description": "프로세스 목록에서 이름으로 필터링. ps aux | grep의 윈도우 버전.", "aliases": ["프로세스 목록 윈도우", "tasklist", "프로세스 찾기 윈도우"] },
+  { "id": "win-kill-process", "title": "이름으로 프로세스 종료", "description": "실행 파일 이름으로 강제 종료. /F는 강제, 친절하게 안 물어봄.", "aliases": ["프로세스 종료 윈도우", "taskkill", "프로세스 강제 종료"] },
+  { "id": "win-dir", "title": "패턴으로 파일 찾기", "description": "재귀적으로 패턴에 맞는 파일 목록. 윈도우 find 대안.", "aliases": ["파일 찾기 윈도우", "dir 검색", "파일 검색 cmd"] },
+  { "id": "win-powershell-execution-policy", "title": "PowerShell 스크립트 허용", "description": "'이 시스템에서 스크립트가 비활성화됨' 해결. 서명된 스크립트 허용.", "aliases": ["실행 정책", "ps 스크립트 허용", "스크립트 실행 허용", "실행 정책 변경"] },
+  { "id": "win-env-variable", "title": "환경 변수 설정 (PowerShell)", "description": "현재 PowerShell 세션에서 환경 변수 설정.", "aliases": ["환경변수 설정 powershell", "윈도우 환경변수", "변수 설정 ps"] },
+  { "id": "win-mkdir", "title": "디렉토리 생성", "description": "폴더 만들기. cmd와 PowerShell 모두 작동.", "aliases": ["폴더 생성", "디렉토리 만들기 윈도우", "mkdir 윈도우"] },
+  { "id": "win-copy-file", "title": "디렉토리 재귀 복사", "description": "xcopy 전체 옵션: 서브디렉토리(/E), 폴더 생성(/I), 숨김파일(/H).", "aliases": ["xcopy", "폴더 복사 윈도우", "재귀 복사 윈도우"] },
+  { "id": "win-robocopy", "title": "강력한 파일 복사 (robocopy)", "description": "윈도우 전문가 복사법. 재시작 가능, 멀티스레드, 오류 처리.", "aliases": ["robocopy", "강력한 복사 윈도우", "미러 복사"] },
+  { "id": "win-system-info", "title": "시스템 정보 표시", "description": "윈도우 기기의 모든 것: OS 버전, RAM, 가동 시간, 핫픽스.", "aliases": ["시스템 정보 윈도우", "systeminfo", "윈도우 스펙"] },
+  { "id": "win-hosts-file", "title": "hosts 파일 열기", "description": "hosts 파일 편집. 도메인 차단, 로컬 dev 별칭 설정. 관리자로 실행!", "aliases": ["hosts 파일", "hosts 편집", "윈도우 hosts", "도메인 차단"] },
+  { "id": "win-show-hidden-files-ps", "title": "숨김 파일 표시 (PowerShell)", "description": "현재 위치의 숨김 파일 및 디렉토리 목록.", "aliases": ["숨김 파일 표시 윈도우", "숨김 파일 powershell"] },
+  { "id": "win-path-variable", "title": "PATH 항목 출력 (PowerShell)", "description": "각 PATH 항목을 한 줄씩 출력. PATH 문제 디버깅.", "aliases": ["PATH 출력 윈도우", "path 변수", "env path 윈도우"] },
+  { "id": "win-shutdown", "title": "종료 예약 (60초 후)", "description": "60초 후 컴퓨터 종료. /t 0으로 즉시 종료. /a로 취소.", "aliases": ["종료 예약", "윈도우 종료", "컴퓨터 끄기"] },
+  { "id": "win-sfc-scan", "title": "시스템 파일 검사기", "description": "손상된 시스템 파일 검사 및 복구. 관리자로 실행. 윈도우 의사.", "aliases": ["sfc", "시스템 파일 검사", "윈도우 복구", "시스템 수리"] },
+  { "id": "win-find-text", "title": "파일에서 텍스트 재귀 찾기", "description": "모든 파일에서 텍스트 재귀 검색. 윈도우 grep 대안.", "aliases": ["findstr", "grep 윈도우", "텍스트 검색 윈도우", "파일에서 텍스트 찾기"] }
+]
