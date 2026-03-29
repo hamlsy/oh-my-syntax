@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useSearchStore } from '@/store/useSearchStore';
@@ -7,9 +7,16 @@ import { MAX_QUERY_LENGTH } from '@/constants/config';
 
 export function SearchBar() {
   const { t } = useTranslation();
-  const [inputValue, setInputValue] = useState('');
+  const query = useSearchStore(s => s.query);
+  const [inputValue, setInputValue] = useState(query);
   const isComposing = useRef(false);
   const setQuery = useSearchStore(s => s.setQuery);
+
+  useEffect(() => {
+    if (!isComposing.current) {
+      setInputValue(query);
+    }
+  }, [query]);
   const resetSearch = useSearchStore(s => s.resetSearch);
   const [isFocused, setIsFocused] = useState(false);
 

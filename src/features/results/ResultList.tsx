@@ -11,18 +11,17 @@ interface ResultListProps {
 }
 
 const listVariants = {
-  hidden: {},
   visible: {
     transition: {
-      staggerChildren: DURATION.staggerDelay,
+      staggerChildren: 0.02,
     },
   },
 };
 
 const itemVariants = {
-  hidden:  { opacity: 0, y: 12 },
+  hidden:  { opacity: 0, y: 8 },
   visible: { opacity: 1, y: 0, transition: SPRING.smooth },
-  exit:    { opacity: 0, y: -6, transition: { duration: DURATION.exitFast } },
+  exit:    { opacity: 0, transition: { duration: DURATION.exitFast } },
 };
 
 const itemVariantsReduced = {
@@ -57,7 +56,9 @@ export function ResultList({ results }: ResultListProps) {
   }
 
   return (
+    // data-lenis-prevent: stop Lenis from intercepting wheel events inside this container
     <div
+      data-lenis-prevent
       style={{ maxHeight: '600px', overflowY: 'auto' }}
       className="pr-1 -mr-1"
     >
@@ -66,16 +67,16 @@ export function ResultList({ results }: ResultListProps) {
         id="result-listbox"
         className="flex flex-col gap-2"
         variants={isReduced ? undefined : listVariants}
-        initial="hidden"
         animate="visible"
         aria-label="Search results"
       >
-        <AnimatePresence mode="popLayout">
+        {/* mode="sync": simpler exit, no layout recalculation for remaining items */}
+        <AnimatePresence mode="sync">
           {results.map((result, index) => (
             <motion.li
               key={result.command.id}
-              layout
               variants={variants}
+              initial="hidden"
               exit="exit"
               role="option"
               aria-selected={index === highlightedIndex}

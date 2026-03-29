@@ -22,7 +22,8 @@
     "javascript": "자바스크립트",
     "npm": "npm",
     "sql": "SQL",
-    "vim": "Vim"
+    "vim": "Vim",
+    "select": "카테고리 필터"
   },
   "copy": {
     "idle": "복사",

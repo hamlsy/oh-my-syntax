@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774577069785,
+  "lastScanned": 1774780412093,
   "projectRoot": "C:\\oh-my-syntax",
   "techStack": {
     "languages": [
@@ -36,6 +36,11 @@
         "name": "vite",
         "version": "8.0.1",
         "category": "build"
+      },
+      {
+        "name": "vitest",
+        "version": "4.1.2",
+        "category": "testing"
       }
     ],
     "packageManager": "npm",
@@ -43,27 +48,32 @@
   },
   "build": {
     "buildCommand": "npm run build",
-    "testCommand": null,
+    "testCommand": "npm test",
     "lintCommand": "npm run lint",
     "devCommand": "npm run dev",
     "scripts": {
       "dev": "vite",
       "build": "tsc -b && vite build",
       "lint": "eslint .",
-      "preview": "vite preview"
+      "preview": "vite preview",
+      "test": "vitest",
+      "test:ui": "vitest --ui",
+      "validate:data": "tsx scripts/validate-data.ts"
     }
   },
   "conventions": {
     "namingStyle": null,
     "importStyle": null,
     "testPattern": null,
-    "fileOrganization": null
+    "fileOrganization": "feature-based"
   },
   "structure": {
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [
+      "docs",
       "public",
+      "scripts",
       "src"
     ],
     "gitBranches": {
@@ -73,18 +83,51 @@
   },
   "customNotes": [],
   "directoryMap": {
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 1,
+      "lastAccessed": 1774780412034,
+      "keyFiles": [
+        "command-data-spec.md"
+      ]
+    },
+    "plans": {
+      "path": "plans",
+      "purpose": null,
+      "fileCount": 15,
+      "lastAccessed": 1774780412035,
+      "keyFiles": [
+        "00_overview.md",
+        "01_folder-structure.md",
+        "02_design-system.md",
+        "03_data-schema.md",
+        "04_search-engine.md"
+      ]
+    },
     "public": {
       "path": "public",
       "purpose": "Public files",
-      "fileCount": 0,
-      "lastAccessed": 1774577069691,
-      "keyFiles": []
+      "fileCount": 1,
+      "lastAccessed": 1774780412049,
+      "keyFiles": [
+        "mascot.gif"
+      ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 1,
+      "lastAccessed": 1774780412050,
+      "keyFiles": [
+        "validate-data.ts"
+      ]
     },
     "src": {
       "path": "src",
       "purpose": "Source code",
       "fileCount": 4,
-      "lastAccessed": 1774577069692,
+      "lastAccessed": 1774780412050,
       "keyFiles": [
         "App.css",
         "App.tsx",
@@ -96,10 +139,279 @@
       "path": "src\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1774577069716,
+      "lastAccessed": 1774780412051,
       "keyFiles": []
+    },
+    "src\\components": {
+      "path": "src\\components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1774780412052,
+      "keyFiles": []
+    },
+    "src\\data": {
+      "path": "src\\data",
+      "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1774780412052,
+      "keyFiles": [
+        "categories.ts"
+      ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "plans\\14_commands-expansion.md",
+      "accessCount": 6,
+      "lastAccessed": 1774780526464,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\git.json",
+      "accessCount": 6,
+      "lastAccessed": 1774781109172,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\docker.json",
+      "accessCount": 6,
+      "lastAccessed": 1774781149232,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\en\\javascript.json",
+      "accessCount": 6,
+      "lastAccessed": 1774781166397,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\en\\python.json",
+      "accessCount": 5,
+      "lastAccessed": 1774781174477,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\en\\windows.json",
+      "accessCount": 5,
+      "lastAccessed": 1774781185998,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\ko\\javascript.json",
+      "accessCount": 5,
+      "lastAccessed": 1774781399329,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\ko\\windows.json",
+      "accessCount": 5,
+      "lastAccessed": 1774781415347,
+      "type": "directory"
+    },
+    {
+      "path": "src\\index.css",
+      "accessCount": 5,
+      "lastAccessed": 1774783166539,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\linux.json",
+      "accessCount": 4,
+      "lastAccessed": 1774781134661,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\ko\\python.json",
+      "accessCount": 4,
+      "lastAccessed": 1774781405672,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\docker.json",
+      "accessCount": 4,
+      "lastAccessed": 1774781428658,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\results\\ResultList.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1774782743804,
+      "type": "file"
+    },
+    {
+      "path": "src\\locales\\en\\translation.json",
+      "accessCount": 4,
+      "lastAccessed": 1774782863518,
+      "type": "file"
+    },
+    {
+      "path": "src\\locales\\ko\\translation.json",
+      "accessCount": 4,
+      "lastAccessed": 1774782864457,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\macos.json",
+      "accessCount": 3,
+      "lastAccessed": 1774780724815,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\ko\\macos.json",
+      "accessCount": 3,
+      "lastAccessed": 1774780745262,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\en\\index.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774781200850,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\git.json",
+      "accessCount": 3,
+      "lastAccessed": 1774781361749,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\index.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774781440120,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\search\\CategoryTabs.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1774782447701,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\categories.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774782545463,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\search\\CategoryDropdown.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1774782871105,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\results\\ResultCard.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1774780647134,
+      "type": "file"
+    },
+    {
+      "path": "src\\types\\command.ts",
+      "accessCount": 2,
+      "lastAccessed": 1774780752047,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\linux.json",
+      "accessCount": 2,
+      "lastAccessed": 1774781382972,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\background\\FloatingCanvas.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1774782707683,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\background\\StarField.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1774782711950,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\search\\SearchContainer.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1774782840603,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1774780536456,
+      "type": "directory"
+    },
+    {
+      "path": "src\\data\\en\\npm.json",
+      "accessCount": 1,
+      "lastAccessed": 1774780812190,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\sql.json",
+      "accessCount": 1,
+      "lastAccessed": 1774780865009,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\en\\vim.json",
+      "accessCount": 1,
+      "lastAccessed": 1774780896830,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\npm.json",
+      "accessCount": 1,
+      "lastAccessed": 1774781244457,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\sql.json",
+      "accessCount": 1,
+      "lastAccessed": 1774781286877,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\ko\\vim.json",
+      "accessCount": 1,
+      "lastAccessed": 1774781309924,
+      "type": "file"
+    },
+    {
+      "path": "src\\main.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774782448722,
+      "type": "file"
+    },
+    {
+      "path": "src\\hooks\\useCommandSearch.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774782448872,
+      "type": "file"
+    },
+    {
+      "path": "src\\store\\useSettingsStore.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774782544644,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\search\\SearchBar.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774782545080,
+      "type": "file"
+    },
+    {
+      "path": "plans\\plan-15-ux-bugfix.md",
+      "accessCount": 1,
+      "lastAccessed": 1774782642849,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 1,
+      "lastAccessed": 1774782849535,
+      "type": "directory"
+    }
+  ],
   "userDirectives": []
 }

@@ -20,45 +20,50 @@ export function FloatingCanvas() {
     return CONTRIBUTORS.filter(c => Math.random() < c.spawnProbability);
   }, []);
 
-  if (isReduced || isMobile || !showFloating) return null;
+  // StarField + grid are always rendered — they're pure CSS and have negligible cost.
+  // Only the heavy floating items (snippets + contributor cards) are gated.
+  const showFloatingItems = !isReduced && !isMobile && showFloating;
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      {/* Layer 1: Star field (3-레이어 parallax) */}
+      {/* Layer 1: Star field (3-layer parallax) — always visible */}
       <StarField />
 
-      {/* Grid overlay */}
+      {/* Grid overlay — always visible */}
       <div className="absolute inset-0 grid-overlay opacity-50" />
 
-      {/* Layer 2: Floating code snippets (drift + drag) */}
-      {floatingItems.map(item => (
-        <FloatingCodeSnippet
-          key={item.id}
-          snippet={item.snippet}
-          startX={item.startX}
-          endX={item.endX}
-          targetOpacity={item.targetOpacity}
-          driftDuration={item.driftDuration}
-          driftDelay={item.driftDelay}
-          initialY={item.initialY}
-          floatAmplitude={item.floatAmplitude}
-          floatDuration={item.floatDuration}
-          floatDelay={item.floatDelay}
-          fontSize={item.fontSize}
-          colorClass={item.colorClass}
-        />
-      ))}
+      {/* Layer 2 & 3: Floating items — only on desktop with motion + setting enabled */}
+      {showFloatingItems && (
+        <>
+          {floatingItems.map(item => (
+            <FloatingCodeSnippet
+              key={item.id}
+              snippet={item.snippet}
+              startX={item.startX}
+              endX={item.endX}
+              targetOpacity={item.targetOpacity}
+              driftDuration={item.driftDuration}
+              driftDelay={item.driftDelay}
+              initialY={item.initialY}
+              floatAmplitude={item.floatAmplitude}
+              floatDuration={item.floatDuration}
+              floatDelay={item.floatDelay}
+              fontSize={item.fontSize}
+              colorClass={item.colorClass}
+            />
+          ))}
 
-      {/* Layer 3: Contributor cards (pointer-events: auto) */}
-      <div className="pointer-events-auto">
-        {activeContributors.map((contributor, index) => (
-          <FloatingContributorCard
-            key={contributor.id}
-            contributor={contributor}
-            index={index}
-          />
-        ))}
-      </div>
+          <div className="pointer-events-auto">
+            {activeContributors.map((contributor, index) => (
+              <FloatingContributorCard
+                key={contributor.id}
+                contributor={contributor}
+                index={index}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

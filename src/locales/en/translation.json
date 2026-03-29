@@ -22,7 +22,8 @@
     "javascript": "JavaScript",
     "npm": "npm",
     "sql": "SQL",
-    "vim": "Vim"
+    "vim": "Vim",
+    "select": "Filter by category"
   },
   "copy": {
     "idle": "Copy",

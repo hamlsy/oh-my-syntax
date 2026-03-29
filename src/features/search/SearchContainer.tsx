@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { CategoryTabs } from './CategoryTabs';
+import { CategoryDropdown } from './CategoryDropdown';
 import { SearchBar } from './SearchBar';
 import { ResultList } from '@/features/results/ResultList';
 import { useCommandSearch } from '@/hooks/useCommandSearch';
@@ -49,8 +49,14 @@ export function SearchContainer() {
       onKeyDown={handleKeyDown}
       className="flex flex-col gap-3"
     >
-      <CategoryTabs />
-      <SearchBar />
+      {/* Search row: input + category toggle side by side */}
+      <div className="flex gap-2">
+        <div className="flex-1 min-w-0">
+          <SearchBar />
+        </div>
+        <CategoryDropdown />
+      </div>
+
       <ResultList results={results} />
     </div>
   );
