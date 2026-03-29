@@ -8,7 +8,10 @@ export type CategoryId =
   | 'git'
   | 'java'
   | 'python'
-  | 'javascript';
+  | 'javascript'
+  | 'npm'
+  | 'sql'
+  | 'vim';
 
 export interface CommandVariable {
   name: string;

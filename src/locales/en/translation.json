@@ -19,7 +19,10 @@
     "git": "Git",
     "java": "Java",
     "python": "Python",
-    "javascript": "JavaScript"
+    "javascript": "JavaScript",
+    "npm": "npm",
+    "sql": "SQL",
+    "vim": "Vim"
   },
   "copy": {
     "idle": "Copy",

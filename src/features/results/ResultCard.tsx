@@ -14,6 +14,7 @@ interface ResultCardProps {
 
 export const ResultCard = memo(function ResultCard({ result, isHighlighted, index }: ResultCardProps) {
   const { command } = result;
+  const isMultiLine = command.command.includes('\n');
 
   return (
     <motion.div
@@ -32,8 +33,13 @@ export const ResultCard = memo(function ResultCard({ result, isHighlighted, inde
     >
       {/* Left: content */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-          <code className="bg-bg-overlay text-text-primary font-mono text-sm rounded-lg px-3 py-1 leading-tight break-all">
+        <div className="flex items-start gap-2 mb-1.5 flex-wrap">
+          <code className={cn(
+            'bg-bg-overlay text-text-primary font-mono text-sm rounded-lg px-3 leading-relaxed',
+            isMultiLine
+              ? 'block py-2 whitespace-pre overflow-x-auto max-h-32 w-full'
+              : 'inline py-1 break-all whitespace-nowrap'
+          )}>
             {command.command}
           </code>
           <DangerBadge show={!!command.isDangerous} description={command.description} />

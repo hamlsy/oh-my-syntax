@@ -196,7 +196,7 @@
     "category": "docker",
     "command": "docker compose down",
     "title": "Stop and remove compose services",
-    "description": "Tear down everything compose started: containers, networks. Volumes survive (usually).",
+    "description": "Tear down containers and networks. Volumes survive by default. Add --volumes to also remove named volumes.",
     "aliases": ["docker compose down", "compose down", "stop services", "compose stop"],
     "tags": ["compose", "down", "stop", "remove"],
     "isDangerous": false,
@@ -298,5 +298,41 @@
     "isDangerous": false,
     "platform": "all",
     "popularity": 80
+  },
+  {
+    "id": "docker-run-env",
+    "category": "docker",
+    "command": "docker run --env-file .env {IMAGE}",
+    "title": "Run container with .env file",
+    "description": "Inject all variables from a .env file into the container. Cleaner than -e VAR=value for multiple variables.",
+    "aliases": ["docker run env file", "docker env file", "docker .env", "docker environment file"],
+    "tags": ["run", "env", "environment", "envfile"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 80
+  },
+  {
+    "id": "docker-copy",
+    "category": "docker",
+    "command": "docker cp {SRC} {CONTAINER}:{DEST}",
+    "title": "Copy file into container",
+    "description": "Copy a local file into a running container. Reverse: docker cp {CONTAINER}:{SRC} {LOCAL_DEST}",
+    "aliases": ["docker cp", "copy to container", "docker copy file", "file to container"],
+    "tags": ["cp", "copy", "file", "container"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 75
+  },
+  {
+    "id": "docker-system-df",
+    "category": "docker",
+    "command": "docker system df",
+    "title": "Show Docker disk usage",
+    "description": "Summary of disk space used by images, containers, volumes, and build cache. Use docker system prune to reclaim.",
+    "aliases": ["docker disk usage", "docker df", "docker space", "how much space docker"],
+    "tags": ["system", "df", "disk", "space", "usage"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 76
   }
 ]

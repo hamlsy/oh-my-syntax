@@ -12,7 +12,7 @@
   { "id": "js-group-by", "title": "속성으로 배열 그룹화", "description": "공통 속성으로 배열 항목 그룹화. JS에서의 SQL GROUP BY.", "aliases": ["그룹화", "group by js", "배열 그룹", "카테고리별 배열"] },
   { "id": "js-deep-clone", "title": "객체 딥 클론", "description": "네이티브 딥 클론 (ES2022+). JSON.parse(JSON.stringify)보다 빠르고 더 많은 타입 처리.", "aliases": ["딥 클론", "객체 복사", "deepClone", "structuredClone"] },
   { "id": "js-sort-objects", "title": "문자열로 객체 배열 정렬", "description": "문자열 속성으로 알파벳 정렬, 로케일 인식.", "aliases": ["객체 정렬", "속성으로 정렬", "배열 정렬", "알파벳 정렬"] },
-  { "id": "js-debounce", "title": "단순 디바운스 패턴", "description": "일시 정지 후 함수 실행 지연. 검색 입력에 필수.", "aliases": ["디바운스", "함수 지연", "입력 스로틀", "검색 지연"] },
+  { "id": "js-debounce", "title": "디바운스 패턴", "description": "호출할 때마다 타이머 초기화. DELAY_MS 동안 호출이 멈춰야만 fn()이 실행됨. 모든 검색 입력의 핵심 패턴.", "aliases": ["디바운스", "함수 지연", "입력 스로틀", "검색 지연"] },
   { "id": "js-localstorage-json", "title": "localStorage에 JSON 저장/가져오기", "description": "페이지 로드 간 데이터 유지. JSON.stringify/parse로 비문자열 값 처리.", "aliases": ["로컬스토리지 json", "local storage", "데이터 저장 브라우저"] },
   { "id": "js-copy-to-clipboard", "title": "클립보드에 텍스트 복사 (async)", "description": "현대적 Clipboard API. HTTPS에서 작동. 예전 execCommand보다 간단.", "aliases": ["클립보드 복사 js", "clipboard api", "writeText"] },
   { "id": "js-find-in-array", "title": "배열에서 첫 번째 일치 항목 찾기", "description": "조건에 맞는 첫 번째 항목, 없으면 undefined. 인덱스는 findIndex.", "aliases": ["배열 찾기", "array find", "배열 검색", "객체 찾기"] },
@@ -22,5 +22,9 @@
   { "id": "js-nullish-assignment", "title": "Null 병합 할당 (??=)", "description": "null이나 undefined일 때만 할당. ES2021 논리 할당 연산자.", "aliases": ["nullish 할당", "??=", "기본값 할당"] },
   { "id": "js-console-table", "title": "콘솔에 배열을 테이블로 출력", "description": "객체 배열을 DevTools에서 표 형식으로 렌더링. 많이 활용 안 됨.", "aliases": ["console table", "디버그 테이블", "console.table"] },
   { "id": "js-regex-match", "title": "모든 정규식 일치 찾기", "description": "패턴의 모든 일치 가져오기. /g 플래그로 모든 발생.", "aliases": ["정규식 match", "문자열 match", "regex js", "패턴 찾기"] },
-  { "id": "js-short-circuit", "title": "단락 평가", "description": "&& = 왼쪽이 참일 때만 오른쪽 평가. || = 왼쪽이 거짓이면 오른쪽 사용.", "aliases": ["단락 평가", "논리 and or", "조건부 실행"] }
+  { "id": "js-short-circuit", "title": "단락 평가", "description": "&& = 왼쪽이 참일 때만 오른쪽 평가. || = 왼쪽이 거짓이면 오른쪽 사용.", "aliases": ["단락 평가", "논리 and or", "조건부 실행"] },
+  { "id": "js-error-handling", "title": "타입 안전 에러 처리", "description": "에러 처리 전 타입 확인. TypeScript에서 catch된 에러는 unknown — 항상 타입을 먼저 좁혀야 함.", "aliases": ["try catch instanceof", "에러 처리 js", "catch 타입 확인"] },
+  { "id": "js-async-safe", "title": "안전한 async 패턴 (라이브러리 없음)", "description": "try/catch 없이 async 에러 처리. { data, error } 튜플 반환. 외부 라이브러리 불필요.", "aliases": ["안전한 async", "async 에러 처리", "promise 에러 튜플"] },
+  { "id": "js-object-freeze", "title": "불변 객체 (Object.freeze)", "description": "얕게 동결된 객체 생성. 속성 추가/삭제/변경 불가. 깊은 동결은 재귀 필요.", "aliases": ["object freeze", "불변 객체 js", "frozen object", "읽기전용 객체"] },
+  { "id": "js-array-at", "title": "음수 인덱스 배열 접근 (ES2022)", "description": "arr[arr.length - 1] 없이 끝에서 접근. at(-1) = 마지막, at(-2) = 끝에서 두 번째.", "aliases": ["array at", "배열 마지막 요소", "음수 인덱스", "arr.at", "배열 뒤에서"] }
 ]

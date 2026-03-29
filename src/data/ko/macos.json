@@ -12,7 +12,7 @@
   { "id": "macos-system-info", "title": "시스템 하드웨어 정보 보기", "description": "CPU, 메모리, 모델 — Mac의 전체 하드웨어 프로필.", "aliases": ["시스템 정보", "하드웨어 정보", "mac 스펙", "컴퓨터 정보"] },
   { "id": "macos-caffeinate", "title": "Mac 수면 방지", "description": "N초 동안 Mac을 깨어있게 유지. 긴 다운로드나 배포에 완벽.", "aliases": ["수면 방지", "caffeinate", "맥 깨어있기", "잠자기 방지"] },
   { "id": "macos-screenshot-cli", "title": "스크린샷 찍기 (소리 없음)", "description": "터미널에서 무음으로 화면 캡처. -x로 셔터 소리 제거.", "aliases": ["스크린샷 터미널", "화면 캡처", "스크린샷 찍기"] },
-  { "id": "macos-lock-screen", "title": "터미널에서 화면 잠금", "description": "터미널에서 Mac 잠금. 스크립트나 단축키에 유용.", "aliases": ["화면 잠금", "mac 잠금", "컴퓨터 잠금"] },
+  { "id": "macos-lock-screen", "title": "터미널에서 화면 잠금", "description": "터미널에서 Mac 잠금. macOS 13 Ventura에서 검증됨. Sonoma (14)+ 에서는 작동 안 할 수 있음.", "aliases": ["화면 잠금", "mac 잠금", "컴퓨터 잠금"] },
   { "id": "macos-disk-usage-ui", "title": "인터랙티브 디스크 사용량 (ncdu)", "description": "시각적 디스크 사용량 탐색기. brew install ncdu로 설치.", "aliases": ["디스크 사용량 UI", "ncdu", "시각적 디스크"] },
   { "id": "macos-say", "title": "터미널에서 텍스트 읽어주기", "description": "Mac에게 말하게 하기. 장시간 스크립트 완료 알림에 유용.", "aliases": ["텍스트 읽기", "say", "mac 말하기", "tts 알림"] },
   { "id": "macos-pbcopy-file", "title": "파일 내용을 클립보드로 복사", "description": "파일 전체 내용을 클립보드에. 선택하거나 스크롤 필요 없음.", "aliases": ["파일 클립보드 복사", "파일 내용 복사", "pbcopy 파일"] },

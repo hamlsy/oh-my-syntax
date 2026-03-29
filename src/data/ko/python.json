@@ -1,7 +1,8 @@
 [
   { "id": "py-list-comprehension", "title": "조건 있는 리스트 컴프리헨션", "description": "Python의 우아한 리스트 생성법. 한 줄로 필터링과 변환.", "aliases": ["리스트 컴프리헨션", "python 리스트", "리스트 필터", "comprehension"] },
   { "id": "py-dict-comprehension", "title": "딕셔너리 컴프리헨션", "description": "한 줄로 딕셔너리 만들기. 리스트 컴프리헨션의 딕셔너리 버전.", "aliases": ["딕셔너리 컴프리헨션", "dict 컴프리헨션", "python dict"] },
-  { "id": "py-venv-create", "title": "가상 환경 생성 및 활성화", "description": "프로젝트 패키지를 격리. 항상 venv 사용. 항상.", "aliases": ["가상 환경", "venv", "가상환경 만들기", "파이썬 환경"] },
+  { "id": "py-venv-create", "title": "가상 환경 생성 및 활성화 (Linux/macOS)", "description": "프로젝트 패키지를 격리. 항상 venv 사용. 항상.", "aliases": ["가상 환경", "venv", "가상환경 만들기", "파이썬 환경"] },
+  { "id": "py-venv-create-win", "title": "가상 환경 생성 및 활성화 (Windows)", "description": "Windows용 venv 활성화. bin/activate 대신 Scripts\\activate 사용.", "aliases": ["가상 환경 윈도우", "venv 윈도우", "가상환경 만들기 윈도우"] },
   { "id": "py-pip-install", "title": "Python 패키지 설치", "description": "PyPI에서 패키지 설치. venv에 있나요? 있어야 합니다.", "aliases": ["pip install", "파이썬 패키지 설치", "pip 설치"] },
   { "id": "py-pip-requirements", "title": "requirements.txt로 의존성 내보내기", "description": "현재 환경을 파일로 저장. 공유하면 다른 사람도 재현 가능.", "aliases": ["requirements.txt", "pip freeze", "의존성 내보내기", "패키지 목록 저장"] },
   { "id": "py-pip-install-requirements", "title": "requirements.txt에서 설치", "description": "다른 사람의 환경 재현. 레포 클론 후 첫 번째 단계.", "aliases": ["requirements 설치", "pip -r", "모든 패키지 설치"] },
@@ -19,5 +20,7 @@
   { "id": "py-requests-get", "title": "requests 라이브러리로 HTTP GET", "description": "사람 친화적 HTTP 라이브러리. pip install requests로 설치.", "aliases": ["requests", "http 요청 python", "api 요청 파이썬"] },
   { "id": "py-f-string", "title": "서식 있는 f-string", "description": "Python에서 가장 읽기 좋은 문자열 보간. :,는 숫자에 쉼표 추가.", "aliases": ["f-string", "fstring", "문자열 서식", "문자열 보간 python"] },
   { "id": "py-generator", "title": "제너레이터 함수 만들기", "description": "한 번에 하나씩 값 yield. 대용량 데이터에 메모리 효율적.", "aliases": ["제너레이터", "yield", "python 제너레이터", "지연 평가"] },
-  { "id": "py-context-manager", "title": "컨텍스트 매니저 만들기", "description": "직접 'with' 문 만들기. 예외 발생해도 항상 cleanup 실행.", "aliases": ["컨텍스트 매니저", "with 문", "contextmanager", "리소스 관리"] }
+  { "id": "py-context-manager", "title": "컨텍스트 매니저 만들기", "description": "직접 'with' 문 만들기. 예외 발생해도 항상 cleanup 실행.", "aliases": ["컨텍스트 매니저", "with 문", "contextmanager", "리소스 관리"] },
+  { "id": "py-pathlib", "title": "현대적 경로 처리 (pathlib)", "description": "os.path의 현대적 대안. Path 객체는 읽기 쉽고 /로 조합 가능하며 크로스플랫폼.", "aliases": ["pathlib", "python 경로", "파일 경로 python", "os.path 대안", "Path 객체"] },
+  { "id": "py-f-string-format", "title": "f-string 포맷 지정자", "description": "f-string에서 직접 숫자 포맷팅 및 정렬. :.2f=소수점 2자리, :,=천단위 구분자, :>10=우측 정렬 10자리.", "aliases": ["f-string 포맷", "f스트링 포맷 지정자", "소수점 출력 python", "천단위 python"] }
 ]

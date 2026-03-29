@@ -160,7 +160,7 @@
     "category": "macos",
     "command": "/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend",
     "title": "Lock screen from terminal",
-    "description": "Lock your Mac from the terminal. Useful for scripts or keyboard shortcuts.",
+    "description": "Lock your Mac from the terminal. Verified on macOS 13 Ventura. May not work on Sonoma (14)+.",
     "aliases": ["lock screen", "lock mac", "lock computer mac"],
     "tags": ["lock", "screen", "security", "sleep"],
     "isDangerous": false,

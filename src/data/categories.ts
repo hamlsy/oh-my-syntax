@@ -11,6 +11,9 @@ export const CATEGORIES: Category[] = [
   { id: 'java',       labelKey: 'category.java',       icon: 'Coffee',      color: '#f89820'  },
   { id: 'python',     labelKey: 'category.python',     icon: 'Code2',       color: '#3572A5'  },
   { id: 'javascript', labelKey: 'category.javascript', icon: 'FileCode',    color: '#f7df1e'  },
+  { id: 'npm',        labelKey: 'category.npm',        icon: 'Package',     color: '#cb3837'  },
+  { id: 'sql',        labelKey: 'category.sql',        icon: 'Database',    color: '#336791'  },
+  { id: 'vim',        labelKey: 'category.vim',        icon: 'Terminal2',   color: '#019733'  },
 ];
 
 // Single source of truth for category colors used in RecentCommandRow.

@@ -27,13 +27,25 @@
     "id": "py-venv-create",
     "category": "python",
     "command": "python -m venv {ENV_NAME} && source {ENV_NAME}/bin/activate",
-    "title": "Create and activate virtual env",
+    "title": "Create and activate virtual env (Linux/macOS)",
     "description": "Isolate your project's packages. Always use a venv. Always.",
     "aliases": ["virtual env", "venv", "create venv", "python environment", "pip environment"],
     "tags": ["venv", "virtual", "environment", "activate"],
     "isDangerous": false,
-    "platform": "all",
+    "platform": "linux",
     "popularity": 92
+  },
+  {
+    "id": "py-venv-create-win",
+    "category": "python",
+    "command": "python -m venv {ENV_NAME} && {ENV_NAME}\\Scripts\\activate",
+    "title": "Create and activate virtual env (Windows)",
+    "description": "Windows version of venv activation. Uses Scripts\\activate instead of bin/activate.",
+    "aliases": ["virtual env windows", "venv windows", "create venv win", "python environment windows"],
+    "tags": ["venv", "virtual", "environment", "activate", "windows"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 88
   },
   {
     "id": "py-pip-install",
@@ -250,5 +262,29 @@
     "isDangerous": false,
     "platform": "all",
     "popularity": 74
+  },
+  {
+    "id": "py-pathlib",
+    "category": "python",
+    "command": "from pathlib import Path\n\npath = Path(\"{PATH}\")\npath.read_text()  # read_bytes(), write_text()",
+    "title": "Modern path handling (pathlib)",
+    "description": "Modern alternative to os.path. Path objects are readable, composable with /, and cross-platform.",
+    "aliases": ["pathlib", "python path", "file path python", "os.path alternative", "Path object"],
+    "tags": ["pathlib", "path", "file", "modern"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 82
+  },
+  {
+    "id": "py-f-string-format",
+    "category": "python",
+    "command": "f\"{value:.2f}\"  # decimal\nf\"{value:,}\"   # thousands sep\nf\"{value:>10}\" # right align",
+    "title": "f-string format specifiers",
+    "description": "Format numbers and align strings directly in f-strings. :.2f=2 decimals, :,=thousands separator, :>10=right-align in 10 chars.",
+    "aliases": ["f-string format", "python format specifier", "f string number", "format decimal python"],
+    "tags": ["f-string", "format", "decimal", "align", "string"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 80
   }
 ]

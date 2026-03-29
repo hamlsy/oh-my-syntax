@@ -2,9 +2,9 @@
   {
     "id": "win-kill-port",
     "category": "windows",
-    "command": "netstat -ano | findstr :{PORT} && taskkill /PID {PID} /F",
-    "title": "Kill process on port (Windows)",
-    "description": "Two-step port murder on Windows. Find the PID first, then kill it.",
+    "command": "netstat -ano | findstr :{PORT}",
+    "title": "Find PID on port (Windows CMD)",
+    "description": "Find which process is using a port. Note the PID, then kill it with: taskkill /PID {PID} /F. Or use the PowerShell one-liner below.",
     "aliases": ["kill port windows", "port occupied windows", "cmd port kill", "windows port in use"],
     "tags": ["port", "kill", "netstat", "taskkill", "windows"],
     "isDangerous": true,
@@ -238,5 +238,65 @@
     "isDangerous": false,
     "platform": "windows",
     "popularity": 78
+  },
+  {
+    "id": "win-winget-install",
+    "category": "windows",
+    "command": "winget install {PACKAGE_ID}",
+    "title": "Install package (winget)",
+    "description": "Windows Package Manager. Modern alternative to Chocolatey. Search packages: winget search {query}.",
+    "aliases": ["winget install", "windows package manager", "install app windows", "winget"],
+    "tags": ["winget", "install", "package", "manager"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 82
+  },
+  {
+    "id": "win-wsl-start",
+    "category": "windows",
+    "command": "wsl",
+    "title": "Start WSL (default distro)",
+    "description": "Launch Windows Subsystem for Linux. Opens your default Linux distro shell.",
+    "aliases": ["wsl", "start wsl", "linux on windows", "bash on windows", "windows subsystem linux"],
+    "tags": ["wsl", "linux", "bash", "subsystem"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 85
+  },
+  {
+    "id": "win-wsl-run",
+    "category": "windows",
+    "command": "wsl -e {COMMAND}",
+    "title": "Run single command in WSL",
+    "description": "Execute a single Linux command from Windows without opening a WSL shell.",
+    "aliases": ["wsl run command", "wsl execute", "wsl single command", "wsl -e"],
+    "tags": ["wsl", "execute", "command", "linux"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 78
+  },
+  {
+    "id": "win-set-env-perm",
+    "category": "windows",
+    "command": "[System.Environment]::SetEnvironmentVariable(\"{VAR}\", \"{VAL}\", \"Machine\")",
+    "title": "Set permanent environment variable (PowerShell)",
+    "description": "Set a machine-level environment variable permanently. Requires admin. Use \"User\" instead of \"Machine\" for user scope.",
+    "aliases": ["set env var windows permanent", "permanent environment variable", "setx powershell", "system environment"],
+    "tags": ["environment", "variable", "permanent", "powershell", "system"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 76
+  },
+  {
+    "id": "win-net-port",
+    "category": "windows",
+    "command": "netstat -ano | findstr :{PORT}",
+    "title": "Check port usage (Windows)",
+    "description": "Find which process is listening on a port. The PID shown can be looked up in Task Manager or killed with taskkill.",
+    "aliases": ["windows port check", "port in use windows", "netstat port windows", "check port windows"],
+    "tags": ["netstat", "port", "pid", "windows", "network"],
+    "isDangerous": false,
+    "platform": "windows",
+    "popularity": 88
   }
 ]

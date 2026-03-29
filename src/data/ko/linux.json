@@ -47,5 +47,15 @@
   { "id": "linux-head-lines", "title": "파일 첫 N줄 보기", "description": "전체 파일 열지 않고 처음 부분만 확인.", "aliases": ["첫 줄", "head", "파일 처음", "파일 시작"] },
   { "id": "linux-tail-lines", "title": "파일 마지막 N줄 보기", "description": "파일 끝부분 확인. 로그, 출력 등.", "aliases": ["마지막 줄", "tail", "파일 끝", "마지막 라인"] },
   { "id": "linux-ping-host", "title": "호스트 ping (4회)", "description": "서버 살아 있나요? 4번 ping해서 확인.", "aliases": ["ping", "호스트 확인", "네트워크 테스트", "연결 확인"] },
-  { "id": "linux-chmod-777", "title": "위험: chmod 777 루트 (절대 하지 마세요)", "description": "모든 사람에게 모든 권한 부여. 이건 공포영화 시작이에요.", "aliases": ["chmod 777", "권한 지옥", "열린 권한"] }
+  { "id": "linux-chmod-777", "title": "위험: chmod 777 루트 (절대 하지 마세요)", "description": "모든 사람에게 모든 권한 부여. 이건 공포영화 시작이에요.", "aliases": ["chmod 777", "권한 지옥", "열린 권한"] },
+  { "id": "linux-jq-parse", "title": "jq로 JSON 필드 추출", "description": "JSON에서 필드 파싱 및 추출. jq는 표준 CLI JSON 프로세서. 설치: brew install jq / apt install jq.", "aliases": ["jq", "json 파싱 cli", "json 필드", "jq 쿼리"] },
+  { "id": "linux-jq-pretty", "title": "JSON 예쁘게 출력", "description": "사람이 읽기 좋게 JSON 포맷. jq '.'에 JSON 출력 파이프하면 컬러로 들여쓰기됨.", "aliases": ["json 예쁘게 출력", "json 포맷 cli", "jq pretty"] },
+  { "id": "linux-xargs", "title": "xargs — 파이프를 명령어 인수로", "description": "find 결과를 명령어의 인수로 전달. -I {}로 배치 위치 지정 가능.", "aliases": ["xargs", "인수로 파이프", "find xargs", "bulk 명령", "파일별 실행"] },
+  { "id": "linux-tee", "title": "tee — stdout을 파일과 터미널로 동시에", "description": "출력 보면서 파일에도 동시에 저장. tee -a로 덮어쓰기 대신 추가.", "aliases": ["tee", "출력 저장하면서 보기", "파일로 파이프 및 출력"] },
+  { "id": "linux-cut", "title": "cut — 구분자로 컬럼 추출", "description": "구분된 텍스트에서 특정 컬럼 추출. -d로 구분자, -f로 필드 번호 지정. CSV/TSV 처리에 유용.", "aliases": ["cut", "컬럼 추출", "csv 컬럼 cli", "구분자 분리", "필드 추출"] },
+  { "id": "linux-ss", "title": "리스닝 포트 확인 (현대적 netstat)", "description": "TCP/UDP 리스닝 포트와 프로세스명 표시. netstat의 현대적 대체. -t=TCP, -u=UDP, -l=리스닝, -p=프로세스, -n=숫자.", "aliases": ["ss", "리스닝 포트 리눅스", "netstat 대체", "열린 포트 리눅스", "ss -tulpn"] },
+  { "id": "linux-ssh-tunnel", "title": "SSH 로컬 포트 포워딩", "description": "로컬 포트를 원격 호스트로 포워딩. DB, 웹 등 원격 서비스를 로컬처럼 접근. -N으로 쉘 건너뜀.", "aliases": ["ssh 터널", "포트 포워딩 ssh", "ssh 로컬 포워딩", "터널 포트"] },
+  { "id": "linux-ssh-tunnel-r", "title": "SSH 리버스 터널", "description": "로컬 포트를 원격 서버에 노출. NAT 뒤의 로컬 서비스를 외부에서 접근 가능하게. 데모에 유용.", "aliases": ["ssh 리버스 터널", "역방향 포트 포워딩", "로컬 포트 노출", "ngrok 대안"] },
+  { "id": "linux-printenv", "title": "환경변수 확인", "description": "환경변수 목록 및 필터. 변수가 설정됐는지 echo $VAR보다 더 확실하게 확인.", "aliases": ["printenv", "환경변수 확인", "env 변수", "grep env"] },
+  { "id": "linux-curl-auth", "title": "curl Bearer 토큰 요청", "description": "Authorization 헤더로 HTTP 요청. REST API 인증의 표준. -s로 조용히, -X POST로 POST 요청.", "aliases": ["curl 인증", "curl bearer", "curl 토큰", "api 요청 토큰", "curl authorization"] }
 ]

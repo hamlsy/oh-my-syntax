@@ -158,9 +158,9 @@
   {
     "id": "js-debounce",
     "category": "javascript",
-    "command": "const debounced = setTimeout(() => fn(), {DELAY_MS});",
-    "title": "Simple debounce pattern",
-    "description": "Delay function execution until after a pause. Essential for search inputs.",
+    "command": "let debounceTimer;\nconst debounced = (...args) => {\n  clearTimeout(debounceTimer);\n  debounceTimer = setTimeout(() => fn(...args), {DELAY_MS});\n};",
+    "title": "Debounce pattern",
+    "description": "Every call resets the timer. fn() only fires after calls stop for DELAY_MS. The pattern behind every search input.",
     "aliases": ["debounce", "delay function", "throttle input", "search delay"],
     "tags": ["debounce", "setTimeout", "delay", "performance"],
     "isDangerous": false,
@@ -286,5 +286,53 @@
     "isDangerous": false,
     "platform": "all",
     "popularity": 78
+  },
+  {
+    "id": "js-error-handling",
+    "category": "javascript",
+    "command": "try {\n  // ...\n} catch (err) {\n  if (err instanceof {ErrorType}) {\n    // handle specific error\n  }\n}",
+    "title": "Type-safe error handling",
+    "description": "Check error type before handling. In TypeScript, caught errors are unknown — always narrow the type first.",
+    "aliases": ["try catch instanceof", "error handling js", "catch error type", "type safe catch"],
+    "tags": ["try", "catch", "error", "instanceof", "typescript"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 88
+  },
+  {
+    "id": "js-async-safe",
+    "category": "javascript",
+    "command": "const result = await promise\n  .then(d => ({ data: d, error: null }))\n  .catch(e => ({ data: null, error: e }));",
+    "title": "Safe async pattern (no library)",
+    "description": "Handle async errors without try/catch. Returns { data, error } tuple. No external library needed.",
+    "aliases": ["safe async", "async error handling", "promise error tuple", "no try catch async"],
+    "tags": ["async", "await", "promise", "error", "safe"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 82
+  },
+  {
+    "id": "js-object-freeze",
+    "category": "javascript",
+    "command": "const CONFIG = Object.freeze({ {KEY}: {VALUE} });",
+    "title": "Immutable object (Object.freeze)",
+    "description": "Create a shallow-frozen object. Properties cannot be added, removed, or changed. For deep freeze, recurse.",
+    "aliases": ["object freeze", "immutable object js", "const object", "frozen object", "readonly object"],
+    "tags": ["freeze", "immutable", "object", "const"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 78
+  },
+  {
+    "id": "js-array-at",
+    "category": "javascript",
+    "command": "const last = arr.at(-1);",
+    "title": "Negative index array access (ES2022)",
+    "description": "Access elements from the end without arr[arr.length - 1]. at(-1) = last, at(-2) = second to last.",
+    "aliases": ["array at", "last element array", "negative index js", "arr.at", "array from end"],
+    "tags": ["array", "at", "index", "ES2022", "last"],
+    "isDangerous": false,
+    "platform": "all",
+    "popularity": 80
   }
 ]

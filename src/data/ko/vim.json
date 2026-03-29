@@ -1,0 +1,17 @@
+[
+  { "id": "vim-wq", "title": "저장 후 종료", "description": "파일 쓰고 종료. 모든 vim 사용자가 처음 배우는 명령. :x도 동작하며 변경사항이 있을 때만 씀.", "aliases": [":wq", "vim 저장 종료", "vim 나가기", "vim 닫기"] },
+  { "id": "vim-quit-force", "title": "강제 종료 (변경사항 버림)", "description": "저장 없이 종료. !로 미저장 경고 무시. 편집한 내용이 사라짐.", "aliases": [":q!", "vim 강제 종료", "저장 없이 종료", "vim 변경사항 버리기"] },
+  { "id": "vim-save", "title": "저장 (종료 없이)", "description": "종료하지 않고 파일 저장. :w {파일명}으로 새 파일로 저장 가능.", "aliases": [":w", "vim 저장", "파일 쓰기 vim"] },
+  { "id": "vim-write-sudo", "title": "읽기 전용 파일 sudo로 저장", "description": "sudo 없이 연 파일 저장. tee를 통해 버퍼를 sudo로 파이프. %는 현재 파일명으로 확장.", "aliases": ["sudo vim 저장", "읽기전용 저장", "권한 없이 저장", "permission denied vim"] },
+  { "id": "vim-reload", "title": "디스크에서 파일 다시 로드", "description": "미저장 변경사항 버리고 디스크에서 다시 로드. 외부에서 파일이 변경된 경우 유용.", "aliases": [":e!", "vim 리로드", "파일 되돌리기 vim"] },
+  { "id": "vim-substitute", "title": "전체 검색 & 치환", "description": "파일 전체에서 OLD를 NEW로 모두 치환. %는 모든 줄, g는 줄당 모든 일치.", "aliases": ["vim 찾기 바꾸기", "치환 vim", "전체 치환", ":%s"] },
+  { "id": "vim-substitute-ask", "title": "검색 & 치환 (하나씩 확인)", "description": "각 일치에 확인 프롬프트로 치환. c 플래그: y=예, n=아니오, a=전체, q=종료.", "aliases": ["vim 치환 확인", "대화형 치환 vim", "하나씩 바꾸기"] },
+  { "id": "vim-delete-matching", "title": "패턴 매칭 줄 삭제", "description": "패턴이 포함된 모든 줄 삭제. :v/{PATTERN}/d 는 반대(매칭 안 되는 줄 삭제).", "aliases": ["매칭 줄 삭제 vim", ":g/d", "전역 삭제", "패턴으로 줄 제거"] },
+  { "id": "vim-clear-highlight", "title": "검색 하이라이트 제거", "description": "검색 패턴은 유지하고 하이라이트만 제거. n/N으로 계속 탐색 가능.", "aliases": [":noh", "하이라이트 제거 vim", "검색 형광펜 끄기"] },
+  { "id": "vim-set-number", "title": "줄 번호 표시", "description": "절대 줄 번호 표시. ~/.vimrc에 추가하면 영구 적용. :set nonumber로 끄기.", "aliases": [":set number", "줄 번호 vim", "line numbers", "set nu"] },
+  { "id": "vim-set-relativenu", "title": "상대 줄 번호 표시", "description": "커서 기준 상대 줄 번호 표시. 5j, 10k로 몇 줄 이동할지 바로 알 수 있음.", "aliases": [":set relativenumber", "상대 줄 번호 vim", "set rnu"] },
+  { "id": "vim-split-h", "title": "수평 분할", "description": "수평 분할 창으로 파일 열기. Ctrl+W 후 방향키로 분할 창 이동.", "aliases": [":sp", "수평 분할 vim", "split vim", "창 분할"] },
+  { "id": "vim-split-v", "title": "수직 분할", "description": "수직 분할 창으로 파일 열기. :vsp 파일명 없이 하면 현재 파일을 분할.", "aliases": [":vsp", "수직 분할 vim", "vsplit vim", "나란히 보기"] },
+  { "id": "vim-yank-all", "title": "파일 전체 복사", "description": "파일 전체 내용을 vim 클립보드로 복사. 다른 버퍼에서 p로 붙여넣기.", "aliases": [":%y", "전체 복사 vim", "파일 내용 복사 vim"] },
+  { "id": "vim-goto-line", "title": "N번째 줄로 이동", "description": "특정 줄 번호로 바로 이동. 방향키로 세는 것보다 빠름.", "aliases": [":N", "줄 이동 vim", "라인 이동 vim", "특정 줄 vim"] }
+]
