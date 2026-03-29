@@ -51,5 +51,9 @@
     "title":  "Recently copied",
     "clear":  "Clear",
     "copied": "Copied!"
+  },
+  "contributors": {
+    "title":     "Contributors",
+    "viewGitHub": "GitHub"
   }
 }

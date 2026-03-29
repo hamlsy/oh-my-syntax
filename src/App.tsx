@@ -2,7 +2,8 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingCanvas } from '@/features/background/FloatingCanvas';
-import { EasterEggModal } from '@/features/background/EasterEggModal';
+import { ContributorDetailModal } from '@/features/modals/ContributorDetailModal';
+import { ContributorsModal } from '@/features/modals/ContributorsModal';
 import { HeroSection } from '@/features/hero/HeroSection';
 import { SearchContainer } from '@/features/search/SearchContainer';
 import { RecentCommandsSection } from '@/features/recent/RecentCommandsSection';
@@ -34,8 +35,9 @@ function App() {
         <Footer />
       </div>
 
-      {/* Easter egg modal — portal-like, above everything */}
-      <EasterEggModal />
+      {/* Modals — portal-like, above everything */}
+      <ContributorDetailModal />
+      <ContributorsModal />
     </ErrorBoundary>
   );
 }

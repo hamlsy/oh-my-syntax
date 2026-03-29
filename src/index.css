@@ -74,6 +74,20 @@ body {
   will-change: opacity;
 }
 
+/* Parallax star drift — translateX(50%) = +100vw on a 200vw container = rightward flow */
+@keyframes star-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+
+.star-layer {
+  animation: star-drift var(--layer-duration, 120s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-layer { animation: none !important; }
+}
+
 /* Subtle grid overlay */
 .grid-overlay {
   background-image:

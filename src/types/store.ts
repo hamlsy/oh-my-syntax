@@ -31,8 +31,10 @@ export interface UIState {
 }
 
 export interface SettingsState {
-  showFloating: boolean;
-  showEasterEgg: boolean;
-  setShowFloating: (show: boolean) => void;
-  setShowEasterEgg: (show: boolean) => void;
+  showFloating:          boolean;
+  selectedContributorId: string | null;
+  showContributors:      boolean;
+  setShowFloating:          (show: boolean) => void;
+  setSelectedContributorId: (id: string | null) => void;
+  setShowContributors:      (show: boolean) => void;
 }

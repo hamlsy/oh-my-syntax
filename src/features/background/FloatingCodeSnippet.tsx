@@ -1,58 +1,62 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/utils/classNames';
+import { useDriftAndDrag } from '@/hooks/useDriftAndDrag';
+import type { FloatingItem } from '@/hooks/useFloatingItems';
 
-interface FloatingCodeSnippetProps {
-  snippet: string;
-  initialX: number;
-  initialY: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-  fontSize: 'text-xs' | 'text-sm';
-  colorClass: string;
-}
+type FloatingCodeSnippetProps = Omit<FloatingItem, 'id'>;
 
 export function FloatingCodeSnippet({
   snippet,
-  initialX,
+  startX,
+  endX,
+  targetOpacity,
+  driftDuration,
+  driftDelay,
   initialY,
-  duration,
-  delay,
-  opacity,
+  floatAmplitude,
+  floatDuration,
+  floatDelay,
   fontSize,
   colorClass,
 }: FloatingCodeSnippetProps) {
-  const xRange = [0, 20, -15, 10, -5, 0];
-  const yRange = [0, -30, 15, -20, 10, 0];
-  const rotateRange = [-2, 3, -1, 4, -2, 0];
+  const { x, opacity, innerY, onDragStart, onDragEnd } = useDriftAndDrag({
+    startX,
+    endX,
+    targetOpacity,
+    driftDuration,
+    driftDelay,
+  });
 
+  // Bug 4 fix: Wrapper 패턴 — outer(float Y) / inner(drift X + drag) 분리
   return (
     <motion.div
-      className={cn(
-        'absolute font-mono pointer-events-none select-none',
-        fontSize,
-        colorClass
-      )}
-      style={{
-        left: `${initialX}%`,
-        top: `${initialY}%`,
-        opacity,
-      }}
-      animate={{
-        x: xRange,
-        y: yRange,
-        rotate: rotateRange,
-      }}
+      className="fixed pointer-events-none"
+      style={{ top: `${initialY}vh`, left: 0 }}
+      animate={{ y: [0, floatAmplitude, 0] }}
       transition={{
-        duration,
-        delay,
+        duration: floatDuration,
         ease: 'easeInOut',
         repeat: Infinity,
-        repeatType: 'mirror',
+        delay: floatDelay,
       }}
       aria-hidden="true"
     >
-      {snippet}
+      <motion.div
+        className={cn(
+          'font-mono select-none cursor-grab active:cursor-grabbing pointer-events-auto',
+          fontSize,
+          colorClass,
+        )}
+        style={{ x, opacity, y: innerY }}
+        drag
+        dragElastic={0.8}
+        dragTransition={{ power: 0.3, timeConstant: 500 }}
+        whileDrag={{ scale: 1.1 }}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      >
+        {snippet}
+      </motion.div>
     </motion.div>
   );
 }

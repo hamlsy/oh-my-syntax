@@ -23,7 +23,7 @@ export const CONTRIBUTORS: Contributor[] = [
     name: 'Oh My Syntax',
     role: 'Creator',
     avatarUrl: '/assets/contributors/creator.png',
-    githubUrl: 'https://github.com/ohmysyntax',
+    githubUrl: 'https://github.com/hamlsy',
     message: "You found me 👋 — the one who made this mess.",
     spawnProbability: 1.0,
   },
