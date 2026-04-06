@@ -43,26 +43,21 @@ export function CategoryDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
+  // Close on outside click or Escape
   useEffect(() => {
     if (!isOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (!containerRef.current?.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) setIsOpen(false);
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [isOpen]);
-
-  // Close on Escape
-  useEffect(() => {
-    if (!isOpen) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.stopPropagation(); setIsOpen(false); }
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen]);
 
   const activeCategory = CATEGORIES.find(c => c.id === selectedCategory) ?? CATEGORIES[0];
@@ -111,7 +106,7 @@ export function CategoryDropdown() {
             exit="exit"
             role="listbox"
             aria-label={t('category.select')}
-            className="absolute right-0 top-full mt-1 z-50 min-w-[15rem] rounded-2xl border border-border-subtle bg-bg-elevated shadow-card p-2"
+            className="absolute left-0 top-full mt-1 z-50 min-w-[15rem] rounded-2xl border border-border-subtle bg-bg-elevated shadow-card p-2"
           >
             <div className="grid grid-cols-4 gap-1">
               {CATEGORIES.map(cat => {

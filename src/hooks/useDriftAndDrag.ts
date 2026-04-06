@@ -54,15 +54,26 @@ export function useDriftAndDrag(config: DriftConfig) {
   startDriftRef.current = startDrift;
 
   useEffect(() => {
+    // Strict Mode 이중 실행 대응: cleanup에서 false로 설정된 플래그를 복원
+    mountedRef.current = true;
     // Bug 5 fix: useEffect 내에서 실제 viewport 크기로 초기화
     x.set(vwToPx(config.startX));
     const timer = setTimeout(() => startDriftRef.current?.(), config.driftDelay * 1000);
+
+    // resize 시 vwToPx 재계산 후 drift 재시작
+    const handleResize = () => {
+      if (!mountedRef.current || isDragging.current) return;
+      driftControlRef.current?.stop();
+      startDriftRef.current?.();
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
       // Bug 3 fix: 언마운트 cleanup
       mountedRef.current = false;
       clearTimeout(timer);
       driftControlRef.current?.stop();
+      window.removeEventListener('resize', handleResize);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

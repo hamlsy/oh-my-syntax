@@ -23,11 +23,9 @@ export function useCommandSearch(): SearchResult[] {
     return allCommands.filter(cmd => cmd.category === selectedCategory);
   }, [allCommands, selectedCategory]);
 
-  const fuseKey = `${language}-${selectedCategory}`;
   const fuse = useMemo(
     () => buildFuseIndex(categoryPool),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fuseKey, categoryPool]
+    [categoryPool]
   );
 
   const results = useMemo((): SearchResult[] => {

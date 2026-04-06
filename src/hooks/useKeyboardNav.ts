@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useSearchStore } from '@/store/useSearchStore';
+import { CATEGORIES } from '@/data/categories';
 import type { SearchResult } from '@/types/command';
+import type { CategoryId } from '@/types/command';
 
 interface UseKeyboardNavOptions {
   results:      SearchResult[];
@@ -9,8 +11,10 @@ interface UseKeyboardNavOptions {
 }
 
 export function useKeyboardNav({ results, onCopy, onClearQuery }: UseKeyboardNavOptions) {
-  const highlightedIndex = useSearchStore(s => s.highlightedIndex);
+  const highlightedIndex    = useSearchStore(s => s.highlightedIndex);
   const setHighlightedIndex = useSearchStore(s => s.setHighlightedIndex);
+  const selectedCategory    = useSearchStore(s => s.selectedCategory);
+  const setSelectedCategory = useSearchStore(s => s.setSelectedCategory);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     switch (e.key) {
@@ -44,8 +48,17 @@ export function useKeyboardNav({ results, onCopy, onClearQuery }: UseKeyboardNav
         setHighlightedIndex(-1);
         break;
       }
+      case 'Tab': {
+        e.preventDefault();
+        const currentIdx = CATEGORIES.findIndex(c => c.id === selectedCategory);
+        const nextIdx = e.shiftKey
+          ? (currentIdx - 1 + CATEGORIES.length) % CATEGORIES.length
+          : (currentIdx + 1) % CATEGORIES.length;
+        setSelectedCategory(CATEGORIES[nextIdx].id as CategoryId);
+        break;
+      }
     }
-  }, [highlightedIndex, results, setHighlightedIndex, onCopy, onClearQuery]);
+  }, [highlightedIndex, results, setHighlightedIndex, onCopy, onClearQuery, selectedCategory, setSelectedCategory]);
 
   return { handleKeyDown };
 }

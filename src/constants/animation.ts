@@ -20,6 +20,11 @@ export const SPRING = {
     damping: 20,
     mass: 1.2,
   },
+  listItem: {
+    type: 'spring' as const,
+    stiffness: 500,
+    damping: 38,
+  },
 } as const;
 
 export const DURATION = {

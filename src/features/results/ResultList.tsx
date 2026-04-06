@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ResultCard } from './ResultCard';
 import { useSearchStore } from '@/store/useSearchStore';
-import { SPRING, DURATION } from '@/constants/animation';
+import { SPRING } from '@/constants/animation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { SearchResult } from '@/types/command';
 
@@ -13,15 +13,15 @@ interface ResultListProps {
 const listVariants = {
   visible: {
     transition: {
-      staggerChildren: 0.02,
+      staggerChildren: 0.015,
     },
   },
 };
 
 const itemVariants = {
-  hidden:  { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0, transition: SPRING.smooth },
-  exit:    { opacity: 0, transition: { duration: DURATION.exitFast } },
+  hidden:  { opacity: 0, y: 6 },
+  visible: { opacity: 1, y: 0, transition: SPRING.listItem },
+  exit:    { opacity: 0, transition: { duration: 0.08 } },
 };
 
 const itemVariantsReduced = {
@@ -60,7 +60,7 @@ export function ResultList({ results }: ResultListProps) {
     <div
       data-lenis-prevent
       style={{ maxHeight: '600px', overflowY: 'auto' }}
-      className="pr-1 -mr-1"
+      className="relative pr-1 -mr-1"
     >
       <motion.ul
         role="listbox"
@@ -70,11 +70,12 @@ export function ResultList({ results }: ResultListProps) {
         animate="visible"
         aria-label="Search results"
       >
-        {/* mode="sync": simpler exit, no layout recalculation for remaining items */}
-        <AnimatePresence mode="sync">
+        <AnimatePresence mode="popLayout">
           {results.map((result, index) => (
             <motion.li
               key={result.command.id}
+              id={`result-item-${index}`}
+              layout={!isReduced}
               variants={variants}
               initial="hidden"
               exit="exit"

@@ -18,9 +18,6 @@ export const ResultCard = memo(function ResultCard({ result, isHighlighted, inde
 
   return (
     <motion.div
-      id={`result-item-${index}`}
-      role="option"
-      aria-selected={isHighlighted}
       whileHover={{ scale: 1.002 }}
       transition={SPRING.snappy}
       className={cn(
@@ -63,5 +60,6 @@ export const ResultCard = memo(function ResultCard({ result, isHighlighted, inde
   );
 }, (prev, next) =>
   prev.result.command.id === next.result.command.id &&
-  prev.isHighlighted === next.isHighlighted
+  prev.isHighlighted === next.isHighlighted &&
+  prev.index === next.index
 );

@@ -51,10 +51,10 @@ export function SearchContainer() {
     >
       {/* Search row: input + category toggle side by side */}
       <div className="flex gap-2">
+        <CategoryDropdown />
         <div className="flex-1 min-w-0">
           <SearchBar />
         </div>
-        <CategoryDropdown />
       </div>
 
       <ResultList results={results} />
