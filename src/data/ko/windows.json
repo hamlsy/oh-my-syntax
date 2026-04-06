@@ -23,5 +23,20 @@
   { "id": "win-wsl-start", "title": "WSL 시작 (기본 배포판)", "description": "Windows 서브시스템 for Linux 실행. 기본 Linux 배포판 쉘 열기.", "aliases": ["wsl", "wsl 시작", "윈도우에서 리눅스", "윈도우 bash"] },
   { "id": "win-wsl-run", "title": "WSL에서 단일 명령 실행", "description": "WSL 쉘 열지 않고 Windows에서 Linux 명령 하나만 실행.", "aliases": ["wsl 명령 실행", "wsl 실행", "wsl -e"] },
   { "id": "win-set-env-perm", "title": "영구 환경변수 설정 (PowerShell)", "description": "시스템 레벨 환경변수 영구 설정. 관리자 권한 필요. 사용자 범위는 'Machine' 대신 'User' 사용.", "aliases": ["윈도우 환경변수 영구", "영구 환경변수", "setx powershell", "시스템 환경변수"] },
-  { "id": "win-net-port", "title": "포트 사용 확인 (Windows)", "description": "포트를 리스닝하는 프로세스 확인. 표시된 PID는 작업 관리자에서 확인하거나 taskkill로 종료 가능.", "aliases": ["윈도우 포트 확인", "포트 사용 중 윈도우", "netstat 포트 윈도우"] }
+  { "id": "win-net-port", "title": "포트 사용 확인 (Windows)", "description": "포트를 리스닝하는 프로세스 확인. 표시된 PID는 작업 관리자에서 확인하거나 taskkill로 종료 가능.", "aliases": ["윈도우 포트 확인", "포트 사용 중 윈도우", "netstat 포트 윈도우"] },
+  { "id": "win-dir-simple", "title": "파일 목록 (CMD)", "description": "CMD 기본 디렉토리 목록. 재귀 파일 검색은 `dir /b /s {PATTERN}`. 리눅스 등가: `ls`.", "aliases": ["파일 목록 cmd", "dir", "윈도우 파일 목록", "cmd 파일 보기", "ls 윈도우"] },
+  { "id": "win-cd", "title": "디렉토리 이동 (CMD)", "description": "CMD에서 폴더 이동. 인자 없이 `cd`만 치면 현재 경로 출력 — 윈도우의 `pwd`.", "aliases": ["디렉토리 이동 cmd", "cd", "폴더 이동 윈도우", "경로 이동 cmd", "현재 경로 cmd", "pwd 윈도우"] },
+  { "id": "win-type", "title": "파일 내용 출력 (CMD)", "description": "CMD에서 파일 내용 표시. Linux/macOS 등가: `cat`. 큰 파일은 `more {FILE}` 사용.", "aliases": ["파일 내용 cmd", "type", "cat 윈도우", "파일 출력 cmd", "파일 보기 윈도우"] },
+  { "id": "win-touch", "title": "빈 파일 생성 (CMD)", "description": "CMD에서 빈 파일 만들기. 주의: 파일이 이미 있으면 내용이 모두 삭제됨. PowerShell 대안: `New-Item {FILE}`.", "aliases": ["빈 파일 생성 cmd", "touch 윈도우", "파일 만들기 cmd", "type nul", "새 파일 cmd"] },
+  { "id": "win-copy", "title": "파일 복사 (CMD)", "description": "파일 하나 복사. 디렉토리는 `xcopy` 또는 `robocopy` 사용. 덮어쓰기 전에 확인 물음.", "aliases": ["파일 복사 cmd", "copy", "윈도우 파일 복사", "cmd 복사"] },
+  { "id": "win-move", "title": "파일 이동 또는 이름 변경 (CMD)", "description": "파일을 다른 위치로 이동, 또는 대상 이름을 바꿔서 이름 변경.", "aliases": ["파일 이동 cmd", "move", "파일 이름 변경 cmd", "이름 바꾸기 윈도우", "mv 윈도우"] },
+  { "id": "win-del", "title": "파일 삭제 (CMD)", "description": "CMD에서 파일 삭제. 휴지통 없음. 취소 없음. 읽기 전용 파일은 `/F`로 강제 삭제. access denied는 관리자 실행.", "aliases": ["파일 삭제 cmd", "del", "윈도우 파일 삭제", "cmd 삭제", "access denied"] },
+  { "id": "win-rmdir", "title": "디렉토리 재귀 삭제 (CMD)", "description": "디렉토리와 모든 내용 삭제. /s=재귀, /q=조용히(확인 없음). 취소 불가.", "aliases": ["폴더 삭제 cmd", "rd", "디렉토리 삭제 cmd", "윈도우 폴더 삭제", "rm -rf 윈도우"] },
+  { "id": "win-cls", "title": "터미널 화면 지우기 (CMD)", "description": "CMD 화면 초기화. Linux/macOS의 `clear` 윈도우 버전.", "aliases": ["화면 지우기", "cls", "cmd 화면 초기화", "터미널 클리어 윈도우", "clear 윈도우"] },
+  { "id": "win-echo", "title": "텍스트 출력 (CMD)", "description": "CMD에서 텍스트 출력. 빈 줄은 `echo.` 사용. `>`로 파일에 쓰기, `>>`로 추가.", "aliases": ["텍스트 출력 cmd", "echo", "문자열 출력 윈도우", "cmd 출력", "터미널 출력 윈도우"] },
+  { "id": "win-where", "title": "명령어 위치 찾기 (CMD)", "description": "실행 파일의 전체 경로 찾기. Linux `which`의 윈도우 버전. 어떤 버전의 도구가 활성화됐는지 확인.", "aliases": ["명령어 경로 윈도우", "where", "which 윈도우", "명령어 위치 cmd", "실행 파일 위치"] },
+  { "id": "win-ping", "title": "호스트 ping (CMD)", "description": "네트워크 연결 테스트. 기본 4개 패킷 전송. 연속 ping은 `-t`. 네트워크 문제 발생 시 가장 먼저 해볼 것.", "aliases": ["핑 윈도우", "ping", "네트워크 테스트 윈도우", "서버 연결 확인", "연결 테스트 cmd", "호스트 확인 윈도우"] },
+  { "id": "win-set-list", "title": "환경변수 목록 (CMD)", "description": "CMD에서 모든 환경변수 출력. `set {PREFIX}`로 필터 (예: `set PATH`). PowerShell 등가: `Get-ChildItem Env:`.", "aliases": ["환경변수 목록 cmd", "set", "윈도우 환경변수 보기", "cmd 변수 목록", "env 윈도우"] },
+  { "id": "win-net-service", "title": "Windows 서비스 시작/중지 (CMD)", "description": "`net start`로 서비스 시작, `net stop {SERVICE}`로 중지. 관리자 권한 필요. 대안: `sc start/stop`.", "aliases": ["서비스 시작 윈도우", "net start", "윈도우 서비스 관리", "서비스 중지 cmd", "net stop", "서비스 cmd"] },
+  { "id": "win-tree", "title": "디렉토리 트리 시각화 (CMD)", "description": "파일 포함 디렉토리 트리 출력 (/F). 윈도우 기본 내장 — 설치 불필요. 파일 저장: `tree /F > tree.txt`.", "aliases": ["디렉토리 트리 윈도우", "tree", "폴더 구조 cmd", "윈도우 트리", "트리 구조 cmd"] }
 ]
