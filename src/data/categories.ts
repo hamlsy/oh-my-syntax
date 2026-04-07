@@ -1,4 +1,27 @@
+import {
+  LayoutGrid, Terminal, Laptop, Monitor, Box, Network,
+  GitBranch, Code2, FileCode, Package, Database,
+  type LucideIcon,
+} from 'lucide-react';
 import type { Category, CategoryId } from '@/types/command';
+
+// Single source of truth for category icon components.
+// Terminal2 (vim) and Coffee (java) fall back to existing icons.
+export const ICON_MAP: Record<string, LucideIcon> = {
+  LayoutGrid,
+  Terminal,
+  Terminal2: Terminal,
+  Laptop,
+  Monitor,
+  Box,
+  Network,
+  GitBranch,
+  Coffee:    Code2,
+  Code2,
+  FileCode,
+  Package,
+  Database,
+};
 
 export const CATEGORIES: Category[] = [
   { id: 'all',        labelKey: 'category.all',        icon: 'LayoutGrid',  color: 'accent'   },

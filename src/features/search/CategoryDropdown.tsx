@@ -1,34 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import {
-  LayoutGrid, Terminal, Laptop, Monitor, Box, Network,
-  GitBranch, Code2, FileCode, Package, Database, ChevronDown,
-  type LucideIcon,
-} from 'lucide-react';
+import { LayoutGrid, ChevronDown } from 'lucide-react';
 import { useSearchStore } from '@/store/useSearchStore';
-import { CATEGORIES } from '@/data/categories';
+import { CATEGORIES, ICON_MAP } from '@/data/categories';
 import { SPRING } from '@/constants/animation';
 import { cn } from '@/utils/classNames';
 import type { CategoryId } from '@/types/command';
-
-// Map icon string names from categories.ts to lucide components.
-// Terminal2 (vim) falls back to Terminal; Coffee (java) falls back to Code2.
-const ICON_MAP: Record<string, LucideIcon> = {
-  LayoutGrid,
-  Terminal,
-  Terminal2:  Terminal,
-  Laptop,
-  Monitor,
-  Box,
-  Network,
-  GitBranch,
-  Coffee:     Code2,
-  Code2,
-  FileCode,
-  Package,
-  Database,
-};
 
 const dropdownVariants = {
   hidden:  { opacity: 0, y: -6, scale: 0.97 },

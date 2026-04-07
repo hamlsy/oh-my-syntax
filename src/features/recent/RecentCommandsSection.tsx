@@ -9,13 +9,14 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 export function RecentCommandsSection() {
   const { t } = useTranslation();
   const recentCommands      = useRecentCommandsStore(s => s.recentCommands);
+  const hasHydrated         = useRecentCommandsStore(s => s.hasHydrated);
   const removeRecentCommand = useRecentCommandsStore(s => s.removeRecentCommand);
   const clearRecentCommands = useRecentCommandsStore(s => s.clearRecentCommands);
   const query               = useSearchStore(s => s.query);
   const isReduced           = useReducedMotion();
 
   // Self-contained visibility logic — App.tsx needs no store subscriptions (Should-9)
-  const isVisible = recentCommands.length > 0 && query === '';
+  const isVisible = hasHydrated && recentCommands.length > 0 && query === '';
 
   return (
     <AnimatePresence>

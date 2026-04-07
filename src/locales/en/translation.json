@@ -59,5 +59,9 @@
   "contributors": {
     "title":     "Contributors",
     "viewGitHub": "GitHub"
+  },
+  "mascot": {
+    "idle":  ["What was it..", "I forgot..", "Can't remember..", "I'm hungry.."],
+    "click": ["Ouch!", "Hey!", "Stop poking me!", "That hurts~", "Be gentle!"]
   }
 }

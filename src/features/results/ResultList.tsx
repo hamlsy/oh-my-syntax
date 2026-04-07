@@ -1,3 +1,4 @@
+import { useDeferredValue } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ResultCard } from './ResultCard';
@@ -34,11 +35,12 @@ export function ResultList({ results }: ResultListProps) {
   const { t } = useTranslation();
   const highlightedIndex = useSearchStore(s => s.highlightedIndex);
   const query = useSearchStore(s => s.query);
+  const deferredQuery = useDeferredValue(query);
   const isReduced = useReducedMotion();
 
   const variants = isReduced ? itemVariantsReduced : itemVariants;
 
-  if (results.length === 0 && query.trim()) {
+  if (results.length === 0 && deferredQuery.trim()) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -46,7 +48,7 @@ export function ResultList({ results }: ResultListProps) {
         className="text-center py-12"
       >
         <p className="text-text-secondary text-sm">
-          {t('search.noResults', { query })}
+          {t('search.noResults', { query: deferredQuery })}
         </p>
         <p className="text-text-muted text-xs mt-2">
           {t('search.noResultsHint')}
@@ -70,7 +72,7 @@ export function ResultList({ results }: ResultListProps) {
         animate="visible"
         aria-label="Search results"
       >
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
           {results.map((result, index) => (
             <motion.li
               key={result.command.id}
@@ -85,7 +87,6 @@ export function ResultList({ results }: ResultListProps) {
               <ResultCard
                 result={result}
                 isHighlighted={index === highlightedIndex}
-                index={index}
               />
             </motion.li>
           ))}

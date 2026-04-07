@@ -1,5 +1,5 @@
 [
-  { "id": "linux-kill-port", "title": "포트 프로세스 강제 종료", "description": "자비 없음. 포트 점령한 놈을 즉시 처단합니다.", "aliases": ["포트 죽이기", "포트 킬", "포트 종료", "8080 죽이기", "address already in use", "포트 이미 사용 중"] },
+  { "id": "linux-kill-port", "title": "포트 프로세스 강제 종료", "description": "자비 없음. 포트 점령한 놈을 즉시 처단합니다.", "aliases": ["포트 죽이기", "포트죽이기", "포트 킬", "포트킬", "포트 종료", "8080 죽이기", "8080포트", "포트 8080", "address already in use", "포트 이미 사용 중"] },
   { "id": "linux-find-large-files", "title": "대용량 파일 찾기", "description": "디스크 잡아먹는 범인 수색 중. '디스크 꽉 참' 공황 전용.", "aliases": ["디스크 꽉 참", "큰 파일 찾기", "용량 차지", "파일 사이즈", "no space left"] },
   { "id": "linux-grep-recursive", "title": "재귀 grep (라인 번호 포함)", "description": "파일 전체에서 텍스트 검색. Ctrl+F의 터미널 버전.", "aliases": ["grep 검색", "파일에서 텍스트 찾기", "텍스트 검색", "코드 검색"] },
   { "id": "linux-tail-follow", "title": "로그 실시간 모니터링", "description": "'도대체 뭔 일이야' 순간 필수 명령어. 로그를 실시간으로.", "aliases": ["로그 보기", "실시간 로그", "로그 팔로우", "로그 모니터링", "로그 스트림"] },

@@ -1,33 +1,49 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
+import { LayoutGrid } from 'lucide-react';
 import { CopyButton } from './CopyButton';
 import { DangerBadge } from './DangerBadge';
 import { SPRING } from '@/constants/animation';
 import { cn } from '@/utils/classNames';
+import { CATEGORIES, CATEGORY_COLOR_MAP, ICON_MAP } from '@/data/categories';
 import type { SearchResult } from '@/types/command';
 
 interface ResultCardProps {
   result: SearchResult;
   isHighlighted: boolean;
-  index: number;
 }
 
-export const ResultCard = memo(function ResultCard({ result, isHighlighted, index }: ResultCardProps) {
+export const ResultCard = memo(function ResultCard({ result, isHighlighted }: ResultCardProps) {
   const { command } = result;
   const isMultiLine = command.command.includes('\n');
+  const categoryColor = CATEGORY_COLOR_MAP[command.category];
+  const borderStyle = {
+    borderColor: isHighlighted
+      ? `${categoryColor}55`
+      : `${categoryColor}22`,
+  };
+
+  const categoryDef = CATEGORIES.find(c => c.id === command.category);
+  const CategoryIcon = categoryDef ? (ICON_MAP[categoryDef.icon] ?? LayoutGrid) : LayoutGrid;
 
   return (
     <motion.div
       whileHover={{ scale: 1.002 }}
       transition={SPRING.snappy}
+      style={borderStyle}
       className={cn(
         'group flex items-start gap-3 p-4 rounded-xl border transition-colors duration-150 cursor-default',
         'min-h-[72px]',
         isHighlighted
-          ? 'bg-bg-elevated border-border-default shadow-card-hover'
-          : 'bg-bg-surface border-border-subtle hover:bg-bg-elevated hover:border-border-default hover:shadow-card'
+          ? 'bg-bg-elevated shadow-card-hover'
+          : 'bg-bg-surface hover:bg-bg-elevated hover:shadow-card'
       )}
     >
+      {/* Category icon */}
+      <div className="shrink-0 mt-1">
+        <CategoryIcon size={14} style={{ color: categoryColor }} />
+      </div>
+
       {/* Left: content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start gap-2 mb-1.5 flex-wrap">
@@ -60,6 +76,5 @@ export const ResultCard = memo(function ResultCard({ result, isHighlighted, inde
   );
 }, (prev, next) =>
   prev.result.command.id === next.result.command.id &&
-  prev.isHighlighted === next.isHighlighted &&
-  prev.index === next.index
+  prev.isHighlighted === next.isHighlighted
 );

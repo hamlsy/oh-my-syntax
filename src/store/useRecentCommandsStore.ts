@@ -7,6 +7,7 @@ export const useRecentCommandsStore = create<RecentCommandsState>()(
   persist(
     (set) => ({
       recentCommands: [],
+      hasHydrated: false,
 
       addRecentCommand: (entry) =>
         set((state) => ({
@@ -27,6 +28,9 @@ export const useRecentCommandsStore = create<RecentCommandsState>()(
       name: 'oms-recent-commands',
       storage: createJSONStorage(() => localStorage),
       version: 1,
+      onRehydrateStorage: () => () => {
+        useRecentCommandsStore.setState({ hasHydrated: true });
+      },
     }
   )
 );

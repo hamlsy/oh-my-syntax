@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774780412093,
+  "lastScanned": 1775538606379,
   "projectRoot": "C:\\oh-my-syntax",
   "techStack": {
     "languages": [
@@ -83,20 +83,31 @@
   },
   "customNotes": [],
   "directoryMap": {
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 2,
+      "lastAccessed": 1775538606317,
+      "keyFiles": [
+        "index.html",
+        "mascot.gif"
+      ]
+    },
     "docs": {
       "path": "docs",
       "purpose": "Documentation",
-      "fileCount": 1,
-      "lastAccessed": 1774780412034,
+      "fileCount": 2,
+      "lastAccessed": 1775538606317,
       "keyFiles": [
+        "basic-commands-plan.md",
         "command-data-spec.md"
       ]
     },
     "plans": {
       "path": "plans",
       "purpose": null,
-      "fileCount": 15,
-      "lastAccessed": 1774780412035,
+      "fileCount": 16,
+      "lastAccessed": 1775538606335,
       "keyFiles": [
         "00_overview.md",
         "01_folder-structure.md",
@@ -109,7 +120,7 @@
       "path": "public",
       "purpose": "Public files",
       "fileCount": 1,
-      "lastAccessed": 1774780412049,
+      "lastAccessed": 1775538606335,
       "keyFiles": [
         "mascot.gif"
       ]
@@ -118,7 +129,7 @@
       "path": "scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1774780412050,
+      "lastAccessed": 1775538606336,
       "keyFiles": [
         "validate-data.ts"
       ]
@@ -127,7 +138,7 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 4,
-      "lastAccessed": 1774780412050,
+      "lastAccessed": 1775538606336,
       "keyFiles": [
         "App.css",
         "App.tsx",
@@ -135,25 +146,36 @@
         "main.tsx"
       ]
     },
+    "dist\\assets": {
+      "path": "dist\\assets",
+      "purpose": "Static assets",
+      "fileCount": 8,
+      "lastAccessed": 1775538606336,
+      "keyFiles": [
+        "favicon-bEJmYYbz.png",
+        "index-CPBtPcpE.js",
+        "index-LHOWWaeT.css"
+      ]
+    },
     "src\\assets": {
       "path": "src\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1774780412051,
+      "lastAccessed": 1775538606338,
       "keyFiles": []
     },
     "src\\components": {
       "path": "src\\components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1774780412052,
+      "lastAccessed": 1775538606338,
       "keyFiles": []
     },
     "src\\data": {
       "path": "src\\data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1774780412052,
+      "lastAccessed": 1775538606338,
       "keyFiles": [
         "categories.ts"
       ]
@@ -161,256 +183,118 @@
   },
   "hotPaths": [
     {
-      "path": "plans\\14_commands-expansion.md",
-      "accessCount": 6,
-      "lastAccessed": 1774780526464,
+      "path": "src\\features\\results\\ResultCard.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1775540844247,
       "type": "file"
     },
     {
-      "path": "src\\data\\en\\git.json",
-      "accessCount": 6,
-      "lastAccessed": 1774781109172,
+      "path": "src\\features\\hero\\HeroSection.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1775540979445,
       "type": "file"
     },
     {
-      "path": "src\\data\\en\\docker.json",
-      "accessCount": 6,
-      "lastAccessed": 1774781149232,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\en\\javascript.json",
-      "accessCount": 6,
-      "lastAccessed": 1774781166397,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\en\\python.json",
-      "accessCount": 5,
-      "lastAccessed": 1774781174477,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\en\\windows.json",
-      "accessCount": 5,
-      "lastAccessed": 1774781185998,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\ko\\javascript.json",
-      "accessCount": 5,
-      "lastAccessed": 1774781399329,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\ko\\windows.json",
-      "accessCount": 5,
-      "lastAccessed": 1774781415347,
-      "type": "directory"
-    },
-    {
-      "path": "src\\index.css",
-      "accessCount": 5,
-      "lastAccessed": 1774783166539,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\en\\linux.json",
-      "accessCount": 4,
-      "lastAccessed": 1774781134661,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\ko\\python.json",
-      "accessCount": 4,
-      "lastAccessed": 1774781405672,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\docker.json",
-      "accessCount": 4,
-      "lastAccessed": 1774781428658,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\results\\ResultList.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774782743804,
-      "type": "file"
-    },
-    {
-      "path": "src\\locales\\en\\translation.json",
-      "accessCount": 4,
-      "lastAccessed": 1774782863518,
-      "type": "file"
-    },
-    {
-      "path": "src\\locales\\ko\\translation.json",
-      "accessCount": 4,
-      "lastAccessed": 1774782864457,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\en\\macos.json",
+      "path": "src\\data\\ko\\linux.json",
       "accessCount": 3,
-      "lastAccessed": 1774780724815,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\ko\\macos.json",
-      "accessCount": 3,
-      "lastAccessed": 1774780745262,
-      "type": "directory"
-    },
-    {
-      "path": "src\\data\\en\\index.ts",
-      "accessCount": 3,
-      "lastAccessed": 1774781200850,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\git.json",
-      "accessCount": 3,
-      "lastAccessed": 1774781361749,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\index.ts",
-      "accessCount": 3,
-      "lastAccessed": 1774781440120,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\search\\CategoryTabs.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1774782447701,
+      "lastAccessed": 1775539826934,
       "type": "file"
     },
     {
       "path": "src\\data\\categories.ts",
       "accessCount": 3,
-      "lastAccessed": 1774782545463,
+      "lastAccessed": 1775540779782,
       "type": "file"
     },
     {
       "path": "src\\features\\search\\CategoryDropdown.tsx",
       "accessCount": 3,
-      "lastAccessed": 1774782871105,
+      "lastAccessed": 1775540794661,
       "type": "file"
     },
     {
-      "path": "src\\features\\results\\ResultCard.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1774780647134,
+      "path": "src\\types\\i18n.ts",
+      "accessCount": 3,
+      "lastAccessed": 1775540823100,
       "type": "file"
     },
     {
-      "path": "src\\types\\command.ts",
+      "path": "src\\utils\\searchUtils.ts",
       "accessCount": 2,
-      "lastAccessed": 1774780752047,
+      "lastAccessed": 1775539833053,
       "type": "file"
     },
     {
-      "path": "src\\data\\ko\\linux.json",
+      "path": "src\\features\\results\\ResultList.tsx",
       "accessCount": 2,
-      "lastAccessed": 1774781382972,
+      "lastAccessed": 1775540501652,
       "type": "file"
     },
     {
-      "path": "src\\features\\background\\FloatingCanvas.tsx",
+      "path": "src\\locales\\en\\translation.json",
       "accessCount": 2,
-      "lastAccessed": 1774782707683,
+      "lastAccessed": 1775540804743,
       "type": "file"
     },
     {
-      "path": "src\\features\\background\\StarField.tsx",
+      "path": "src\\locales\\ko\\translation.json",
       "accessCount": 2,
-      "lastAccessed": 1774782711950,
+      "lastAccessed": 1775540810127,
       "type": "file"
     },
     {
-      "path": "src\\features\\search\\SearchContainer.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1774782840603,
+      "path": "src\\store\\useRecentCommandsStore.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775538650494,
       "type": "file"
+    },
+    {
+      "path": "src\\features\\recent\\RecentCommandsSection.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775538650703,
+      "type": "file"
+    },
+    {
+      "path": "src\\types\\store.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775538658153,
+      "type": "file"
+    },
+    {
+      "path": "src\\data",
+      "accessCount": 1,
+      "lastAccessed": 1775539097726,
+      "type": "directory"
     },
     {
       "path": "",
       "accessCount": 1,
-      "lastAccessed": 1774780536456,
+      "lastAccessed": 1775539098477,
       "type": "directory"
-    },
-    {
-      "path": "src\\data\\en\\npm.json",
-      "accessCount": 1,
-      "lastAccessed": 1774780812190,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\en\\sql.json",
-      "accessCount": 1,
-      "lastAccessed": 1774780865009,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\en\\vim.json",
-      "accessCount": 1,
-      "lastAccessed": 1774780896830,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\npm.json",
-      "accessCount": 1,
-      "lastAccessed": 1774781244457,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\sql.json",
-      "accessCount": 1,
-      "lastAccessed": 1774781286877,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\vim.json",
-      "accessCount": 1,
-      "lastAccessed": 1774781309924,
-      "type": "file"
-    },
-    {
-      "path": "src\\main.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1774782448722,
-      "type": "file"
-    },
-    {
-      "path": "src\\hooks\\useCommandSearch.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774782448872,
-      "type": "file"
-    },
-    {
-      "path": "src\\store\\useSettingsStore.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774782544644,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\search\\SearchBar.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1774782545080,
-      "type": "file"
-    },
-    {
-      "path": "plans\\plan-15-ux-bugfix.md",
-      "accessCount": 1,
-      "lastAccessed": 1774782642849,
-      "type": "file"
     },
     {
       "path": "src",
       "accessCount": 1,
-      "lastAccessed": 1774782849535,
+      "lastAccessed": 1775539109023,
       "type": "directory"
+    },
+    {
+      "path": "src\\constants\\animation.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775540741766,
+      "type": "file"
+    },
+    {
+      "path": "src\\hooks\\useMascotBubble.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775540859338,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\hero\\MascotSpeechBubble.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775540870175,
+      "type": "file"
     }
   ],
   "userDirectives": []

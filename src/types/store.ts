@@ -10,6 +10,7 @@ export interface RecentCommand {
 
 export interface RecentCommandsState {
   recentCommands:      RecentCommand[];
+  hasHydrated:         boolean;
   addRecentCommand:    (entry: Omit<RecentCommand, 'copiedAt'>) => void;
   removeRecentCommand: (commandId: string) => void;
   clearRecentCommands: () => void;

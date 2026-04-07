@@ -47,4 +47,8 @@ export interface Translation {
   ad: {
     label: string;
   };
+  mascot: {
+    idle:  string[];
+    click: string[];
+  };
 }
