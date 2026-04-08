@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -5,9 +6,11 @@ import { useSettingsStore } from '@/store/useSettingsStore';
 import { CONTRIBUTORS } from '@/constants/config';
 import { SPRING } from '@/constants/animation';
 
+const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 export function ContributorDetailModal() {
   const { t } = useTranslation();
-  const selectedId              = useSettingsStore(s => s.selectedContributorId);
+  const selectedId               = useSettingsStore(s => s.selectedContributorId);
   const setSelectedContributorId = useSettingsStore(s => s.setSelectedContributorId);
 
   const contributor = selectedId
@@ -15,6 +18,40 @@ export function ContributorDetailModal() {
     : null;
 
   const close = () => setSelectedContributorId(null);
+  const modalRef     = useRef<HTMLDivElement>(null);
+  const prevFocusRef = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!contributor) return;
+
+    prevFocusRef.current = document.activeElement;
+
+    const focusTimer = setTimeout(() => {
+      const el = modalRef.current?.querySelector<HTMLElement>(FOCUSABLE);
+      el?.focus();
+    }, 50);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const modal = modalRef.current;
+      if (!modal) return;
+      const items = Array.from(modal.querySelectorAll<HTMLElement>(FOCUSABLE));
+      const first = items[0];
+      const last  = items[items.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first?.focus(); }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener('keydown', handleKeyDown);
+      (prevFocusRef.current as HTMLElement | null)?.focus?.();
+    };
+  }, [contributor]);
 
   return (
     <AnimatePresence>
@@ -28,6 +65,10 @@ export function ContributorDetailModal() {
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={contributor.name}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

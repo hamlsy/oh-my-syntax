@@ -19,6 +19,8 @@ export interface CommandVariable {
   description: string;
 }
 
+export type DangerLevel = 'low' | 'medium' | 'high' | 'critical';
+
 export interface Command {
   id: string;
   category: Exclude<CategoryId, 'all'>;
@@ -27,7 +29,8 @@ export interface Command {
   description: string;
   aliases: string[];
   tags: string[];
-  isDangerous?: boolean;
+  isDangerous?: boolean;  // legacy boolean — prefer dangerLevel for new data
+  dangerLevel?: DangerLevel;
   platform?: 'linux' | 'macos' | 'windows' | 'all';
   popularity?: number;
   variables?: CommandVariable[];

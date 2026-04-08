@@ -19,7 +19,7 @@ export function FloatingCodeSnippet({
   fontSize,
   colorClass,
 }: FloatingCodeSnippetProps) {
-  const { x, opacity, innerY, onDragStart, onDragEnd } = useDriftAndDrag({
+  const { x, opacity, innerY, onDragStart, onDragEnd, isDragging } = useDriftAndDrag({
     startX,
     endX,
     targetOpacity,
@@ -28,12 +28,13 @@ export function FloatingCodeSnippet({
   });
 
   // Bug 4 fix: Wrapper 패턴 — outer(float Y) / inner(drift X + drag) 분리
+  // 드래그 중에는 float Y 애니메이션 일시정지 (어색한 비틀림 방지)
   return (
     <motion.div
       className="fixed pointer-events-none"
       style={{ top: `${initialY}vh`, left: 0 }}
-      animate={{ y: [0, floatAmplitude, 0] }}
-      transition={{
+      animate={isDragging ? { y: 0 } : { y: [0, floatAmplitude, 0] }}
+      transition={isDragging ? { duration: 0.2 } : {
         duration: floatDuration,
         ease: 'easeInOut',
         repeat: Infinity,

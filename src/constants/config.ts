@@ -5,7 +5,6 @@ export const MAX_RESULTS = 50;
 export const DEFAULT_RESULTS = 20;
 export const MAX_QUERY_LENGTH = 80;
 export const MAX_RECENT_COMMANDS = 10;
-export const RECENT_COPY_REVERT_MS = 800;
 
 export interface Contributor {
   id: string;
@@ -15,6 +14,7 @@ export interface Contributor {
   githubUrl: string;
   message: string;
   spawnProbability: number;
+  color?: string; // hex accent color for the floating card
 }
 
 export const CONTRIBUTORS: Contributor[] = [
@@ -26,6 +26,7 @@ export const CONTRIBUTORS: Contributor[] = [
     githubUrl: 'https://github.com/hamlsy',
     message: "You found me 👋 — the one who made this mess.",
     spawnProbability: 1.0,
+    color: '#7c3aed',
   },
 ];
 

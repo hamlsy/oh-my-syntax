@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -5,12 +6,49 @@ import { useSettingsStore } from '@/store/useSettingsStore';
 import { CONTRIBUTORS } from '@/constants/config';
 import { SPRING } from '@/constants/animation';
 
+const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 export function ContributorsModal() {
   const { t } = useTranslation();
   const showContributors    = useSettingsStore(s => s.showContributors);
   const setShowContributors = useSettingsStore(s => s.setShowContributors);
 
   const close = () => setShowContributors(false);
+  const modalRef      = useRef<HTMLDivElement>(null);
+  const prevFocusRef  = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!showContributors) return;
+
+    prevFocusRef.current = document.activeElement;
+
+    // 애니메이션 후 포커스 이동
+    const focusTimer = setTimeout(() => {
+      const el = modalRef.current?.querySelector<HTMLElement>(FOCUSABLE);
+      el?.focus();
+    }, 50);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const modal = modalRef.current;
+      if (!modal) return;
+      const items = Array.from(modal.querySelectorAll<HTMLElement>(FOCUSABLE));
+      const first = items[0];
+      const last  = items[items.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first?.focus(); }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener('keydown', handleKeyDown);
+      (prevFocusRef.current as HTMLElement | null)?.focus?.();
+    };
+  }, [showContributors]);
 
   return (
     <AnimatePresence>
@@ -24,6 +62,10 @@ export function ContributorsModal() {
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('contributors.title')}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

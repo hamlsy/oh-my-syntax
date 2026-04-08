@@ -15,9 +15,19 @@ export function FloatingCanvas() {
   const isMobile     = useMediaQuery('(max-width: 767px)');
   const floatingItems = useFloatingItems(8);
 
-  const activeContributors = useMemo(() => {
-    if (import.meta.env.DEV) return CONTRIBUTORS;
-    return CONTRIBUTORS.filter(c => Math.random() < c.spawnProbability);
+  const WAVE_COUNT = 3;
+
+  const contributorWaves = useMemo(() => {
+    const active = import.meta.env.DEV
+      ? CONTRIBUTORS
+      : CONTRIBUTORS.filter(c => Math.random() < c.spawnProbability);
+    return active.flatMap((contributor) =>
+      Array.from({ length: WAVE_COUNT }, (_, waveIndex) => ({
+        contributor,
+        waveIndex,
+        key: `${contributor.id}-wave${waveIndex}`,
+      }))
+    );
   }, []);
 
   // StarField + grid are always rendered — they're pure CSS and have negligible cost.
@@ -54,11 +64,11 @@ export function FloatingCanvas() {
           ))}
 
           <div className="pointer-events-auto">
-            {activeContributors.map((contributor, index) => (
+            {contributorWaves.map(({ contributor, waveIndex, key }) => (
               <FloatingContributorCard
-                key={contributor.id}
+                key={key}
                 contributor={contributor}
-                index={index}
+                waveIndex={waveIndex}
               />
             ))}
           </div>

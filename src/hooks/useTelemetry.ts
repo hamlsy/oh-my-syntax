@@ -3,7 +3,7 @@ import { TELEMETRY_URL } from '@/constants/config';
 
 export function useTelemetry() {
   const track = useCallback((commandId: string) => {
-    if (!TELEMETRY_URL) return;
+    if (!TELEMETRY_URL || !TELEMETRY_URL.startsWith('https://')) return;
     fetch(TELEMETRY_URL, {
       method: 'POST',
       body: JSON.stringify({ commandId, ts: Date.now() }),

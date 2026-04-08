@@ -26,35 +26,6 @@ const bubbleVariants = {
  *   └──────────────┘
  *        ●  ●  ●      ← three dots leading down to the mascot
  */
-// export function MascotSpeechBubble({ phrase }: MascotSpeechBubbleProps) {
-//   return (
-//     <AnimatePresence>
-//       {phrase && (
-//         <motion.div
-//           key={phrase}
-//           variants={bubbleVariants}
-//           initial="hidden"
-//           animate="visible"
-//           exit="exit"
-//           className="absolute -top-12 left-1/2 -translate-x-1/2 ml-30 flex flex-col items-center pointer-events-none select-none"
-//           style={{ zIndex: 10 }}
-//         >
-//           {/* Bubble box */}
-//           <div className="relative px-3 py-1.5 rounded-2xl bg-bg-elevated border border-border-subtle shadow-card whitespace-nowrap">
-//             <span className="text-text-primary text-xs font-medium">{phrase}</span>
-//           </div>
-
-//           {/* Thinking dots */}
-//           <div className="flex flex-col items-center gap-[3px] mt-1">
-//             <span className="w-2 h-2 rounded-full bg-bg-elevated border border-border-subtle" />
-//             <span className="w-1.5 h-1.5 rounded-full bg-bg-elevated border border-border-subtle" />
-//             <span className="w-1 h-1 rounded-full bg-bg-elevated border border-border-subtle" />
-//           </div>
-//         </motion.div>
-//       )}
-//     </AnimatePresence>
-//   );
-// }
 export function MascotSpeechBubble({ phrase }: MascotSpeechBubbleProps) {
   return (
     <AnimatePresence>
@@ -66,7 +37,8 @@ export function MascotSpeechBubble({ phrase }: MascotSpeechBubbleProps) {
           animate="visible"
           exit="exit"
           /* 말풍선 본체는 마스코트 기준 오른쪽 위에 배치 */
-          className="absolute -top-8 left-1/2 -translate-x-1/2 ml-35 flex flex-col items-start pointer-events-none select-none"
+          className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-start pointer-events-none select-none"
+          style={{ marginLeft: '8.75rem' }}
           style={{ zIndex: 10 }}
         >
           {/* Bubble box */}

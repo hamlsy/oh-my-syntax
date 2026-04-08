@@ -8,10 +8,12 @@ import { HeroSection } from '@/features/hero/HeroSection';
 import { SearchContainer } from '@/features/search/SearchContainer';
 import { RecentCommandsSection } from '@/features/recent/RecentCommandsSection';
 import { AdSkeleton } from '@/components/ui/AdSkeleton';
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
     <ErrorBoundary>
+      <Analytics />
       {/* Layer 0: Background (fixed, z-0) */}
       <FloatingCanvas />
 

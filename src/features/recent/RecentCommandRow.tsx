@@ -1,14 +1,14 @@
-import { useState, useRef, memo } from 'react';
+import { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/Badge';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { SPRING, DURATION } from '@/constants/animation';
-import { RECENT_COPY_REVERT_MS } from '@/constants/config';
 import { CATEGORY_COLOR_MAP } from '@/data/categories';
 import { cn } from '@/utils/classNames';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import type { RecentCommand } from '@/types/store';
 
 interface RecentCommandRowProps {
@@ -23,23 +23,14 @@ export const RecentCommandRow = memo(function RecentCommandRow({
   onRemove,
 }: RecentCommandRowProps) {
   const { t } = useTranslation();
-  const [copiedLocal, setCopiedLocal] = useState(false);
-  const timerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { copied, error, copy } = useCopyToClipboard();
   const isReduced = useReducedMotion();
 
   // C-3: stagger via index-based delay instead of variants/staggerChildren
   const staggerDelay = isReduced ? 0 : index * DURATION.staggerDelay * 0.67;
 
-  // B-2 (from plan): try/catch prevents unhandled rejection on clipboard denial
   const handleClick = async () => {
-    try {
-      await navigator.clipboard.writeText(entry.command);
-      setCopiedLocal(true);
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setCopiedLocal(false), RECENT_COPY_REVERT_MS);
-    } catch {
-      // clipboard permission denied or unavailable — silent fail
-    }
+    await copy(entry.command);
   };
 
   return (
@@ -69,22 +60,24 @@ export const RecentCommandRow = memo(function RecentCommandRow({
         'group relative flex items-center gap-2.5 h-11 px-3 rounded-xl cursor-pointer',
         'border-l-2 transition-colors duration-150 select-none',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset',
-        copiedLocal
+        copied
           ? 'bg-accent-soft'
+          : error
+          ? 'bg-error/5'
           : 'bg-transparent hover:bg-bg-surface'
       )}
       style={{
-        // Tailwind cannot use runtime hex values in arbitrary classes;
-        // inline style is the only way to apply dynamic category color to border-l
-        borderLeftColor: copiedLocal
+        borderLeftColor: copied
           ? 'var(--color-accent)'
+          : error
+          ? 'var(--color-error)'
           : CATEGORY_COLOR_MAP[entry.category],
       }}
     >
-      {/* Command text / copied feedback */}
+      {/* Command text / copied / error feedback */}
       <div className="flex-1 min-w-0">
         <AnimatePresence mode="wait" initial={false}>
-          {copiedLocal ? (
+          {copied ? (
             <motion.span
               key="copied"
               initial={{ opacity: 0 }}
@@ -95,6 +88,17 @@ export const RecentCommandRow = memo(function RecentCommandRow({
             >
               {t('recent.copied')}
             </motion.span>
+          ) : error ? (
+            <motion.span
+              key="error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.08 }}
+              className="text-error text-xs font-mono font-medium"
+            >
+              {t('copy.error', { defaultValue: 'Failed to copy' })}
+            </motion.span>
           ) : (
             <motion.div
               key="command"
@@ -104,10 +108,7 @@ export const RecentCommandRow = memo(function RecentCommandRow({
               transition={{ duration: 0.08 }}
               className="min-w-0"
             >
-              {/* TODO: Tooltip uses whitespace-nowrap + max-w-[240px]; commands >~35 chars
-                  are still truncated inside the tooltip. Future improvement: add a `wrap`
-                  prop to the Tooltip component. */}
-              <Tooltip content={entry.command}>
+              <Tooltip content={entry.command} wrap>
                 <code className="text-text-primary text-xs font-mono truncate block">
                   {entry.command}
                 </code>

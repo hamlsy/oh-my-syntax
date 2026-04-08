@@ -66,34 +66,40 @@ function MascotDisplay({ isReduced }: { isReduced: boolean }) {
         <MascotSpeechBubble phrase={currentPhrase} />
 
         {!errored && (
-          <motion.img
-            // 2. 이미지 소스는 isSpeedUp 상태에 따라 결정 (0.8초 유지)
-            src={isSpeedUp ? MASCOT_FAST_PATH : MASCOT_PATH}
-            alt="Mascot"
-            onLoad={() => setLoaded(true)}
-            onError={() => setErrored(true)}
+          <button
+            type="button"
+            aria-label="Click the mascot"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerUp}
+            className="block w-full h-full bg-transparent border-0 p-0 m-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+          >
+            <motion.img
+              // 2. 이미지 소스는 isSpeedUp 상태에 따라 결정 (0.8초 유지)
+              src={isSpeedUp ? MASCOT_FAST_PATH : MASCOT_PATH}
+              alt=""
+              onLoad={() => setLoaded(true)}
+              onError={() => setErrored(true)}
 
-            // 3. 애니메이션은 isPressed(누르고 있는 동안)에만 반응
-            animate={{
-              scale: isPressed ? 0.92 : 1,
-            }}
-            transition={isReduced ? { duration: 0 } : {
-              type: "spring",
-              stiffness: 600, // 눌릴 때 더 빠르게
-              damping: 15,
-              mass: 0.4
-            }}
+              // 3. 애니메이션은 isPressed(누르고 있는 동안)에만 반응
+              animate={{
+                scale: isPressed ? 0.92 : 1,
+              }}
+              transition={isReduced ? { duration: 0 } : {
+                type: 'spring',
+                stiffness: 600,
+                damping: 15,
+                mass: 0.4,
+              }}
 
-            className={cn(
-              'w-full h-full object-contain cursor-pointer touch-none select-none',
-              'transition-opacity duration-300',
-              loaded ? 'opacity-100' : 'opacity-0',
-            )}
-            draggable={false}
-          />
+              className={cn(
+                'w-full h-full object-contain touch-none select-none pointer-events-none',
+                'transition-opacity duration-300',
+                loaded ? 'opacity-100' : 'opacity-0',
+              )}
+              draggable={false}
+            />
+          </button>
         )}
 
         {(!loaded || errored) && (

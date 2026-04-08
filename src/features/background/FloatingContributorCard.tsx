@@ -1,74 +1,56 @@
 import { motion } from 'framer-motion';
+import { Github } from 'lucide-react';
 import { useSettingsStore } from '@/store/useSettingsStore';
 import { useDriftAndDrag } from '@/hooks/useDriftAndDrag';
 import type { Contributor } from '@/constants/config';
 
 interface FloatingContributorCardProps {
   contributor: Contributor;
-  index:       number;
+  waveIndex:   number;
 }
 
-// creator: 즉시 뷰포트 내 등장 (startX 양수)
-// 기타: 화면 밖에서 진입 (startX 음수)
-const CARD_CONFIGS = [
-  { startX: 55, initialY: 72, floatAmplitude: 8,  driftDelay: 0,  driftDuration: 70 },
-  { startX: -20, initialY: 60, floatAmplitude: 12, driftDelay: 8,  driftDuration: 80 },
-  { startX: -15, initialY: 82, floatAmplitude: 6,  driftDelay: 16, driftDuration: 75 },
-  { startX: -18, initialY: 68, floatAmplitude: 10, driftDelay: 24, driftDuration: 85 },
+// 3개 wave: 각각 10초 간격으로 등장 → 항상 10초 이내에 누군가 나타남
+// driftDuration + restartDelay = 사이클 길이
+// wave 0: delay=0s, wave 1: delay=10s, wave 2: delay=20s → 매 10초마다 등장 보장
+const WAVE_CONFIGS = [
+  { initialY: 28, floatAmplitude: 8,  driftDuration: 22, driftDelay: 0,  restartDelay: 8 },
+  { initialY: 52, floatAmplitude: 10, driftDuration: 25, driftDelay: 10, restartDelay: 8 },
+  { initialY: 72, floatAmplitude: 6,  driftDuration: 20, driftDelay: 20, restartDelay: 8 },
 ] as const;
 
-export function FloatingContributorCard({ contributor, index }: FloatingContributorCardProps) {
+export function FloatingContributorCard({ contributor, waveIndex }: FloatingContributorCardProps) {
   const setSelectedContributorId = useSettingsStore(s => s.setSelectedContributorId);
 
-  const cfg = CARD_CONFIGS[index % CARD_CONFIGS.length];
-  const { x, opacity, innerY, onDragStart, onDragEnd } = useDriftAndDrag({
-    startX:        cfg.startX,
+  const cfg = WAVE_CONFIGS[waveIndex % WAVE_CONFIGS.length];
+  const { x, opacity, innerY, onDragStart, onDragEnd, isDragging } = useDriftAndDrag({
+    startX:        -18,
     endX:          115,
-    targetOpacity: 0.85,
-    driftDuration: cfg.driftDuration + (contributor.id.length % 15),
+    targetOpacity: 0.88,
+    driftDuration: cfg.driftDuration,
     driftDelay:    cfg.driftDelay,
+    restartDelay:  cfg.restartDelay,
   });
 
-  const isCreator = contributor.id === 'creator';
+  const accentColor = contributor.color;
+  const cardStyle = {
+    x,
+    opacity,
+    y: innerY,
+    ...(accentColor && { borderColor: `${accentColor}55` }),
+  } as React.CSSProperties & object;
 
-  const innerProps = {
-    style: { x, opacity, y: innerY } as React.CSSProperties & object,
-    drag: true as const,
-    dragElastic: 0.8 as const,
-    dragTransition: { power: 0.3, timeConstant: 500 },
-    whileDrag: { scale: 1.05 },
-    onDragStart,
-    onDragEnd,
-    className: 'flex items-center gap-2 bg-bg-surface border border-border-subtle rounded-full px-3 py-1.5 shadow-card cursor-grab active:cursor-grabbing',
-    'aria-label': isCreator ? `${contributor.name} GitHub` : contributor.name,
+  const handleGithubClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(contributor.githubUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const avatar = (
-    <div className="w-5 h-5 rounded-full bg-accent-soft flex items-center justify-center text-2xs font-bold text-accent overflow-hidden shrink-0">
-      {contributor.avatarUrl ? (
-        <img
-          src={contributor.avatarUrl}
-          alt={contributor.name}
-          className="w-full h-full object-cover"
-          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-        />
-      ) : (
-        contributor.name[0]
-      )}
-    </div>
-  );
+  const handleCardClick = () => {
+    setSelectedContributorId(contributor.id);
+  };
 
-  const label = (
-    <div className="text-left">
-      <p className="text-text-primary text-2xs font-semibold leading-none">{contributor.name}</p>
-      <p className="text-text-muted text-2xs leading-none mt-0.5">{contributor.role}</p>
-    </div>
-  );
-
-  // Outer: float Y animation (drag 없음)
   const outerStyle = { position: 'fixed' as const, top: `${cfg.initialY}vh`, left: 0 };
   const floatTransition = {
-    duration: 8 + index * 1.5,
+    duration: 8 + waveIndex * 1.5,
     ease: 'easeInOut' as const,
     repeat: Infinity,
   };
@@ -76,30 +58,57 @@ export function FloatingContributorCard({ contributor, index }: FloatingContribu
   return (
     <motion.div
       style={outerStyle}
-      animate={{ y: [0, cfg.floatAmplitude, 0] }}
-      transition={floatTransition}
+      animate={isDragging ? { y: 0 } : { y: [0, cfg.floatAmplitude, 0] }}
+      transition={isDragging ? { duration: 0.2 } : floatTransition}
     >
-      {isCreator ? (
-        // UX 2 fix: motion.a — 시맨틱 링크 + drag 동시 지원
-        // drag threshold 3px 미만 = href 기본 동작(탭으로 이동), 초과 = drag
-        <motion.a
-          href={contributor.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          {...innerProps}
+      <motion.div
+        onClick={handleCardClick}
+        style={cardStyle}
+        drag
+        dragElastic={0.8}
+        dragTransition={{ power: 0.3, timeConstant: 500 }}
+        whileDrag={{ scale: 1.05 }}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        className="flex items-center gap-2 bg-bg-surface border border-border-subtle rounded-full px-3 py-1.5 shadow-card cursor-grab active:cursor-grabbing"
+        aria-label={contributor.name}
+      >
+        {/* Avatar */}
+        <div
+          className="w-5 h-5 rounded-full flex items-center justify-center text-2xs font-bold overflow-hidden shrink-0"
+          style={{
+            backgroundColor: accentColor ? `${accentColor}22` : undefined,
+            color: accentColor ?? undefined,
+          }}
         >
-          {avatar}
-          {label}
-        </motion.a>
-      ) : (
-        <motion.div
-          onClick={() => setSelectedContributorId(contributor.id)}
-          {...innerProps}
+          {contributor.avatarUrl ? (
+            <img
+              src={contributor.avatarUrl}
+              alt={contributor.name}
+              className="w-full h-full object-cover"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+            />
+          ) : (
+            contributor.name[0]
+          )}
+        </div>
+
+        {/* Name + Role */}
+        <div className="text-left">
+          <p className="text-text-primary text-2xs font-semibold leading-none">{contributor.name}</p>
+          <p className="text-text-muted text-2xs leading-none mt-0.5">{contributor.role}</p>
+        </div>
+
+        {/* GitHub icon button — only click triggers navigation, drag is unaffected */}
+        <button
+          onClick={handleGithubClick}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="ml-0.5 p-1 rounded-full text-text-muted hover:text-text-primary hover:bg-bg-overlay transition-colors shrink-0"
+          aria-label={`${contributor.name} GitHub`}
         >
-          {avatar}
-          {label}
-        </motion.div>
-      )}
+          <Github size={10} />
+        </button>
+      </motion.div>
     </motion.div>
   );
 }
