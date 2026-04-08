@@ -60,6 +60,15 @@
     "title": "기여자",
     "viewGitHub": "GitHub"
   },
+  "contribute": {
+    "title":        "기여하기",
+    "button":       "기여하기",
+    "description":  "버그를 발견했나요? 좋은 명령어 아이디어가 있나요? 함께 만들어가요!",
+    "step1":        "이슈를 열어 버그를 신고하거나 새 명령어를 제안해 주세요.",
+    "step2":        "레포를 포크한 뒤 Pull Request로 기여해 주세요.",
+    "step3":        "레포에 Star를 눌러 다른 개발자들에게 공유해 주세요!",
+    "githubButton": "GitHub 이슈 페이지로 이동"
+  },
   "mascot": {
     "idle": [
       "뭐였지..",

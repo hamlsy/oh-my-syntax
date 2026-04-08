@@ -35,7 +35,9 @@ export interface SettingsState {
   showFloating:          boolean;
   selectedContributorId: string | null;
   showContributors:      boolean;
+  showContribute:        boolean;
   setShowFloating:          (show: boolean) => void;
   setSelectedContributorId: (id: string | null) => void;
   setShowContributors:      (show: boolean) => void;
+  setShowContribute:        (show: boolean) => void;
 }

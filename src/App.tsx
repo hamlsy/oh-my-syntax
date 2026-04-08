@@ -5,6 +5,7 @@ import { FloatingCanvas } from '@/features/background/FloatingCanvas';
 import { FloatingContributorLayer } from '@/features/background/FloatingContributorLayer';
 import { ContributorDetailModal } from '@/features/modals/ContributorDetailModal';
 import { ContributorsModal } from '@/features/modals/ContributorsModal';
+import { ContributeModal } from '@/features/modals/ContributeModal';
 import { HeroSection } from '@/features/hero/HeroSection';
 import { SearchContainer } from '@/features/search/SearchContainer';
 import { RecentCommandsSection } from '@/features/recent/RecentCommandsSection';
@@ -56,6 +57,7 @@ function App() {
       {/* Modals — portal-like, above everything */}
       <ContributorDetailModal />
       <ContributorsModal />
+      <ContributeModal />
     </ErrorBoundary>
   );
 }

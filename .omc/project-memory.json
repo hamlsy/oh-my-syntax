@@ -161,6 +161,79 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "src\\features\\modals\\ContributeModal.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1775636176678,
+      "type": "file"
+    },
+    {
+      "path": "src\\components\\layout\\Footer.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1775635944955,
+      "type": "file"
+    },
+    {
+      "path": "src\\App.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775635954636,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 2,
+      "lastAccessed": 1775635863934,
+      "type": "directory"
+    },
+    {
+      "path": "src\\types\\store.ts",
+      "accessCount": 2,
+      "lastAccessed": 1775635882364,
+      "type": "file"
+    },
+    {
+      "path": "src\\store\\useSettingsStore.ts",
+      "accessCount": 2,
+      "lastAccessed": 1775635891456,
+      "type": "file"
+    },
+    {
+      "path": "src\\components\\layout\\Header.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775635932711,
+      "type": "file"
+    },
+    {
+      "path": "src\\locales\\en\\translation.json",
+      "accessCount": 2,
+      "lastAccessed": 1775635960846,
+      "type": "file"
+    },
+    {
+      "path": "src\\locales\\ko\\translation.json",
+      "accessCount": 2,
+      "lastAccessed": 1775635966347,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\modals\\ContributorsModal.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775635843916,
+      "type": "file"
+    },
+    {
+      "path": "src\\constants\\config.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775635868576,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 1,
+      "lastAccessed": 1775636140744,
+      "type": "directory"
+    }
+  ],
   "userDirectives": []
 }

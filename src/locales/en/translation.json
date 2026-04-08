@@ -60,6 +60,15 @@
     "title":     "Contributors",
     "viewGitHub": "GitHub"
   },
+  "contribute": {
+    "title":        "Contribute",
+    "button":       "Contribute",
+    "description":  "Found a bug? Have a command idea? We'd love your help!",
+    "step1":        "Open an issue to report a bug or suggest a new command.",
+    "step2":        "Fork the repo and submit a pull request with your changes.",
+    "step3":        "Star the repo and share it with fellow developers!",
+    "githubButton": "Open an Issue on GitHub"
+  },
   "mascot": {
     "idle":  ["What was it..", "I forgot..", "Can't remember..", "I'm hungry.."],
     "click": ["Ouch!", "Hey!", "Stop poking me!", "That hurts~", "Be gentle!"]
