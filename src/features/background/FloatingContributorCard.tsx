@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 // import { GithubIcon } from 'lucide-react';
-
+import React from 'react';
 import { useSettingsStore } from '@/store/useSettingsStore';
 import { useDriftAndDrag } from '@/hooks/useDriftAndDrag';
 import type { Contributor } from '@/constants/config';
@@ -19,22 +19,25 @@ const WAVE_CONFIGS = [
   // { initialY: 40, floatAmplitude: 10, driftDuration: 25, driftDelay: 10, restartDelay: 8 },
   // { initialY: 70, floatAmplitude: 6, driftDuration: 20, driftDelay: 20, restartDelay: 8 },
   // driftDelay를 작게 분산시켜서 처음부터 뭉쳐 나오게 함
-  { initialY: 15, floatAmplitude: 8, driftDuration: 22, driftDelay: 0 },
-  { initialY: 45, floatAmplitude: 10, driftDuration: 25, driftDelay: 2 },
-  { initialY: 75, floatAmplitude: 6, driftDuration: 20, driftDelay: 4 },
+  { initialY: 15, floatAmplitude: 8, driftDuration: 22, driftDelay: 0, restartDelay: 8 },
+  { initialY: 45, floatAmplitude: 10, driftDuration: 25, driftDelay: 2, restartDelay: 8 },
+  { initialY: 75, floatAmplitude: 6, driftDuration: 20, driftDelay: 4, restartDelay: 8 },
 ] as const;
 
 export function FloatingContributorCard({ contributor, waveIndex }: FloatingContributorCardProps) {
   const setSelectedContributorId = useSettingsStore(s => s.setSelectedContributorId);
+  // 5초에서 10초 사이의 랜덤한 재등장 간격 생성 (웨이브별로 고유하게 부여)
+  const randomRestartDelay = React.useMemo(() => Math.random() * 5 + 5, [contributor.id]);
 
   const cfg = WAVE_CONFIGS[waveIndex % WAVE_CONFIGS.length];
+
   const { x, opacity, innerY, onDragStart, onDragEnd, isDragging } = useDriftAndDrag({
     startX: -18,
     endX: 115,
     targetOpacity: 0.88,
     driftDuration: cfg.driftDuration,
-    driftDelay: cfg.driftDelay,
-    restartDelay: cfg.restartDelay,
+    driftDelay: cfg.driftDelay, // 초기 등장 지연 (0~4초)
+    restartDelay: randomRestartDelay, // 한 사이클 끝나고 재등장까지 5~10초
   });
 
   const accentColor = contributor.color;
@@ -83,13 +86,13 @@ export function FloatingContributorCard({ contributor, waveIndex }: FloatingCont
       >
         {/* Avatar */}
         <div
-          className="w-5 h-5 rounded-full flex items-center justify-center text-2xs font-bold overflow-hidden shrink-0"
+          className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold overflow-hidden shrink-0 select-none"
           style={{
-            backgroundColor: accentColor ? `${accentColor}22` : undefined,
-            color: accentColor ?? undefined,
+            backgroundColor: accentColor ? `${accentColor}22` : '#33333322',
+            color: accentColor ?? '#888888',
           }}
         >
-          {contributor.name[0]}
+          {contributor.name[0].toUpperCase()}
         </div>
 
         {/* Name + Role */}

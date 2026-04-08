@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775538606379,
+  "lastScanned": 1775633234161,
   "projectRoot": "C:\\oh-my-syntax",
   "techStack": {
     "languages": [
@@ -83,21 +83,11 @@
   },
   "customNotes": [],
   "directoryMap": {
-    "dist": {
-      "path": "dist",
-      "purpose": "Distribution/build output",
-      "fileCount": 2,
-      "lastAccessed": 1775538606317,
-      "keyFiles": [
-        "index.html",
-        "mascot.gif"
-      ]
-    },
     "docs": {
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 2,
-      "lastAccessed": 1775538606317,
+      "lastAccessed": 1775633234109,
       "keyFiles": [
         "basic-commands-plan.md",
         "command-data-spec.md"
@@ -107,7 +97,7 @@
       "path": "plans",
       "purpose": null,
       "fileCount": 16,
-      "lastAccessed": 1775538606335,
+      "lastAccessed": 1775633234109,
       "keyFiles": [
         "00_overview.md",
         "01_folder-structure.md",
@@ -119,9 +109,10 @@
     "public": {
       "path": "public",
       "purpose": "Public files",
-      "fileCount": 1,
-      "lastAccessed": 1775538606335,
+      "fileCount": 2,
+      "lastAccessed": 1775633234123,
       "keyFiles": [
+        "mascot-fast.gif",
         "mascot.gif"
       ]
     },
@@ -129,7 +120,7 @@
       "path": "scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1775538606336,
+      "lastAccessed": 1775633234124,
       "keyFiles": [
         "validate-data.ts"
       ]
@@ -138,7 +129,7 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 4,
-      "lastAccessed": 1775538606336,
+      "lastAccessed": 1775633234124,
       "keyFiles": [
         "App.css",
         "App.tsx",
@@ -146,342 +137,30 @@
         "main.tsx"
       ]
     },
-    "dist\\assets": {
-      "path": "dist\\assets",
-      "purpose": "Static assets",
-      "fileCount": 8,
-      "lastAccessed": 1775538606336,
-      "keyFiles": [
-        "favicon-bEJmYYbz.png",
-        "index-CPBtPcpE.js",
-        "index-LHOWWaeT.css"
-      ]
-    },
     "src\\assets": {
       "path": "src\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1775538606338,
+      "lastAccessed": 1775633234125,
       "keyFiles": []
     },
     "src\\components": {
       "path": "src\\components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1775538606338,
+      "lastAccessed": 1775633234125,
       "keyFiles": []
     },
     "src\\data": {
       "path": "src\\data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1775538606338,
+      "lastAccessed": 1775633234125,
       "keyFiles": [
         "categories.ts"
       ]
     }
   },
-  "hotPaths": [
-    {
-      "path": "src\\hooks\\useDriftAndDrag.ts",
-      "accessCount": 13,
-      "lastAccessed": 1775627589754,
-      "type": "file"
-    },
-    {
-      "path": "src\\constants\\config.ts",
-      "accessCount": 12,
-      "lastAccessed": 1775627428125,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\hero\\HeroSection.tsx",
-      "accessCount": 12,
-      "lastAccessed": 1775627688917,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\results\\ResultCard.tsx",
-      "accessCount": 11,
-      "lastAccessed": 1775616055227,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\background\\FloatingContributorCard.tsx",
-      "accessCount": 11,
-      "lastAccessed": 1775627581976,
-      "type": "file"
-    },
-    {
-      "path": "src",
-      "accessCount": 10,
-      "lastAccessed": 1775627076289,
-      "type": "directory"
-    },
-    {
-      "path": "src\\features\\background\\FloatingCanvas.tsx",
-      "accessCount": 8,
-      "lastAccessed": 1775627577319,
-      "type": "file"
-    },
-    {
-      "path": "src\\App.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1775627581658,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\modals\\ContributorDetailModal.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1775627735968,
-      "type": "file"
-    },
-    {
-      "path": "src\\index.css",
-      "accessCount": 6,
-      "lastAccessed": 1775627887313,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\search\\CategoryDropdown.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1775615938312,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\modals\\ContributorsModal.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1775625441874,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\ko\\linux.json",
-      "accessCount": 3,
-      "lastAccessed": 1775539826934,
-      "type": "file"
-    },
-    {
-      "path": "src\\data\\categories.ts",
-      "accessCount": 3,
-      "lastAccessed": 1775540779782,
-      "type": "file"
-    },
-    {
-      "path": "src\\types\\i18n.ts",
-      "accessCount": 3,
-      "lastAccessed": 1775540823100,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\hero\\MascotSpeechBubble.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1775615931101,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\results\\CopyButton.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1775616037747,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\background\\FloatingContributorLayer.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1775627577019,
-      "type": "file"
-    },
-    {
-      "path": "src\\store\\useSettingsStore.ts",
-      "accessCount": 3,
-      "lastAccessed": 1775627604974,
-      "type": "file"
-    },
-    {
-      "path": "src\\components\\layout\\Header.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1775627735998,
-      "type": "file"
-    },
-    {
-      "path": "src\\utils\\searchUtils.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775539833053,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\results\\ResultList.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1775540501652,
-      "type": "file"
-    },
-    {
-      "path": "src\\locales\\en\\translation.json",
-      "accessCount": 2,
-      "lastAccessed": 1775540804743,
-      "type": "file"
-    },
-    {
-      "path": "src\\locales\\ko\\translation.json",
-      "accessCount": 2,
-      "lastAccessed": 1775540810127,
-      "type": "file"
-    },
-    {
-      "path": "src\\constants\\animation.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775615211068,
-      "type": "file"
-    },
-    {
-      "path": "src\\hooks\\useTelemetry.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775615943432,
-      "type": "file"
-    },
-    {
-      "path": "src\\types\\command.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775615950366,
-      "type": "file"
-    },
-    {
-      "path": "src\\components\\ui\\Tooltip.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1775615960490,
-      "type": "file"
-    },
-    {
-      "path": "src\\hooks\\useCopyToClipboard.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775615973738,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\results\\DangerBadge.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1775615982293,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\background\\FloatingCodeSnippet.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1775616013054,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\recent\\RecentCommandRow.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1775616076652,
-      "type": "file"
-    },
-    {
-      "path": "src\\hooks\\useMediaQuery.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775627791193,
-      "type": "file"
-    },
-    {
-      "path": "src\\hooks\\useReducedMotion.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775628042108,
-      "type": "file"
-    },
-    {
-      "path": "src\\store\\useRecentCommandsStore.ts",
-      "accessCount": 1,
-      "lastAccessed": 1775538650494,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\recent\\RecentCommandsSection.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1775538650703,
-      "type": "file"
-    },
-    {
-      "path": "src\\types\\store.ts",
-      "accessCount": 1,
-      "lastAccessed": 1775538658153,
-      "type": "file"
-    },
-    {
-      "path": "src\\data",
-      "accessCount": 1,
-      "lastAccessed": 1775539097726,
-      "type": "directory"
-    },
-    {
-      "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1775539098477,
-      "type": "directory"
-    },
-    {
-      "path": "src\\hooks\\useMascotBubble.ts",
-      "accessCount": 1,
-      "lastAccessed": 1775540859338,
-      "type": "file"
-    },
-    {
-      "path": "src\\main.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1775615808618,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\background",
-      "accessCount": 1,
-      "lastAccessed": 1775623031362,
-      "type": "directory"
-    },
-    {
-      "path": "src\\types",
-      "accessCount": 1,
-      "lastAccessed": 1775623035583,
-      "type": "directory"
-    },
-    {
-      "path": "src\\features",
-      "accessCount": 1,
-      "lastAccessed": 1775623044715,
-      "type": "directory"
-    },
-    {
-      "path": "src\\constants",
-      "accessCount": 1,
-      "lastAccessed": 1775623045485,
-      "type": "directory"
-    },
-    {
-      "path": "src\\store",
-      "accessCount": 1,
-      "lastAccessed": 1775623159792,
-      "type": "directory"
-    },
-    {
-      "path": "src\\App.css",
-      "accessCount": 1,
-      "lastAccessed": 1775623302551,
-      "type": "file"
-    },
-    {
-      "path": "src\\components\\layout\\Footer.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1775625441255,
-      "type": "file"
-    },
-    {
-      "path": "src/index.css",
-      "accessCount": 1,
-      "lastAccessed": 1775627786073,
-      "type": "directory"
-    },
-    {
-      "path": "src\\features\\background\\EasterEggModal.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1775628051586,
-      "type": "file"
-    }
-  ],
+  "hotPaths": [],
   "userDirectives": []
 }
