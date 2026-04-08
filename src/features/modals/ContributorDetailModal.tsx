@@ -85,18 +85,7 @@ export function ContributorDetailModal() {
             </button>
 
             <div className="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center text-2xl font-bold text-accent mx-auto mb-4 overflow-hidden">
-              {contributor.avatarUrl ? (
-                <img
-                  src={contributor.avatarUrl}
-                  alt={contributor.name}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              ) : (
-                contributor.name[0]
-              )}
+              {contributor.name[0]}
             </div>
 
             <p className="text-text-muted text-xs mb-1">{t('easter.modalTitle')}</p>

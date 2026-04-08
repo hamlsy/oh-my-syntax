@@ -90,18 +90,7 @@ export function ContributorsModal() {
                 <li key={contributor.id} className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="w-9 h-9 rounded-full bg-accent-soft flex items-center justify-center text-xs font-bold text-accent overflow-hidden shrink-0">
-                      {contributor.avatarUrl ? (
-                        <img
-                          src={contributor.avatarUrl}
-                          alt={contributor.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).style.display = 'none';
-                          }}
-                        />
-                      ) : (
-                        contributor.name[0]
-                      )}
+                      {contributor.name[0]}
                     </div>
                     <div className="min-w-0">
                       <p className="text-text-primary text-sm font-semibold leading-none truncate">

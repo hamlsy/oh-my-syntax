@@ -38,8 +38,8 @@ export function MascotSpeechBubble({ phrase }: MascotSpeechBubbleProps) {
           exit="exit"
           /* 말풍선 본체는 마스코트 기준 오른쪽 위에 배치 */
           className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-start pointer-events-none select-none"
-          style={{ marginLeft: '8.75rem' }}
-          style={{ zIndex: 10 }}
+          style={{ marginLeft: '8.75rem', zIndex: 10 }}
+
         >
           {/* Bubble box */}
           <div className="relative px-3 py-1.5 rounded-2xl bg-bg-elevated border border-border-subtle shadow-card whitespace-nowrap">

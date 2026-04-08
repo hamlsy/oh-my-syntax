@@ -1,21 +1,27 @@
 import { motion } from 'framer-motion';
-import { Github } from 'lucide-react';
+// import { GithubIcon } from 'lucide-react';
+
 import { useSettingsStore } from '@/store/useSettingsStore';
 import { useDriftAndDrag } from '@/hooks/useDriftAndDrag';
 import type { Contributor } from '@/constants/config';
 
 interface FloatingContributorCardProps {
   contributor: Contributor;
-  waveIndex:   number;
+  waveIndex: number;
 }
 
 // 3개 wave: 각각 10초 간격으로 등장 → 항상 10초 이내에 누군가 나타남
 // driftDuration + restartDelay = 사이클 길이
 // wave 0: delay=0s, wave 1: delay=10s, wave 2: delay=20s → 매 10초마다 등장 보장
+// initialY: % of hero section height (not vh) — cards stay inside the hero area
 const WAVE_CONFIGS = [
-  { initialY: 28, floatAmplitude: 8,  driftDuration: 22, driftDelay: 0,  restartDelay: 8 },
-  { initialY: 52, floatAmplitude: 10, driftDuration: 25, driftDelay: 10, restartDelay: 8 },
-  { initialY: 72, floatAmplitude: 6,  driftDuration: 20, driftDelay: 20, restartDelay: 8 },
+  // { initialY: 10, floatAmplitude: 8, driftDuration: 22, driftDelay: 0, restartDelay: 8 },
+  // { initialY: 40, floatAmplitude: 10, driftDuration: 25, driftDelay: 10, restartDelay: 8 },
+  // { initialY: 70, floatAmplitude: 6, driftDuration: 20, driftDelay: 20, restartDelay: 8 },
+  // driftDelay를 작게 분산시켜서 처음부터 뭉쳐 나오게 함
+  { initialY: 15, floatAmplitude: 8, driftDuration: 22, driftDelay: 0 },
+  { initialY: 45, floatAmplitude: 10, driftDuration: 25, driftDelay: 2 },
+  { initialY: 75, floatAmplitude: 6, driftDuration: 20, driftDelay: 4 },
 ] as const;
 
 export function FloatingContributorCard({ contributor, waveIndex }: FloatingContributorCardProps) {
@@ -23,12 +29,12 @@ export function FloatingContributorCard({ contributor, waveIndex }: FloatingCont
 
   const cfg = WAVE_CONFIGS[waveIndex % WAVE_CONFIGS.length];
   const { x, opacity, innerY, onDragStart, onDragEnd, isDragging } = useDriftAndDrag({
-    startX:        -18,
-    endX:          115,
+    startX: -18,
+    endX: 115,
     targetOpacity: 0.88,
     driftDuration: cfg.driftDuration,
-    driftDelay:    cfg.driftDelay,
-    restartDelay:  cfg.restartDelay,
+    driftDelay: cfg.driftDelay,
+    restartDelay: cfg.restartDelay,
   });
 
   const accentColor = contributor.color;
@@ -48,7 +54,9 @@ export function FloatingContributorCard({ contributor, waveIndex }: FloatingCont
     setSelectedContributorId(contributor.id);
   };
 
-  const outerStyle = { position: 'fixed' as const, top: `${cfg.initialY}vh`, left: 0 };
+  // position: absolute → relative to the hero wrapper (not the viewport)
+  // top: % → based on hero section height so cards stay within the hero area
+  const outerStyle = { position: 'absolute' as const, top: `${cfg.initialY}%`, left: 0 };
   const floatTransition = {
     duration: 8 + waveIndex * 1.5,
     ease: 'easeInOut' as const,
@@ -81,16 +89,7 @@ export function FloatingContributorCard({ contributor, waveIndex }: FloatingCont
             color: accentColor ?? undefined,
           }}
         >
-          {contributor.avatarUrl ? (
-            <img
-              src={contributor.avatarUrl}
-              alt={contributor.name}
-              className="w-full h-full object-cover"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-            />
-          ) : (
-            contributor.name[0]
-          )}
+          {contributor.name[0]}
         </div>
 
         {/* Name + Role */}
@@ -106,7 +105,13 @@ export function FloatingContributorCard({ contributor, waveIndex }: FloatingCont
           className="ml-0.5 p-1 rounded-full text-text-muted hover:text-text-primary hover:bg-bg-overlay transition-colors shrink-0"
           aria-label={`${contributor.name} GitHub`}
         >
-          <Github size={10} />
+          {/* Lucide 아이콘 대신 이미지 태그 사용 */}
+          <img
+            src="https://cdn.simpleicons.org/github/666666"
+            alt="GitHub"
+            style={{ width: '10px', height: '10px' }}
+            className="group-hover:filter group-hover:invert-0" // 필요시 스타일 조정
+          />
         </button>
       </motion.div>
     </motion.div>
