@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SPRING } from '@/constants/animation';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRecentCommandsStore } from '@/store/useRecentCommandsStore';
 import { useMascotBubble } from '@/hooks/useMascotBubble';
 import { MascotSpeechBubble } from './MascotSpeechBubble';
@@ -19,7 +18,7 @@ if (typeof window !== 'undefined') {
   const img = new Image();
   img.src = MASCOT_FAST_PATH;
 }
-function MascotDisplay({ isReduced }: { isReduced: boolean }) {
+function MascotDisplay() {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
 
@@ -31,8 +30,6 @@ function MascotDisplay({ isReduced }: { isReduced: boolean }) {
   const { currentPhrase, triggerClickBubble } = useMascotBubble();
 
   const handlePointerDown = () => {
-    if (errored) return;
-
     // A. 물리적 눌림 효과 즉시 시작
     setIsPressed(true);
     triggerClickBubble();
@@ -59,63 +56,60 @@ function MascotDisplay({ isReduced }: { isReduced: boolean }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={isReduced ? { duration: 0 } : SPRING.entrance}
+      transition={SPRING.entrance}
       className="flex justify-center mt-8 mb-2"
     >
       <div className="relative w-40 h-40 md:w-48 md:h-48">
         <MascotSpeechBubble phrase={currentPhrase} />
 
-        {!errored && (
-          <button
-            type="button"
-            aria-label="Click the mascot"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-            onPointerLeave={handlePointerUp}
-            className="block w-full h-full bg-transparent border-0 p-0 m-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+        <button
+          type="button"
+          aria-label="Click the mascot"
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          className="block w-full h-full bg-transparent border-0 p-0 m-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+        >
+          <motion.div
+            animate={{ scale: isPressed ? 0.92 : 1 }}
+            transition={{ type: 'spring', stiffness: 600, damping: 15, mass: 0.4 }}
+            className="w-full h-full"
           >
-            <motion.img
-              // 2. 이미지 소스는 isSpeedUp 상태에 따라 결정 (0.8초 유지)
-              src={isSpeedUp ? MASCOT_FAST_PATH : MASCOT_PATH}
-              alt=""
-              onLoad={() => setLoaded(true)}
-              onError={() => setErrored(true)}
-
-              // 3. 애니메이션은 isPressed(누르고 있는 동안)에만 반응
-              animate={{
-                scale: isPressed ? 0.92 : 1,
-              }}
-              transition={isReduced ? { duration: 0 } : {
-                type: 'spring',
-                stiffness: 600,
-                damping: 15,
-                mass: 0.4,
-              }}
-
-              className={cn(
-                'w-full h-full object-contain touch-none select-none pointer-events-none',
-                'transition-opacity duration-300',
-                loaded ? 'opacity-100' : 'opacity-0',
-              )}
-              draggable={false}
-            />
-          </button>
-        )}
-
-        {(!loaded || errored) && (
-          <div className="absolute inset-0 rounded-2xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-2 bg-surface/40">
-            <span className="text-3xl select-none">🐱</span>
-            <span className="text-text-muted text-xs font-mono">mascot.gif</span>
-          </div>
-        )}
+            {errored ? (
+              <div className="w-full h-full rounded-2xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-2 bg-surface/40">
+                <span className="text-3xl select-none">🐱</span>
+                <span className="text-text-muted text-xs font-mono">mascot.gif</span>
+              </div>
+            ) : (
+              <>
+                <img
+                  src={isSpeedUp ? MASCOT_FAST_PATH : MASCOT_PATH}
+                  alt=""
+                  onLoad={() => setLoaded(true)}
+                  onError={() => setErrored(true)}
+                  className={cn(
+                    'w-full h-full object-contain touch-none select-none pointer-events-none',
+                    'transition-opacity duration-300',
+                    loaded ? 'opacity-100' : 'opacity-0',
+                  )}
+                  draggable={false}
+                />
+                {!loaded && (
+                  <div className="absolute inset-0 rounded-2xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-2 bg-surface/40">
+                    <span className="text-3xl select-none">🐱</span>
+                    <span className="text-text-muted text-xs font-mono">mascot.gif</span>
+                  </div>
+                )}
+              </>
+            )}
+          </motion.div>
+        </button>
       </div>
     </motion.div>
   );
 }
 export function HeroSection() {
   const { t } = useTranslation();
-  const isReduced = useReducedMotion();
-
   // Compact mode when user has any recent commands — reduces bottom padding
   // to create natural visual proximity with the RecentCommandsSection below.
   // Uses length > 0 (not isVisible) so hero stays compact even while searching.
@@ -129,12 +123,19 @@ export function HeroSection() {
     },
   };
 
-  const itemVariants = isReduced
-    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
-    : {
+  // const itemVariants = isReduced
+  //   ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+  //   : {
+  //     hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+  //     visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: SPRING.entrance },
+  //   };
+    
+  const itemVariants = 
+     {
       hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
       visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: SPRING.entrance },
     };
+
 
   return (
     // Mi-3: layout="position" animates the hero's position when compact changes,
@@ -164,7 +165,7 @@ export function HeroSection() {
       </motion.p>
 
       <motion.div variants={itemVariants}>
-        <MascotDisplay isReduced={isReduced} />
+        <MascotDisplay />
       </motion.div>
 
       <motion.p
