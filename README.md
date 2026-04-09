@@ -1,6 +1,9 @@
 <div align="center">
 
 # ✦ Oh My Syntax!
+![oms_small2](https://github.com/user-attachments/assets/56ed4a2e-0246-4dbe-be70-3de3e83f103f)
+
+
 
 **The command lookup tool for developers who forget things.**
 
